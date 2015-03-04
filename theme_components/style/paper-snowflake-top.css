@@ -1,0 +1,31 @@
+.colorheader {
+  position: relative;
+	right: 0;
+	left: 0;
+	bottom:0;
+	height: inherit;
+  background-color: blue;
+  color: #fff;
+}
+.header-cell{
+  display: table-cell;
+}
+#container {
+  width: 100%;
+  display: table;
+  bottom: 0;
+  position: absolute;
+}
+#tag {
+  width: 15%;
+}
+
+#search > input[type=text] {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  outline: none;
+}
+#search > input[type=text]::-webkit-input-placeholder {
+  color: inherit;
+}

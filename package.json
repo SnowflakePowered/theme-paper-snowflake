@@ -1,0 +1,22 @@
+{
+  "name": "theme-paper-snowflake",
+  "version": "0.1.0",
+  "description": "Snowflake Material Design theme",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SnowflakePowered/theme-paper-snowflake"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SnowflakePowered/theme-paper-snowflake/issues"
+  },
+  "homepage": "https://github.com/SnowflakePowered/theme-paper-snowflake",
+  "dependencies": {
+    "snowflake.js": "^0.1.4"
+  }
+}
