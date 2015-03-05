@@ -1,11 +1,15 @@
 <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer/polymer">
 
 <link rel="import" href="paper-snowflake-top">
+<link rel="import" href="paper-fonts">
 
 <polymer-element name="paper-snowflake-main">
   <template>
     <style>
+      :host {
+        overflow: hidden;
+      }
       paper-snowflake-top {
         height: 100px;
       }

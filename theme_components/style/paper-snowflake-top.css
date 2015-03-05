@@ -4,27 +4,44 @@
 	left: 0;
 	bottom:0;
 	height: inherit;
-  background-color: blue;
   color: #fff;
+  font-size: 80px;
 }
 .header-cell{
   display: table-cell;
 }
 #container {
-  width: 100%;
+  width: 101%;
+  height: inherit;
   display: table;
   bottom: 0;
   position: absolute;
+  line-height: 100px;
+  overflow: hidden;
+  background-color: #03A9F4;
 }
 #tag {
   width: 15%;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1em;
+  font-weight: 200;
+  padding: 0 10px;
+  text-align: center;
+  box-shadow: inset 0px 0px 0px 200px rgba(0,0,0,0.25);
 }
 
 #search > input[type=text] {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  width: 90%;
   background-color: transparent;
   border: none;
   color: inherit;
   outline: none;
+  font-size: 0.6em;
+  padding: 0 20px;
+  height: 60%;
+  transform: translateY(-10px);
 }
 #search > input[type=text]::-webkit-input-placeholder {
   color: inherit;
