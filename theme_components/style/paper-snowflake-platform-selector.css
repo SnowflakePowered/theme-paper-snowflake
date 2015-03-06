@@ -1,0 +1,26 @@
+.sidebar {
+  position: relative;
+  right: 0;
+  left: 0;
+  bottom:0;
+  height: inherit;
+  width: 100%;
+  color: #333333;
+  letter-spacing: 0.1px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 11pt;
+  background-color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.item {
+  padding: 10px;
+  background-color: inherit;
+}
+.item:hover {
+  background-color: #efefef;
+}
+.item[active] {
+  background-color: #efefef;
+}

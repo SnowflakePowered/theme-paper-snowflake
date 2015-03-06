@@ -11,12 +11,29 @@
       paper-snowflake-top {
         height: 100px;
       }
-      paper-snowflake-platform-selector {
+      .selectMain {
         height: 100%;
+        display: table;
+      }
+      paper-snowflake-platform-selector {
+        height: inherit;
+        display: table-cell;
+        width: 15vw;
+        min-width: 307px;
+        border-right: 1px solid #dedede;
+      }
+      #dummy {
+        height: inherit;
+        display: table-cell;
+        background-color: white;
+        width: 100vw;
       }
     </style>
     <paper-snowflake-top></paper-snowflake-top>
-    <paper-snowflake-platform-selector></paper-snowflake-platform-selector>
+    <section class="selectMain">
+      <paper-snowflake-platform-selector></paper-snowflake-platform-selector>
+      <div id="dummy"></div>
+    </section>
   </template>
   <script>
    		Polymer('paper-snowflake-main', {
