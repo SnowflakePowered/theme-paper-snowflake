@@ -1,19 +1,46 @@
 <link rel="import" href="paper-fonts">
+<link rel="import" href="../bower_components/core-selector/core-selector">
+
 <polymer-element name="paper-snowflake-platform-selector">
   <template>
-    <div id="platformSelectorContainer">
-    		<core-selector id="platformSelectorContainer" selected="0" on-core-select="{{platformSelect}}">
-    			<template repeat="{{platforms}}">
-    				<div class="platformItem" name="{{Name}}">{{Name}}</div>
-    			</template>
-    		</core-selector>
-    </div>
+    <style>
+
+    .sidebar {
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26), 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+      position: relative;
+      right: 0;
+      left: 0;
+      bottom:0;
+      height: inherit;
+      color: #121212;
+      font-family: 'Roboto';
+      font-weight: 100;
+      font-size: 1.1em;
+  	}
+    .item {
+      padding: 10px;
+      background-color: #efefef;
+    }
+    .item:hover {
+      background-color: #ddd;
+    }
+    .item.core-selected {
+      background-color: #dedede;
+    }
+    </style>
+      <div class="sidebar" id="platformSelectorContainer">
+        	<core-selector id="platformSelector" on-core-select="{{platformSelect}}" selected="0">
+      			<template repeat="{{platforms}}">
+      				<div class="item" data-platform-id="{{PlatformID}}" name="{{Name}}">{{Name}}</div>
+      			</template>
+      		</core-selector>
+      </div>
   </template>
   <script>
        Polymer('paper-snowflake-platform-selector', {
 
         platformSelect: function(e) {
-          console.log(e);
+          console.log(e.detail.item.attributes['data-platform-id']);
         },
         ready: function() {
           console.log(this.platforms)
