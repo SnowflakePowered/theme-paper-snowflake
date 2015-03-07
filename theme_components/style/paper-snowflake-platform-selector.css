@@ -21,6 +21,6 @@
 .item:hover {
   background-color: #efefef;
 }
-.item[active] {
+.item.core-selected {
   background-color: #efefef;
 }

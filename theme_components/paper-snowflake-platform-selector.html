@@ -1,5 +1,6 @@
 <link rel="import" href="paper-fonts">
 <link rel="import" href="../bower_components/core-selector/core-selector">
+<link rel="import" href="../bower_components/paper-item/paper-item">
 
 <polymer-element name="paper-snowflake-platform-selector" attributes="selectedPlatform platforms">
   <template>
@@ -7,7 +8,7 @@
       <div class="sidebar" id="platformSelectorContainer">
         	<core-selector id="platformSelector" on-core-select="{{platformSelect}}">
       			<template repeat="{{platforms}}">
-      				<div class="item" data-platform-id="{{PlatformID}}" name="{{Name}}">{{Name}}</div>
+      				<paper-item class="item" data-platform-id="{{PlatformID}}" name="{{Name}}">{{Name}}</paper-item>
       			</template>
       		</core-selector>
       </div>

@@ -8,7 +8,9 @@
           SNOWFLAKE
         </span>
         <span id="search" class="header-cell">
-          <input type="text" id="game-search" autocomplete="off" placeholder="{{selectedPlatform.Name}}" value="{{searchQuery}}"></input>
+          <paper-ripple id="ripple" fit style="pointer-events: none;"></paper-ripple>
+          <input type="text" on-down="{{searchTapDown}}" on-up="{{searchTapUp}}" id="game-search" autocomplete="off" placeholder="{{selectedPlatform.Name}}" value="{{searchQuery}}">
+          </input>
         </span>
       <div>
     </header>
@@ -17,6 +19,12 @@
        Polymer('paper-snowflake-top', {
         ready: function() {
 
+        },
+        searchTapDown: function(e) {
+          this.$.ripple.downAction({x: e.x, y: e.y});
+        },
+        searchTapUp: function(e) {
+          this.$.ripple.upAction();
         }
       });
   </script>
