@@ -1,0 +1,94 @@
+<link rel="import" href="paper-fonts">
+<link rel="import" href="../bower_components/paper-shadow/paper-shadow">
+
+<polymer-element name="paper-snowflake-game-card">
+  <template>
+      <style>
+        .card-container {
+          height: 300px;
+          width: 180px;
+          display: table;
+          margin: 10px;
+          font-family: 'Roboto';
+          font-weight: 300;
+        }
+        .card-interior {
+          display: table-row;
+          width: 100%;
+        }
+        .card-top {
+          background-color: #efefef;
+          height: 70%;
+          display: table-caption;
+        }
+        .card-bottom {
+          background-color: #ffffff;
+          width: inherit;
+        }
+        .card-text {
+          margin: 10px;
+        }
+        .fade-text {
+          overflow: hidden;
+          white-space: normal;
+          text-overflow: ellipsis;
+          width: inherit;
+          position: relative;
+        }
+        .fade-text:after {
+          content: "";
+          text-align: right;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 40%;
+          background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+        }
+        .game-title {
+          line-height: 1.5em;
+          height: 3em;
+        }
+        .game-title:after {
+          height: 1.33em;
+        }
+        .game-subtitle {
+          font-size: 0.8em;
+          border-top: 1px #efefef solid;
+          color: #cccccc;
+          height: 1em;
+        }
+        .game-subtitle:after {
+          height: 1em;
+        }
+        .game-cover {
+          object-fit: cover;
+          object-position: 50% 0;
+          height: 100%;
+          width: 100%;
+        }
+      </style>
+
+      <paper-shadow class="card card-container" z="1">
+        <div class="card-top card-interior">
+          <img class="game-cover" src="http://purenintendo.com/wp-content/uploads/2013/08/wind-waker-box.jpg">
+          <!--<img class="game-cover" src="http://fakeimg.pl/360x500/">-->
+        </div>
+        <div class="card-bottom card-interior">
+          <div class="card-text">
+            <div class="game-title fade-text">
+            The Legend of Zelda - The Wind Waker - Some LOnger Subtitle That I am not interested in
+            </div>
+            <div class="game-subtitle fade-text">
+            Nintendo
+            </div>
+          </div>
+        </div>
+      </paper-shadow>
+  </template>
+  <script>
+    Polymer('paper-snowflake-game-card', {
+      ready: function() {
+      }
+    });
+  </script>
+</polymer-element>
