@@ -1,6 +1,7 @@
 <link rel="import" href="paper-snowflake-top">
 <link rel="import" href="paper-snowflake-platform-selector">
 <link rel="import" href="paper-fonts">
+<link rel="import" href="paper-snowflake-games-container">
 
 <polymer-element name="paper-snowflake-main">
   <template>
@@ -22,7 +23,7 @@
         min-width: 307px;
         border-right: 1px solid #dedede;
       }
-      #dummy {
+      paper-snowflake-games-container {
         height: inherit;
         display: table-cell;
         background-color: white;
@@ -32,14 +33,14 @@
     <paper-snowflake-top selectedPlatform="{{selectedPlatform}}"></paper-snowflake-top>
     <section class="selectMain">
       <paper-snowflake-platform-selector selectedPlatform="{{selectedPlatform}}"></paper-snowflake-platform-selector>
-      <div id="dummy">{{selectedPlatform.Name}}</div>
+      <paper-snowflake-games-container selectedPlatform="{{selectedPlatform}}"></paper-snowflake-games-container>
     </section>
   </template>
   <script>
-   		Polymer('paper-snowflake-main', {
-  			ready: function() {
+    Polymer('paper-snowflake-main', {
+      ready: function() {
 
-  			}
-  		});
-	</script>
+      }
+    });
+  </script>
 </polymer-element>
