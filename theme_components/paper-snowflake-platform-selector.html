@@ -1,11 +1,11 @@
 <link rel="import" href="paper-fonts">
 <link rel="import" href="../bower_components/core-selector/core-selector">
 
-<polymer-element name="paper-snowflake-platform-selector">
+<polymer-element name="paper-snowflake-platform-selector" attributes="selectedPlatform">
   <template>
       <link rel="stylesheet" type="text/css" href="style/paper-snowflake-platform-selector.css"/>
       <div class="sidebar" id="platformSelectorContainer">
-        	<core-selector id="platformSelector" on-core-select="{{platformSelect}}" selected="0">
+        	<core-selector id="platformSelector" on-core-select="{{platformSelect}}">
       			<template repeat="{{platforms}}">
       				<div class="item" data-platform-id="{{PlatformID}}" name="{{Name}}">{{Name}}</div>
       			</template>
@@ -14,13 +14,33 @@
   </template>
   <script>
        Polymer('paper-snowflake-platform-selector', {
-
+        snowflakeAvailable: function(callback) {
+          var promise;
+          promise = Promise.defer();
+          window.setTimeout(function() {
+              if (window.snowflake === undefined) {
+                window.setTimeout(arguments.callee, 25);
+              } else {
+                promise.resolve(callback)
+              }
+          }, 25);
+          return promise.promise;
+        },
         platformSelect: function(e) {
-          console.log(e.detail.item.attributes['data-platform-id']);
+          return this.snowflakeAvailable(e).then((function(_this) {
+            return function(e) {
+              return _this.selectedPlatform = snowflake.Platforms[e.detail.item.attributes['data-platform-id'].value];
+            };
+          })(this));
         },
         ready: function() {
-          console.log(this.platforms)
+          this.snowflakeAvailable().then((function(_this) {
+            return function() {
+              return _this.$.platformSelector.selected = 0;
+            };
+          })(this));
         },
+
         platforms: [
           //debug code, will replace with call to snowflake api later
           {
