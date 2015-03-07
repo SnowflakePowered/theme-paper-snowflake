@@ -1,7 +1,7 @@
 <link rel="import" href="paper-fonts">
 <link rel="import" href="../bower_components/core-selector/core-selector">
 
-<polymer-element name="paper-snowflake-platform-selector" attributes="selectedPlatform">
+<polymer-element name="paper-snowflake-platform-selector" attributes="selectedPlatform platforms">
   <template>
       <link rel="stylesheet" type="text/css" href="style/paper-snowflake-platform-selector.css"/>
       <div class="sidebar" id="platformSelectorContainer">
@@ -34,119 +34,19 @@
           })(this));
         },
         ready: function() {
-          this.snowflakeAvailable().then((function(_this) {
+          return this.snowflakeAvailable().then((function(_this) {
             return function() {
-              return _this.$.platformSelector.selected = 0;
+              _this.$.platformSelector.selected = 0;
+              return _this;
+            };
+          })(this)).then((function(_this) {
+            return function() {
+              return snowflake.getPlatformsArray().then(function(data) {
+                return _this.platforms = data;
+              });
             };
           })(this));
-        },
-
-        platforms: [
-          //debug code, will replace with call to snowflake api later
-          {
-              "FileExtensions": [
-                  ".nes"
-              ],
-              "Defaults": {
-                  "Scraper": "Scraper.TheGamesDB",
-                  "Identifier": "Identifier.ClrMameProDat",
-                  "Emulator": "Emulator.RetroArch"
-              },
-              "Controllers": [
-                  "NES_CONTROLLER"
-              ],
-              "ControllerPorts": {
-                  "Port1": "NES_CONTROLLER",
-                  "Port2": "NES_CONTROLLER",
-                  "Port3": null,
-                  "Port4": null,
-                  "Port5": null,
-                  "Port6": null,
-                  "Port7": null,
-                  "Port8": null
-              },
-              "MaximumInputs": 2,
-              "PlatformID": "NINTENDO_NES",
-              "Name": "Nintendo Entertainment System",
-              "MediaStore": {
-                  "Images": {
-                      "SectionName": "Images",
-                      "MediaStoreItems": {}
-                  },
-                  "Audio": {
-                      "SectionName": "Audio",
-                      "MediaStoreItems": {}
-                  },
-                  "Video": {
-                      "SectionName": "Video",
-                      "MediaStoreItems": {}
-                  },
-                  "Resources": {
-                      "SectionName": "Resources",
-                      "MediaStoreItems": {}
-                  },
-                  "MediaStoreKey": "platform.NINTENDO_NES",
-                  "MediaStoreRoot": "C:\\Users\\Ronny\\AppData\\Roaming\\Snowflake\\mediastores"
-              },
-              "Metadata": {
-                  "platform_shortname": "NES",
-                  "platform_company": "Nintendo",
-                  "platform_releasedate": "18/10/1985"
-              }
-          },
-          {
-              "FileExtensions": [
-                  ".sfc",
-                  ".smc"
-              ],
-              "Defaults": {
-                  "Scraper": "Scraper.TheGamesDB",
-                  "Identifier": "Identifier.ClrMameProDat",
-                  "Emulator": "Emulator.RetroArch"
-              },
-              "Controllers": [
-                  "SNES_CONTROLLER"
-              ],
-              "ControllerPorts": {
-                  "Port1": "SNES_CONTROLLER",
-                  "Port2": "SNES_CONTROLLER",
-                  "Port3": null,
-                  "Port4": null,
-                  "Port5": null,
-                  "Port6": null,
-                  "Port7": null,
-                  "Port8": null
-              },
-              "MaximumInputs": 2,
-              "PlatformID": "NINTENDO_SNES",
-              "Name": "Super Nintendo Entertainment System",
-              "MediaStore": {
-                  "Images": {
-                      "SectionName": "Images",
-                      "MediaStoreItems": {}
-                  },
-                  "Audio": {
-                      "SectionName": "Audio",
-                      "MediaStoreItems": {}
-                  },
-                  "Video": {
-                      "SectionName": "Video",
-                      "MediaStoreItems": {}
-                  },
-                  "Resources": {
-                      "SectionName": "Resources",
-                      "MediaStoreItems": {}
-                  },
-                  "MediaStoreKey": "platform.NINTENDO_SNES",
-                  "MediaStoreRoot": "C:\\Users\\Ronny\\AppData\\Roaming\\Snowflake\\mediastores"
-              },
-              "Metadata": {
-                  "platform_shortname": "SNES",
-                  "platform_company": "Nintendo",
-                  "platform_releasedate": "21/11/1990"
-              }
-          }
-      ]
+        }
       });
   </script>
 </polymer-element>
