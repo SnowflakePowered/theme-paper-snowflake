@@ -1,7 +1,7 @@
 <link rel="import" href="paper-fonts">
 <link rel="import" href="../bower_components/paper-shadow/paper-shadow">
 
-<polymer-element name="paper-snowflake-game-card">
+<polymer-element name="paper-snowflake-game-card" attributes="game">
   <template>
       <style>
         .card-container {
@@ -69,13 +69,13 @@
 
       <paper-shadow class="card card-container" z="1">
         <div class="card-top card-interior">
-          <img class="game-cover" src="http://purenintendo.com/wp-content/uploads/2013/08/wind-waker-box.jpg">
-          <!--<img class="game-cover" src="http://fakeimg.pl/360x500/">-->
+          <!--<img class="game-cover" src="http://purenintendo.com/wp-content/uploads/2013/08/wind-waker-box.jpg">-->
+          <img class="game-cover" src="http://fakeimg.pl/180x250/">
         </div>
         <div class="card-bottom card-interior">
           <div class="card-text">
             <div class="game-title fade-text">
-            The Legend of Zelda - The Wind Waker - Some LOnger Subtitle That I am not interested in
+                {{game.Name}}
             </div>
             <div class="game-subtitle fade-text">
             Nintendo
