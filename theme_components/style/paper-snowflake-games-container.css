@@ -1,0 +1,32 @@
+.container {
+  height: 100%;
+  width: 100%;
+  margin-top: 10px;
+  position: relative;
+}
+.games-container {
+  height: 90%;
+  width: 100%;
+}
+.games-container::-webkit-scrollbar-track
+{
+	background-color: #F5F5F5;
+}
+
+.games-container::-webkit-scrollbar
+{
+	width: 10px;
+  background-color: #03A9F4;
+}
+
+.games-container::-webkit-scrollbar-thumb
+{
+	background-color: #0ae;
+}
+#clear {
+  height: 40%;
+}
+.games-container /deep/ paper-snowflake-game-card {
+  height: 300px !important;
+  width: 180px !important;
+}

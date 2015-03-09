@@ -4,41 +4,7 @@
 
 <polymer-element name="paper-snowflake-games-container" attributes="selectedPlatform">
   <template>
-    <style>
-
-      .container {
-        height: 100%;
-        width: 100%;
-        margin-top: 10px;
-        position: relative;
-      }
-      .games-container {
-        height: 90%;
-        width: 100%;
-      }
-      .games-container::-webkit-scrollbar-track
-      {
-      	background-color: #F5F5F5;
-      }
-
-      .games-container::-webkit-scrollbar
-      {
-      	width: 10px;
-        background-color: #03A9F4;
-      }
-
-      .games-container::-webkit-scrollbar-thumb
-      {
-      	background-color: #0ae;
-      }
-      #clear {
-        height: 40%;
-      }
-      .games-container /deep/ paper-snowflake-game-card {
-        height: 300px !important;
-        width: 180px !important;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style/paper-snowflake-games-container.css"/>
     <div class="container">
       <core-list id="scroller" style="overflow-x: hidden;" fit grid width="200" class="games-container" data="{{displayGames}}">
         <template>
