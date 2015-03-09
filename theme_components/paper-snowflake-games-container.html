@@ -40,7 +40,7 @@
       }
     </style>
     <div class="container">
-      <core-list style="overflow-x: hidden;" fit grid width="200" class="games-container" data="{{displayGames}}">
+      <core-list id="scroller" style="overflow-x: hidden;" fit grid width="200" class="games-container" data="{{displayGames}}">
         <template>
           <paper-snowflake-game-card game="{{model}}"></paper-snowflake-game-card>
         </template>
@@ -53,6 +53,7 @@
         this.displayGames = this.games[this.selectedPlatform.PlatformID];
       },
       selectedPlatformChanged: function() {
+        this.$.scroller.scrollTop = 0;
         this.displayGames = [];
         this.updateDisplayGames();
       },
