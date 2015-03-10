@@ -19,7 +19,7 @@
       paper-snowflake-platform-selector {
         height: inherit;
         display: table-cell;
-        width: 15vw;
+        width: calc(15vw + 19px);
         min-width: 307px;
         border-right: 1px solid #dedede;
       }
@@ -28,6 +28,16 @@
         width: 99%;
         display: table-cell;
         background-color: white;
+      }
+      paper-snowflake-top:before {
+        position: fixed;
+        content: "";
+        z-index: 1000;
+        pointer-events: none;
+        height: 100px;
+        width: 100vw;
+        box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
+        margin-left: calc(15% + 20px);
       }
     </style>
     <paper-snowflake-top selectedPlatform="{{selectedPlatform}}"></paper-snowflake-top>
