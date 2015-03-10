@@ -1,7 +1,6 @@
 .container {
   height: 100%;
   width: 100%;
-  margin-top: 10px;
   position: relative;
 }
 .games-container {
@@ -18,7 +17,9 @@
 	width: 10px;
   background-color: #03A9F4;
 }
-
+#scroller {
+  overflow-x: hidden;
+}
 .games-container::-webkit-scrollbar-thumb
 {
 	background-color: #0ae;
@@ -29,4 +30,5 @@
 .games-container /deep/ paper-snowflake-game-card {
   height: 300px !important;
   width: 180px !important;
+  margin-top: 10px;
 }

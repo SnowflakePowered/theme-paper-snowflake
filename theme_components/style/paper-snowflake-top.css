@@ -24,11 +24,11 @@
   background-color: #03A9F4;
 }
 #tag {
-  width: 15%;
+  width: 308px;
+  min-width: 308px;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1em;
   font-weight: 200;
-  padding: 0 10px;
   text-align: center;
   box-shadow: inset 0px 0px 0px 200px rgba(0,0,0,0.25);
 }
