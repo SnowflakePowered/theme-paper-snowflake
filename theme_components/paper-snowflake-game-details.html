@@ -1,0 +1,119 @@
+<script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+<script src="../bower_components/color-thief/src/color-thief.js"></script>
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs">
+<link rel="import" href="../bower_components/paper-fab/paper-fab">
+<link rel="import" href="../bower_components/core-pages/core-pages">
+<link rel="import" href="../bower_components/core-icons/core-icons">
+<link rel="import" href="../bower_components/core-icons/av-icons">
+
+
+<link rel="import" href="paper-fonts">
+<style>
+body {
+  margin: 0;
+}
+</style>
+<polymer-element name="paper-snowflake-game-details" attributes="coverUrl">
+  <template>
+    <link rel="stylesheet" type="text/css" href="style/paper-snowflake-game-details.css"/>
+    <section class="cover">
+      <img id="gameCover" class="game-cover" src="{{coverUrl}}">
+    </section>
+    <section class="main">
+      <header class="title-info">
+        <paper-fab id="playButton" class="play-button" icon="av:play-arrow"></paper-fab>
+        <div class="title-interior">
+          <h1 class="title-name">The Legend of Zelda: The Wind Waker</h1>
+          <div class="title-publisher">Nintendo</div>
+          <div class="title-detail">((smallDetailText))</div>
+        </div>
+      </header>
+      <section class="bottom">
+        <paper-tabs id="selector" selected="{{selected}}">
+          <paper-tab>OVERVIEW</paper-tab>
+          <paper-tab>SETTINGS</paper-tab>
+        </paper-tabs>
+        <div class="info-area">
+          <core-pages style="position: relative; height: 100%;" selected="{{selected}}">
+              <div style="display: table-cell; height: 100%;">
+                <p fit class="game-description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum vel ipsum sit amet interdum. Pellentesque congue lacus nec facilisis sollicitudin. Cras et libero et ligula sodales tristique. Sed dapibus vel lacus id maximus. Nam maximus tellus sagittis arcu sagittis, nec volutpat metus tempor. Pellentesque sapien leo, cursus sit amet cursus at, venenatis id ipsum. Ut eu sem ex. Sed eu urna orci. Vivamus viverra elit tempor, elementum elit sed, pharetra arcu.
+                Suspendisse viverra ligula ac nibh consequat, et interdum magna luctus.
+
+                Ut eleifend vulputate placerat. Vestibulum nec odio id ipsum maximus iaculis nec et libero. Nam eget dolor porta, ultricies est ullamcorper, porttitor diam. Vestibulum hendrerit lectus eu enim maximus, ac pharetra tellus ornare. Maecenas convallis semper erat. Nunc ultricies, elit molestie volutpat consectetur, nisi felis fringilla sapien, at euismod erat dolor id tellus.
+                Nullam pretium lacus et tincidunt viverra. Praesent tempor luctus mi nec convallis.
+
+
+                Etiam ultricies nisi vitae risus dictum, eget ultrices orci efficitur. Integer at mollis ligula, placerat lobortis ante. Quisque eget risus lacinia, tempus justo molestie, consequat lectus. Integer condimentum posuere felis, id pharetra nunc tincidunt eget. Nunc vehicula accumsan diam vel cursus. Cras vitae venenatis urna. Praesent ornare lectus cursus, ornare nunc a, tempus mi. Mauris sit amet sapien vel nunc cursus accumsan. Nam tincidunt nisl in consectetur maximus.
+                Cras ut ante at augue rhoncus volutpat eget ut nisl. Donec molestie auctor dolor, id condimentum ex commodo vitae. Suspendisse rhoncus malesuada neque. In interdum in odio at feugiat. Suspendisse eget tellus velit. Proin at felis tristique, luctus nisi vitae, tristique dolor. Vivamus nec fermentum mi. Maecenas vel magna et urna tincidunt scelerisque. Maecenas tempor tellus nulla, at fermentum arcu sodales eu. Ut fermentum leo in est hendrerit aliquam. Integer id odio diam. In posuere placerat arcu ac maximus.
+
+
+                Etiam ultricies nisi vitae risus dictum, eget ultrices orci efficitur. Integer at mollis ligula, placerat lobortis ante. Quisque eget risus lacinia, tempus justo molestie, consequat lectus. Integer condimentum posuere felis, id pharetra nunc tincidunt eget. Nunc vehicula accumsan diam vel cursus. Cras vitae venenatis urna. Praesent ornare lectus cursus, ornare nunc a, tempus mi. Mauris sit amet sapien vel nunc cursus accumsan. Nam tincidunt nisl in consectetur maximus.
+
+                Etiam ultricies nisi vitae risus dictum, eget ultrices orci efficitur. Integer at mollis ligula, placerat lobortis ante. Quisque eget risus lacinia, tempus justo molestie, consequat lectus. Integer condimentum posuere felis, id pharetra nunc tincidunt eget. Nunc vehicula accumsan diam vel cursus. Cras vitae venenatis urna. Praesent ornare lectus cursus, ornare nunc a, tempus mi. Mauris sit amet sapien vel nunc cursus accumsan. Nam tincidunt nisl in consectetur maximus.
+
+                Etiam ultricies nisi vitae risus dictum, eget ultrices orci efficitur. Integer at mollis ligula, placerat lobortis ante. Quisque eget risus lacinia, tempus justo molestie, consequat lectus. Integer condimentum posuere felis, id pharetra nunc tincidunt eget. Nunc vehicula accumsan diam vel cursus. Cras vitae venenatis urna. Praesent ornare lectus cursus, ornare nunc a, tempus mi. Mauris sit amet sapien vel nunc cursus accumsan. Nam tincidunt nisl in consectetur maximus.
+
+                Etiam ultricies nisi vitae risus dictum, eget ultrices orci efficitur. Integer at mollis ligula, placerat lobortis ante. Quisque eget risus lacinia, tempus justo molestie, consequat lectus. Integer condimentum posuere felis, id pharetra nunc tincidunt eget. Nunc vehicula accumsan diam vel cursus. Cras vitae venenatis urna. Praesent ornare lectus cursus, ornare nunc a, tempus mi. Mauris sit amet sapien vel nunc cursus accumsan. Nam tincidunt nisl in consectetur maximus.
+
+                </p>
+              </div>
+              <div>Page 2</div>
+          </core-pages>
+        </div>
+      </section>
+    </section>
+
+  </template>
+  <script>
+    Polymer('paper-snowflake-game-details', {
+      palette: {},
+      dominantColor: '',
+      contrastColor: '',
+      blackWhiteColor: '',
+      idealGrey: function(r, g, b) {
+         var nThreshold = 105;
+         var bgDelta = (r * 0.299) + (g * 0.587) + (b * 0.114);
+
+         return ((255 - bgDelta) < nThreshold) ? "#666666" : "#d1d1d1";
+      },
+      idealBW: function(r, g, b) {
+         var nThreshold = 105;
+         var bgDelta = (r * 0.299) + (g * 0.587) + (b * 0.114);
+
+         return ((255 - bgDelta) < nThreshold) ? "#000000" : "#ffffff";
+      },
+      getColors: function() {
+        var img = new Image();
+        img.src = this.coverUrl;
+        img.onload = (function(_this) {
+          return function() {
+            var color = new ColorThief().getColor(img);
+            _this.dominantColor = "rgb(" + color + ")";
+            _this.contrastColor = _this.idealGrey(color[0], color[1], color[2]);
+            _this.blackWhiteColor = _this.idealBW(color[0], color[1], color[2]);
+            console.log(_this.contrastColor);
+            _this.palette = (function() {
+              var i, len, ref, results;
+              ref = new ColorThief().getPalette(img);
+              results = [];
+              for (i = 0, len = ref.length; i < len; i++) {
+                p = ref[i];
+                results.push("rgb(" + p[0] + ',' + p[1] + ',' + p[2] + ")");
+              }
+              return results;
+            })();
+          };
+        })(this);
+      },
+      ready: function() {
+        this.selected = 0;
+        this.getColors();
+        window.d = this;
+      }
+    });
+  </script>
+</polymer-element>
+<paper-snowflake-game-details coverUrl="cover.jpg"></paper-snowflake-game-details>

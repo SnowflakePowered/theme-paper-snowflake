@@ -11,18 +11,17 @@
 {
 	background-color: #F5F5F5;
 }
-
 .games-container::-webkit-scrollbar
 {
 	width: 10px;
   background-color: #03A9F4;
 }
-#scroller {
-  overflow-x: hidden;
-}
 .games-container::-webkit-scrollbar-thumb
 {
 	background-color: #0ae;
+}
+#scroller {
+  overflow-x: hidden;
 }
 #clear {
   height: 40%;
@@ -31,4 +30,5 @@
   height: 300px !important;
   width: 180px !important;
   margin-top: 10px;
+  padding-bottom: 10px;
 }
