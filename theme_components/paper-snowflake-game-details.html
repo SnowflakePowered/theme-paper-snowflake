@@ -13,7 +13,7 @@ body {
   margin: 0;
 }
 </style>
-<polymer-element name="paper-snowflake-game-details" attributes="coverUrl">
+<polymer-element name="paper-snowflake-game-details" attributes="coverUrl selectedGame">
   <template>
     <link rel="stylesheet" type="text/css" href="style/paper-snowflake-game-details.css"/>
     <div class="container">
@@ -24,7 +24,7 @@ body {
         <header class="title-info">
           <paper-fab id="playButton" class="play-button" icon="av:play-arrow"></paper-fab>
           <div class="title-interior">
-            <h1 class="title-name">The Legend of Zelda: The Wind Waker</h1>
+            <h1 class="title-name">{{selectedGame.Name}}</h1>
             <div class="title-publisher">Nintendo</div>
             <div class="title-detail">((smallDetailText))</div>
           </div>
