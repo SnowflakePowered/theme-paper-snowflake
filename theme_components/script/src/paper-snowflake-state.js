@@ -4,6 +4,7 @@
     stateReady: false,
     gamesLoaded: false,
     platformsLoaded: false,
+    showingDetails: false,
     availableGames: {},
     availablePlatforms: {},
     selectedGame: {},

@@ -1,8 +1,11 @@
+<link rel="import" href="paper-snowflake-state">
+
 <link rel="import" href="paper-snowflake-top">
 <link rel="import" href="paper-snowflake-platform-selector">
 <link rel="import" href="paper-fonts">
 <link rel="import" href="paper-snowflake-games-container">
 <link rel="import" href="paper-snowflake-game-details">
+
 <link rel="import" href="../bower_components/core-animation/core-animation">
 
 <polymer-element name="paper-snowflake-main">
@@ -86,13 +89,19 @@
         <core-animation-prop name="opacity" value="0"></core-animation-prop>
       </core-animation-keyframe>
     </core-animation>
-    <paper-snowflake-game-details id="detailsView" coverUrl="./cover.jpg"></paper-snowflake-game-details>
-
-    <div id="shadow" style="display: none;" show="{{overlayShow}}" on-tap="{{closeDetails}}"></div>
+    <paper-snowflake-state id="state"
+      availablePlatforms="{{availablePlatforms}}"
+      selectedPlatform="{{selectedPlatform}}"
+      selectedPlatformGames="{{selectedPlatformGames}}"
+      showingDetails="{{showingDetails}}"
+      selectedGame="{{selectedGame}}"
+    ></paper-snowflake-state>
+    <paper-snowflake-game-details id="detailsView" coverUrl="./cover.jpg" selectedGame="{{selectedGame}}"></paper-snowflake-game-details>
+    <div id="shadow" style="display: none;" show="{{showingDetails}}" on-tap="{{_closeDetails}}"></div>
     <paper-snowflake-top selectedPlatform="{{selectedPlatform}}"></paper-snowflake-top>
     <section class="selectMain">
-      <paper-snowflake-platform-selector selectedPlatform="{{selectedPlatform}}"></paper-snowflake-platform-selector>
-      <paper-snowflake-games-container selectedPlatform="{{selectedPlatform}}"></paper-snowflake-games-container>
+      <paper-snowflake-platform-selector selectedPlatform="{{selectedPlatform}}" availablePlatforms="{{availablePlatforms}}"></paper-snowflake-platform-selector>
+      <paper-snowflake-games-container selectedGame="{{selectedGame}}" selectedPlatform="{{selectedPlatform}}" selectedPlatformGames="{{selectedPlatformGames}}"></paper-snowflake-games-container>
     </section>
   </template>
   <script>
@@ -100,14 +109,16 @@
       ready: function() {
         window.du = this;
       },
-      overlayShow: false,
-      overlayShowChanged: function() {
-        if (this.overlayShow === true) {
+      showingDetailsChanged: function() {
+        if (this.showingDetails === true) {
           this.showDetails();
         }
-        if (this.overlayShow === false) {
+        if (this.showingDetails === false) {
           this.closeDetails();
         }
+      },
+      _closeDetails: function() {
+        this.showingDetails = false;
       },
       closeDetails: function () {
         this.$.fadeout.direction = "normal";
@@ -122,6 +133,7 @@
         this.$.fadeout.addEventListener("core-animation-finish", listener)
       },
       showDetails: function() {
+        this.showingDetails = true;
         this.$.shadow.style.display = "block";
         this.$.shadow.style.opacity = "0";
         this.$.fadeout.direction = "reverse";
