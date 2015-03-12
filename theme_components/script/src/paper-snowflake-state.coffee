@@ -2,6 +2,8 @@ Polymer 'paper-snowflake-state' ,
   publish:
     snowflakeAvailable: false
     stateReady: false
+    gamesLoaded: false
+    platformsLoaded: false
     availableGames: {}
     availablePlatforms: {}
     selectedGame: {}
@@ -22,6 +24,9 @@ Polymer 'paper-snowflake-state' ,
     console.log "selected platform has changed"
     console.log @selectedPlatform
     @selectedPlatformGames = @availableGames[@selectedPlatform.PlatformID];
+  availableGamesChanged: ->
+    console.log "list of available games have changed; refreshing"
+    @selectedPlatformGames = @availableGames[@selectedPlatform.PlatformID];
   ready: ->
    console.log "state loaded"
    @_snowflakeAvailable()
@@ -34,11 +39,13 @@ Polymer 'paper-snowflake-state' ,
        console.log "games loaded"
        console.log data
        @availableGames = data
+       @gamesLoaded = true
      snowflake.getPlatforms()
      .then (data) =>
        console.log "platforms loaded"
        console.log data
-       @availablePlatforms = data;
+       @availablePlatforms = data
+       @platformsLoaded = true
      return 1;
    .then =>
      console.log "state ready"

@@ -13,7 +13,7 @@
                 name="{{availablePlatforms[platform].Name}}">
 
                   {{availablePlatforms[platform].Name}}
-                  
+
               </paper-item>
       			</template>
       		</core-selector>
@@ -22,15 +22,12 @@
   <script>
        Polymer('paper-snowflake-platform-selector', {
         getKeys : function(o){
-             return Object.keys(o);
+          return Object.keys(o);
         },
         platformSelect: function(e) {
-            console.log(e.detail.item.attributes['platform-id'].value);
-            this.selectedPlatform = this.availablePlatforms[e.detail.item.attributes['platform-id'].value];
-            console.log (this.selectedPlatform);
+          this.selectedPlatform = this.availablePlatforms[e.detail.item.attributes['platform-id'].value];
         },
         ready: function() {
-
         }
       });
   </script>

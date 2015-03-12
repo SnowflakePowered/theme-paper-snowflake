@@ -2,11 +2,11 @@
 <link rel="import" href="paper-snowflake-game-card">
 <link rel="import" href="../bower_components/core-list/core-list">
 
-<polymer-element name="paper-snowflake-games-container" attributes="selectedPlatform">
+<polymer-element name="paper-snowflake-games-container" attributes="selectedPlatform selectedPlatformGames">
   <template>
     <link rel="stylesheet" type="text/css" href="style/paper-snowflake-games-container.css"/>
     <div class="container">
-      <core-list id="scroller" fit grid width="200" class="games-container" data="{{displayGames}}">
+      <core-list id="scroller" fit grid width="200" class="games-container" data="{{selectedPlatformGames}}">
         <template>
           <paper-snowflake-game-card game="{{model}}"></paper-snowflake-game-card>
         </template>
@@ -15,16 +15,12 @@
   </template>
   <script>
     Polymer('paper-snowflake-games-container', {
-      updateDisplayGames: function() {
-        this.displayGames = this.games[this.selectedPlatform.PlatformID];
-      },
       selectedPlatformChanged: function() {
         this.$.scroller.scrollTop = 0;
-        this.displayGames = [];
-        this.updateDisplayGames();
       },
 
       ready: function() {
+
       },
       displayGames: {
 
