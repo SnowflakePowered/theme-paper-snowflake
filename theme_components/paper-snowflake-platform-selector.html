@@ -2,51 +2,35 @@
 <!--<link rel="import" href="../bower_components/core-selector/core-selector">-->
 <link rel="import" href="../bower_components/paper-item/paper-item">
 
-<polymer-element name="paper-snowflake-platform-selector" attributes="selectedPlatform platforms">
+<polymer-element name="paper-snowflake-platform-selector" attributes="selectedPlatform availablePlatforms">
   <template>
       <link rel="stylesheet" type="text/css" href="style/paper-snowflake-platform-selector.css"/>
       <div class="sidebar" id="platformSelectorContainer">
-        	<core-selector id="platformSelector" on-core-select="{{platformSelect}}">
-      			<template repeat="{{platforms}}">
-      				<paper-item class="item" data-platform-id="{{PlatformID}}" name="{{Name}}">{{Name}}</paper-item>
+        	<core-selector id="platformSelector" on-core-select="{{platformSelect}}" selected="0">
+      			<template repeat="{{platform in availablePlatforms | getKeys}}">
+      				<paper-item class="item"
+                platform-id="{{availablePlatforms[platform].PlatformID}}"
+                name="{{availablePlatforms[platform].Name}}">
+
+                  {{availablePlatforms[platform].Name}}
+                  
+              </paper-item>
       			</template>
       		</core-selector>
       </div>
   </template>
   <script>
        Polymer('paper-snowflake-platform-selector', {
-        snowflakeAvailable: function(callback) {
-          var promise;
-          promise = Promise.defer();
-          window.setTimeout(function() {
-              if (window.snowflake === undefined) {
-                window.setTimeout(arguments.callee, 25);
-              } else {
-                promise.resolve(callback)
-              }
-          }, 25);
-          return promise.promise;
+        getKeys : function(o){
+             return Object.keys(o);
         },
         platformSelect: function(e) {
-          return this.snowflakeAvailable(e).then((function(_this) {
-            return function(e) {
-              return _this.selectedPlatform = snowflake.Platforms[e.detail.item.attributes['data-platform-id'].value];
-            };
-          })(this));
+            console.log(e.detail.item.attributes['platform-id'].value);
+            this.selectedPlatform = this.availablePlatforms[e.detail.item.attributes['platform-id'].value];
+            console.log (this.selectedPlatform);
         },
         ready: function() {
-          return this.snowflakeAvailable().then((function(_this) {
-            return function() {
-              _this.$.platformSelector.selected = 0;
-              return _this;
-            };
-          })(this)).then((function(_this) {
-            return function() {
-              return snowflake.getPlatformsArray().then(function(data) {
-                return _this.platforms = data;
-              });
-            };
-          })(this));
+
         }
       });
   </script>
