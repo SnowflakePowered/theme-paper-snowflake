@@ -8,7 +8,7 @@
     <div class="container">
       <core-list id="scroller" selection="{{selectedGame}}" fit grid width="200" class="games-container" data="{{selectedPlatformGames}}">
         <template>
-          <paper-snowflake-game-card game="{{model}}"></paper-snowflake-game-card>
+          <paper-snowflake-game-card style="border-radius: 2px;" game="{{model}}"></paper-snowflake-game-card>
         </template>
       </core-list>
     </div>
@@ -18,7 +18,7 @@
       selectedPlatformChanged: function() {
         this.$.scroller.scrollTop = 0;
       },
-      ready: function() {
+      ready: function () {
 
       },
       displayGames: {

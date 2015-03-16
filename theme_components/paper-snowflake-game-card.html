@@ -1,6 +1,8 @@
 <link rel="import" href="paper-fonts">
 <!--<link rel="import" href="../bower_components/paper-shadow/paper-shadow">-->
 <link rel="import" href="../bower_components/core-image/core-image">
+<link rel="import" href="../bower_components/core-icons/core-icons">
+<link rel="import" href="../bower_components/core-icons/av-icons">
 
 <polymer-element name="paper-snowflake-game-card" attributes="game">
   <template>
@@ -8,7 +10,10 @@
       <paper-shadow class="card card-container" z="1">
         <div class="card-top card-interior">
           <!--<img class="game-cover" src="http://purenintendo.com/wp-content/uploads/2013/08/wind-waker-box.jpg">-->
-          <core-image preload fade class="game-cover" src="http://fakeimg.pl/180x250/"></core-image>
+          <div fit class="game-overlay" on-click="{{gameShow}}">
+            <core-icon class="play-icon" icon="av:play-arrow" on-click="{{gamePlay}}"></core-icon>
+          </div>
+          <core-image draggable="false" preload fade fit class="game-cover" src="http://fakeimg.pl/180x250/"></core-image>
         </div>
         <div class="card-bottom card-interior">
           <div class="card-text">
@@ -25,6 +30,13 @@
   <script>
     Polymer('paper-snowflake-game-card', {
       ready: function() {
+      },
+      gameShow: function () {
+        this.fire('game-show', {game: this.game});
+      },
+      gamePlay: function(e) {
+        this.fire('game-play', {game: this.game});
+        event.stopPropagation();
       }
     });
   </script>
