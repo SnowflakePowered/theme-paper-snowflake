@@ -7,12 +7,17 @@
 <link rel="import" href="paper-snowflake-game-details">
 
 <link rel="import" href="../bower_components/core-animation/core-animation">
+<link rel="import" href="../bower_components/paper-fab/paper-fab">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog">
 
 <polymer-element name="paper-snowflake-main">
   <template>
     <style>
+
       :host {
         overflow: hidden;
+        -webkit-user-select: none;
+        user-select: none;
       }
       paper-snowflake-top {
         height: 100px;
@@ -79,8 +84,17 @@
           right: -5000px;
         }
       }
+      .add-button {
+        position: absolute;
+        right: 25px;
+        bottom: 25px;
+      }
 
     </style>
+    <paper-dialog id="addGameDialog" heading="Temporary Add Game">
+      <input id="addGameFilename" type="text"></input>
+      <button on-click="{{addGameButtonClick}}">Add this game</button>
+    </paper-dialog>
     <core-animation id="fadeout" duration="500" target="{{$.shadow}}">
       <core-animation-keyframe>
         <core-animation-prop name="opacity" value="1"></core-animation-prop>
@@ -101,13 +115,30 @@
     <paper-snowflake-top selectedPlatform="{{selectedPlatform}}"></paper-snowflake-top>
     <section class="selectMain">
       <paper-snowflake-platform-selector selectedPlatform="{{selectedPlatform}}" availablePlatforms="{{availablePlatforms}}"></paper-snowflake-platform-selector>
-      <paper-snowflake-games-container selectedGame="{{selectedGame}}" selectedPlatform="{{selectedPlatform}}" selectedPlatformGames="{{selectedPlatformGames}}"></paper-snowflake-games-container>
+      <paper-snowflake-games-container on-game-show="{{gameShow}}" selectedGame="{{selectedGame}}" selectedPlatform="{{selectedPlatform}}" selectedPlatformGames="{{selectedPlatformGames}}"></paper-snowflake-games-container>
+      <paper-fab class="add-button" on-tap="{{addGame}}"></paper-fab>
     </section>
   </template>
   <script>
     Polymer('paper-snowflake-main', {
       ready: function() {
         window.du = this;
+      },
+      addGame: function(e) {
+        this.$.addGameDialog.open();
+      },
+      addGameButtonClick: function() {
+        var fileName = this.$.addGameFilename.value;
+        var platformId = this.selectedPlatform.PlatformID;
+        snowflake.getGameResults(fileName, platformId)
+        .then(function(data) {
+          return snowflake.getGameInfo(data[0].ID, fileName, platformId);
+        })
+        .then(snowflake.addGameInfo)
+        .then(location.reload);
+      },
+      gameShow: function(e) {
+        this.showingDetails = true;
       },
       showingDetailsChanged: function() {
         if (this.showingDetails === true) {
