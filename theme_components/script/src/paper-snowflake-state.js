@@ -1,4 +1,4 @@
-﻿Polymer('paper-snowflake-state', {
+Polymer('paper-snowflake-state', {
   publish: {
     snowflakeAvailable: false,
     stateReady: false,
@@ -16,11 +16,11 @@
     promise = Promise.defer();
     window.setTimeout(function() {
       if (window.snowflake === void 0) {
-        window.setTimeout(arguments.callee, 25);
+        window.setTimeout(arguments.callee, 750);
       } else {
         promise.resolve(callback);
       }
-    }, 25);
+    }, 750);
     return promise.promise;
   },
   selectedPlatformChanged: function() {
@@ -63,5 +63,3 @@
     })(this));
   }
 });
-
-//# sourceMappingURL=paper-snowflake-state.js.map

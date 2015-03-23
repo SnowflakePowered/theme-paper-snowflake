@@ -15,11 +15,11 @@ Polymer 'paper-snowflake-state' ,
     promise = Promise.defer()
     window.setTimeout ->
       if window.snowflake == undefined
-        window.setTimeout arguments.callee, 25
+        window.setTimeout arguments.callee, 750
       else
         promise.resolve callback
       return
-    , 25
+    , 750
     promise.promise
   selectedPlatformChanged: ->
     console.log "selected platform has changed"
@@ -51,6 +51,3 @@ Polymer 'paper-snowflake-state' ,
    .then =>
      console.log "state ready"
      @stateReady = true;
-     
-   
-
