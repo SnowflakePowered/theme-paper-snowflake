@@ -8,15 +8,11 @@
 
 
 <link rel="import" href="paper-fonts">
-<style>
-body {
-  margin: 0;
-}
-</style>
-<polymer-element name="paper-snowflake-game-details" attributes="coverUrl selectedGame">
+<polymer-element name="paper-snowflake-game-details" attributes="coverUrl selectedGame opened">
   <template>
     <link rel="stylesheet" type="text/css" href="style/paper-snowflake-game-details.css"/>
-    <div class="container">
+
+    <div id="container" class="container">
       <section class="cover">
         <img draggable="false" id="gameCover" class="game-cover" src="{{coverUrl}}">
       </section>
@@ -65,7 +61,7 @@ body {
         </section>
       </section>
     </div>
-
+    <div class="hidden" id="shadow" on-tap="{{close}}"></div>
   </template>
   <script>
     Polymer('paper-snowflake-game-details', {
@@ -90,14 +86,14 @@ body {
         img.src = this.coverUrl;
         img.onload = (function(_this) {
           return function() {
-            var color = new ColorThief().getColor(img);
+            var thief = new ColorThief();
+            var color = thief.getColor(img);
             _this.dominantColor = "rgb(" + color + ")";
             _this.contrastColor = _this.idealGrey(color[0], color[1], color[2]);
             _this.blackWhiteColor = _this.idealBW(color[0], color[1], color[2]);
-            console.log(_this.contrastColor);
             _this.palette = (function() {
               var i, len, ref, results;
-              ref = new ColorThief().getPalette(img);
+              ref = thief.getPalette(img);
               results = [];
               for (i = 0, len = ref.length; i < len; i++) {
                 p = ref[i];
@@ -108,9 +104,22 @@ body {
           };
         })(this);
       },
+      open: function() {
+        this.opened = true;
+        this.$.container.className += " opened";
+        this.$.shadow.className = "opened";
+
+      },
+      close: function() {
+        this.opened = false;
+        this.$.container.className = "container";
+        this.$.shadow.className = "hidden";
+
+      },
       ready: function() {
         this.selected = 0;
         this.getColors();
+        this.opened = false;
         window.d = this;
       }
     });
