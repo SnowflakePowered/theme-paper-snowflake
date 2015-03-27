@@ -114,8 +114,13 @@
         .then(function(data) {
           return snowflake.getGameInfo(data[0].ID, fileName, platformId);
         })
-        .then(snowflake.addGameInfo)
-        .then(location.reload);
+        .then(function(data) {
+          console.log (data);
+          return snowflake.addGameInfo(data);
+        })
+        .then(function(data) {
+          console.log(data);
+        });
       },
       gameShow: function() {
         this.$.detailsView.open();
