@@ -91,7 +91,7 @@
       showingDetails="{{showingDetails}}"
       selectedGame="{{selectedGame}}"
     ></paper-snowflake-state>
-    <paper-snowflake-game-details unresolved id="detailsView" coverUrl="./cover.jpg" selectedGame="{{selectedGame}}"></paper-snowflake-game-details>
+    <paper-snowflake-game-details unresolved id="detailsView" coverUrl="{{coverFrontUrl}}" selectedGame="{{selectedGame}}"></paper-snowflake-game-details>
     <paper-snowflake-top unresolved selectedPlatform="{{selectedPlatform}}"></paper-snowflake-top>
     <section unresolved class="selectMain">
       <paper-snowflake-platform-selector selectedPlatform="{{selectedPlatform}}" availablePlatforms="{{availablePlatforms}}"></paper-snowflake-platform-selector>
@@ -106,6 +106,9 @@
       },
       addGame: function(e) {
         this.$.addGameDialog.open();
+      },
+      selectedGameChanged: function() {
+        this.coverFrontUrl = "http://localhost:30002/"+this.selectedGame.MediaStore.MediaStoreKey+"/images/boxart_front";
       },
       addGameButtonClick: function() {
         var fileName = this.$.addGameFilename.value;

@@ -6,9 +6,9 @@
   <template>
     <link rel="stylesheet" type="text/css" href="style/paper-snowflake-games-container.css"/>
     <div class="container">
-      <core-list id="scroller" selection="{{selectedGame}}" fit grid width="200" class="games-container" data="{{selectedPlatformGames}}">
+      <core-list id="scroller" fit grid width="200" class="games-container" data="{{selectedPlatformGames}}">
         <template>
-          <paper-snowflake-game-card style="border-radius: 2px;" game="{{model}}"></paper-snowflake-game-card>
+          <paper-snowflake-game-card style="border-radius: 2px;" game="{{model}}" on-game-show="{{setSelectedGame}}" on-game-play="{{setSelectedGame}}"></paper-snowflake-game-card>
         </template>
       </core-list>
     </div>
@@ -20,6 +20,9 @@
       },
       ready: function () {
 
+      },
+      setSelectedGame: function(e) {
+        this.selectedGame = e.detail.game;
       }
     });
   </script>

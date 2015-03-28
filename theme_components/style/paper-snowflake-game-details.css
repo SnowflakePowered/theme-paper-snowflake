@@ -67,11 +67,11 @@
 .title-name {
   font-weight: inherit;
   margin: 10px 0;
-  color: {{palette[0]}};
+  color: {{blackWhiteColor}};
 }
 .title-publisher {
   font-size: 1.2em;
-  color: {{palette[0]}};
+  color: {{blackWhiteColor}};
 }
 .title-detail {
   margin-top: 2px;

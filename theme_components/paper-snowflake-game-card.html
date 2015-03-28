@@ -13,7 +13,7 @@
           <div fit class="game-overlay" on-click="{{gameShow}}">
             <core-icon class="play-icon" icon="av:play-arrow" on-click="{{gamePlay}}"></core-icon>
           </div>
-          <core-image draggable="false" preload fade fit class="game-cover" src="http://fakeimg.pl/180x250/"></core-image>
+          <img draggable="false" preload fade fit class="game-cover" src="{{coverFrontUrl}}"></img>
         </div>
         <div class="card-bottom card-interior">
           <div class="card-text">
@@ -30,6 +30,10 @@
   <script>
     Polymer('paper-snowflake-game-card', {
       ready: function() {
+
+      },
+      gameChanged: function() {
+        this.coverFrontUrl = "http://localhost:30002/"+this.game.MediaStore.MediaStoreKey+"/images/boxart_front";
       },
       gameShow: function () {
         this.fire('game-show', {game: this.game});
