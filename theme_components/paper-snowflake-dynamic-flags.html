@@ -1,0 +1,19 @@
+<script>
+window.fkeys = {"fullscreen_toggle":{"Key":"fullscreen_toggle","Type":"BOOLEAN_FLAG","DefaultValue":"false","Description":"Toggles Fullscreen","RangeMin":0,"RangeMax":0,"SelectValues":null},"dummy_select":{"Key":"dummy_select","Type":"SELECT_FLAG","DefaultValue":"dummy1","Description":"Example Select Value","RangeMin":0,"RangeMax":0,"SelectValues":[{"Value":"dummy1","Description":"Dummy One"},{"Value":"dummy2","Description":"Dummy Two"}]},"dummy_integer":{"Key":"dummy_integer","Type":"INTEGER_FLAG","DefaultValue":"1","Description":"Example Select Value","RangeMin":10,"RangeMax":1,"SelectValues":null}}
+
+window.fvalues = {"fullscreen_toggle":true,"dummy_select":"dummy1","dummy_integer":1}
+
+window.createBoolean = function(flag, value, containerElem) {
+  containerElem = containerElem || "div";
+  var container = document.createElement(containerElem);
+  container.innerHTML = flag.Description;
+  var input = document.createElement("input");
+  input.type = "checkbox";
+  input.checked = value;
+  input.id = flag.Key;
+  container.insertAdjacentElement("afterbegin", input);
+  return container;
+}
+
+
+</script>
