@@ -33,7 +33,7 @@
 
       },
       gameChanged: function() {
-        this.coverFrontUrl = "http://localhost:30002/"+this.game.MediaStore.MediaStoreKey+"/images/boxart_front";
+        this.coverFrontUrl = "http://localhost:30002/"+this.game.Metadata.snowflake_mediastorekey+"/images/boxart_front";
       },
       gameShow: function () {
         this.fire('game-show', {game: this.game});

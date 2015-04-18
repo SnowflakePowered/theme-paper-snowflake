@@ -83,6 +83,9 @@
                 p = ref[i];
                 results.push("rgb(" + p[0] + ',' + p[1] + ',' + p[2] + ")");
               }
+              delete img;
+              delete thief;
+              delete color;
               return results;
             })();
           };
