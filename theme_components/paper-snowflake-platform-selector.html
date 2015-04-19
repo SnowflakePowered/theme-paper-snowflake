@@ -11,9 +11,7 @@
       				<paper-item class="item"
                 platform-id="{{availablePlatforms[platform].PlatformID}}"
                 name="{{availablePlatforms[platform].Name}}">
-
                   {{availablePlatforms[platform].Name}}
-
               </paper-item>
       			</template>
       		</core-selector>
@@ -26,6 +24,7 @@
         },
         platformSelect: function(e) {
           this.selectedPlatform = this.availablePlatforms[e.detail.item.attributes['platform-id'].value];
+
         },
         ready: function() {
         }

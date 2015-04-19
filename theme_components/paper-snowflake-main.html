@@ -108,7 +108,7 @@
         this.$.addGameDialog.open();
       },
       selectedGameChanged: function() {
-        this.coverFrontUrl = "http://localhost:30002/"+this.selectedGame.Metadata.snowflake_mediastorekey+"/images/boxart_front";
+        this.coverFrontUrl = "http://localhost:30002/"+this.selectedGame.UUID+"/BoxartFront";
       },
       addGameButtonClick: function() {
         var fileName = this.$.addGameFilename.value;

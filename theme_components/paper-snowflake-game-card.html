@@ -21,7 +21,7 @@
                 {{game.Name}}
             </div>
             <div class="game-subtitle fade-text">
-            Nintendo
+              {{game.Metadata.game_publisher}}
             </div>
           </div>
         </div>
@@ -33,7 +33,7 @@
 
       },
       gameChanged: function() {
-        this.coverFrontUrl = "http://localhost:30002/"+this.game.Metadata.snowflake_mediastorekey+"/images/boxart_front";
+        this.coverFrontUrl = "http://localhost:30002/"+this.game.UUID+"/BoxartFront@50";
       },
       gameShow: function () {
         this.fire('game-show', {game: this.game});
