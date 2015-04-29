@@ -1,0 +1,49 @@
+
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../bower_components/paper-input-decorator/paper-input-decorator.html">
+<polymer-element name="paper-snowflake-dynamic-flag" attributes="flag value">
+  <template>
+    <style>
+      .flag-container {
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+    <div class="flag-container">
+      <div>{{flag.Description}}</div>
+      <div id="flagContent"></div>
+    </div>
+  </template>
+  <script>
+      Polymer('paper-snowflake-dynamic-flag', {
+        ready: function(){
+        },
+        flagChanged: function (){
+          if(this.flag.Type === "BOOLEAN_FLAG") {
+            this.setToggle();
+          }
+        },
+        setToggle: function() {
+          this.$.flagContent.innerHTML = ""; //clear existing HTML
+          this.injectBoundHTML('<paper-toggle-button checked="{{value}}"></paper-toggle-button>',this.$.flagContent);
+        },
+        createSlider: function(flag, value, containerElem) {
+          containerElem = containerElem || "div";
+          var container = document.createElement(containerElem);
+          container.innerHTML = flag.Description;
+          var input = document.createElement("paper-slider");
+          input.value = value;
+          input.min = flag.RangeMin;
+          input.max = flag.RangeMax;
+          input.id = flag.Key;
+          input.editable = true;
+          input.pin = true;
+          input.snaps = true;
+          container.insertAdjacentElement("beforeend", input);
+          return container;
+        }
+
+      });
+  </script>
+</polymer-element>

@@ -3,11 +3,12 @@
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../bower_components/paper-slider/paper-slider.html">
 <link rel="import" href="../bower_components/paper-input-decorator/paper-input-decorator.html">
+<link rel="import" href="paper-snowflake-dynamic-flag">
 
 
 <polymer-element name="paper-snowflake-dynamic-flags">
   <template>
-
+    <paper-snowflake-dynamic-flag flag="{{fkeys.fullscreen_toggle}}" value="{{fvalues.fullscreen_toggle}}"></paper-snowflake-dynamic-flag>
   </template>
   <script>
     Polymer('paper-snowflake-dynamic-flags', {
@@ -15,8 +16,8 @@
         this.selected = 0;
         this.opened = false;
         window.d = this;
-        document.body.appendChild(d.createToggle(d.fkeys.fullscreen_toggle, d.fvalues.fullscreen_toggle));
-        document.body.appendChild(d.createSlider(d.fkeys.dummy_integer, d.fvalues.dummy_integer));
+      //  document.body.appendChild(d.createToggle(d.fkeys.fullscreen_toggle, d.fvalues.fullscreen_toggle));
+      //  document.body.appendChild(d.createSlider(d.fkeys.dummy_integer, d.fvalues.dummy_integer));
 
       },
       fkeys: {
@@ -25,31 +26,6 @@
         "dummy_integer":{"Key":"dummy_integer","Type":"INTEGER_FLAG","DefaultValue":"1","Description":"Example Select Value","RangeMin":1,"RangeMax":10,"SelectValues":null}
       },
       fvalues: {"fullscreen_toggle":true,"dummy_select":"dummy1","dummy_integer":1},
-      createToggle: function(flag, value, containerElem) {
-        containerElem = containerElem || "div";
-        var container = document.createElement(containerElem);
-        container.innerHTML = flag.Description;
-        var input = document.createElement("paper-toggle-button");
-        input.checked = value;
-        input.id = flag.Key;
-        container.insertAdjacentElement("beforeend", input);
-        return container;
-      },
-      createSlider: function(flag, value, containerElem) {
-        containerElem = containerElem || "div";
-        var container = document.createElement(containerElem);
-        container.innerHTML = flag.Description;
-        var input = document.createElement("paper-slider");
-        input.value = value;
-        input.min = flag.RangeMin;
-        input.max = flag.RangeMax;
-        input.id = flag.Key;
-        input.editable = true;
-        input.pin = true;
-        input.snaps = true;
-        container.insertAdjacentElement("beforeend", input);
-        return container;
-      }
 
     });
   </script>
