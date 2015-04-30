@@ -1,14 +1,15 @@
 <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
-<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
-<link rel="import" href="../bower_components/paper-input-decorator/paper-input-decorator.html">
+
 <link rel="import" href="paper-snowflake-dynamic-flag">
 
 
 <polymer-element name="paper-snowflake-dynamic-flags">
+
   <template>
-    <paper-snowflake-dynamic-flag flag="{{fkeys.fullscreen_toggle}}" value="{{fvalues.fullscreen_toggle}}"></paper-snowflake-dynamic-flag>
+    <template repeat="{{flag in fkeys | getKeys}}">
+    <paper-snowflake-dynamic-flag flag="{{fkeys[flag]}}" value="{{fvalues[flag]}}" on-flag-update="{{flagUpdate}}"></paper-snowflake-dynamic-flag>
+    </template>
   </template>
   <script>
     Polymer('paper-snowflake-dynamic-flags', {
@@ -16,18 +17,22 @@
         this.selected = 0;
         this.opened = false;
         window.d = this;
-      //  document.body.appendChild(d.createToggle(d.fkeys.fullscreen_toggle, d.fvalues.fullscreen_toggle));
-      //  document.body.appendChild(d.createSlider(d.fkeys.dummy_integer, d.fvalues.dummy_integer));
-
+        this.valueSelected;
+      },
+      getKeys: function(o){
+        return Object.keys(o);
+      },
+      flagUpdate: function(event){
+        
       },
       fkeys: {
         "fullscreen_toggle":{"Key":"fullscreen_toggle","Type":"BOOLEAN_FLAG","DefaultValue":"false","Description":"Toggles Fullscreen","RangeMin":0,"RangeMax":0,"SelectValues":null},
         "dummy_select":{"Key":"dummy_select","Type":"SELECT_FLAG","DefaultValue":"dummy1","Description":"Example Select Value","RangeMin":0,"RangeMax":0,"SelectValues":[{"Value":"dummy1","Description":"Dummy One"},{"Value":"dummy2","Description":"Dummy Two"}]},
         "dummy_integer":{"Key":"dummy_integer","Type":"INTEGER_FLAG","DefaultValue":"1","Description":"Example Select Value","RangeMin":1,"RangeMax":10,"SelectValues":null}
       },
-      fvalues: {"fullscreen_toggle":true,"dummy_select":"dummy1","dummy_integer":1},
+      fvalues: {"fullscreen_toggle":true,"dummy_select": 0,"dummy_integer":1},
 
     });
   </script>
 </polymer-element>
-<paper-snowflake-dynamic-flags coverUrl="cover.jpg"></paper-snowflake-dynamic-flags>
+<paper-snowflake-dynamic-flags></paper-snowflake-dynamic-flags>
