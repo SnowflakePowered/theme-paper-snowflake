@@ -8,6 +8,8 @@
 
 
 <link rel="import" href="paper-fonts">
+<link rel="import" href="paper-snowflake-dynamic-flags">
+
 <polymer-element name="paper-snowflake-game-details" attributes="coverUrl selectedGame opened smallDetailText">
   <template>
     <link rel="stylesheet" type="text/css" href="style/paper-snowflake-game-details.css" />
@@ -37,7 +39,9 @@
                   {{selectedGame.Metadata.game_description}}
                 </p>
               </div>
-              <div>Page 2</div>
+              <div style="padding-top: 10px;">
+                <paper-snowflake-dynamic-flags></paper-snowflake-dynamic-flags>
+              </div>
             </core-pages>
           </div>
         </section>

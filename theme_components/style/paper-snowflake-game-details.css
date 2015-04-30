@@ -150,7 +150,7 @@
   z-index: 1000;
   transition: background-color 0.5s ease-in;
   background-color: #cdcdcd;
-  background-color: {{palette[2]}};
+  background-color: {{palette[4]}};
 
 }
 #shadow {
