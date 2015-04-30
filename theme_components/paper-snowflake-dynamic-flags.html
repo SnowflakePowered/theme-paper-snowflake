@@ -18,12 +18,12 @@
         return Object.keys(o);
       },
       flagUpdate: function(event){
-
+        console.log(event.detail.flag.Key + " (" + event.detail.flag.Description + ") changed value to " + event.detail.value);
       },
       fkeys: {
         "fullscreen_toggle":{"Key":"fullscreen_toggle","Type":"BOOLEAN_FLAG","DefaultValue":"false","Description":"Toggles Fullscreen","RangeMin":0,"RangeMax":0,"SelectValues":null},
         "dummy_select":{"Key":"dummy_select","Type":"SELECT_FLAG","DefaultValue":"dummy1","Description":"Example Select Value","RangeMin":0,"RangeMax":0,"SelectValues":[{"Value":"dummy1","Description":"Dummy One"},{"Value":"dummy2","Description":"Dummy Two"}]},
-        "dummy_integer":{"Key":"dummy_integer","Type":"INTEGER_FLAG","DefaultValue":"1","Description":"Example Select Value","RangeMin":1,"RangeMax":10,"SelectValues":null}
+        "dummy_integer":{"Key":"dummy_integer","Type":"INTEGER_FLAG","DefaultValue":"1","Description":"Example Integer Value","RangeMin":1,"RangeMax":10,"SelectValues":null}
       },
       fvalues: {"fullscreen_toggle":true,"dummy_select": 0,"dummy_integer":1},
 
