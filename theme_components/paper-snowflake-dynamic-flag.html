@@ -1,17 +1,30 @@
 
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../bower_components/paper-slider/paper-slider.html">
-<link rel="import" href="../bower_components/paper-input-decorator/paper-input-decorator.html">
+<link rel="import" href="../bower_components/paper-dropdown/paper-dropdown.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/core-menu/core-menu.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+
+<link rel="import" href="paper-fonts">
+
 <polymer-element name="paper-snowflake-dynamic-flag" attributes="flag value">
   <template>
     <style>
       .flag-container {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        font-family: 'Roboto';
       }
+      paper-slider, paper-dropdown-menu {
+        width: 350px;
+      }
+
     </style>
     <div class="flag-container">
-      <div>{{flag.Description}}</div>
+      <div id="flagDescription">{{flag.Description}}</div>
       <div id="flagContent"></div>
     </div>
   </template>
@@ -23,26 +36,37 @@
           if(this.flag.Type === "BOOLEAN_FLAG") {
             this.setToggle();
           }
+          if(this.flag.Type === "INTEGER_FLAG") {
+            this.setSlider();
+          }
+          if(this.flag.Type === "SELECT_FLAG") {
+            this.setDropdown();
+          }
+        },
+        valueChanged: function() {
+          this.fire('flag-update', {'value': this.value, 'flag': this.flag });
         },
         setToggle: function() {
           this.$.flagContent.innerHTML = ""; //clear existing HTML
           this.injectBoundHTML('<paper-toggle-button checked="{{value}}"></paper-toggle-button>',this.$.flagContent);
         },
-        createSlider: function(flag, value, containerElem) {
-          containerElem = containerElem || "div";
-          var container = document.createElement(containerElem);
-          container.innerHTML = flag.Description;
-          var input = document.createElement("paper-slider");
-          input.value = value;
-          input.min = flag.RangeMin;
-          input.max = flag.RangeMax;
-          input.id = flag.Key;
-          input.editable = true;
-          input.pin = true;
-          input.snaps = true;
-          container.insertAdjacentElement("beforeend", input);
-          return container;
+        setSlider: function() {
+          this.$.flagContent.innerHTML = ""; //clear existing HTML
+          this.injectBoundHTML('<paper-slider value="{{value}}" min="{{flag.RangeMin}}" max="{{flag.RangeMax}}" editable snaps pin></paper-slider>',this.$.flagContent);
+        },
+        setDropdown: function() {
+          this.injectBoundHTML('\
+          <paper-dropdown-menu label="{{flag.Description}}">\
+                <paper-dropdown class="dropdown">\
+                    <core-menu class="menu" selected="{{value}}">\
+                        <template repeat="{{flag.SelectValues}}">\
+                          <paper-item>{{Description}}</paper-item>\
+                        </template>\
+                    </core-menu>\
+                </paper-dropdown>\
+            </paper-dropdown-menu>', this.$.flagContent);
         }
+
 
       });
   </script>
