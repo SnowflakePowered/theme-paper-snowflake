@@ -1,0 +1,42 @@
+<link rel="import" href="../bower_components/paper-dropdown/paper-dropdown">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu">
+<link rel="import" href="../bower_components/paper-item/paper-item">
+<link rel="import" href="../bower_components/core-menu/core-menu">
+<polymer-element name="paper-snowflake-emulator-selector" attributes="selectedEmulator availableEmulators selectedGame">
+  <template>
+    <paper-dropdown-menu label="Emulator">
+          <paper-dropdown class="dropdown">
+              <core-menu class="menu" selected="0" on-core-select="{{emulatorSelect}}">
+                  <template repeat="{{emulator in availableEmulators | getKeys}}">
+                    <paper-item emulator-name="{{emulator}}">{{availableEmulators[emulator].description}}</paper-item>
+                  </template>
+              </core-menu>
+          </paper-dropdown>
+      </paper-dropdown-menu>
+  </template>
+  <script>
+    Polymer('paper-snowflake-emulator-selector', {
+      ready: function() {
+
+        this.selectedEmulator = 0;
+      },
+      getKeys: function(o){
+        var _o = o || {};
+        return Object.keys(_o);
+      },
+      emulatorSelect: function(e){
+        this.selectedEmulator = this.availableEmulators[e.detail.item.attributes['emulator-name'].value];
+      },
+      selectedGameChanged: function(){
+        snowflake.getEmulatorBridgesByPlatform(this.selectedGame.PlatformID)
+        .then((function(_this) {
+          return function(data) {
+            return _this.availableEmulators = data;
+          };
+        })(this));
+        console.log("available emulators changed");
+      },
+    });
+  </script>
+</polymer-element>
+<paper-snowflake-emulator-selector></paper-snowflake-emulator-selector>
