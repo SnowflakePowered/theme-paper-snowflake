@@ -104,6 +104,9 @@
     Polymer('paper-snowflake-main', {
       ready: function() {
         window.du = this;
+        this.addEventListener('game-play', function(e) {
+          snowflake.startGame()
+        });
       },
       addGame: function(e) {
         this.$.addGameDialog.open();

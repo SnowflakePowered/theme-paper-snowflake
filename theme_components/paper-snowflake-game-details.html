@@ -20,11 +20,11 @@
       </section>
       <section class="main">
         <header class="title-info">
-          <paper-fab id="playButton" class="play-button" icon="av:play-arrow"></paper-fab>
+          <paper-fab id="playButton" class="play-button" icon="av:play-arrow" on-tap="{{gamePlay}}"></paper-fab>
           <div class="title-interior">
             <h1 class="title-name">{{selectedGame.Name}}</h1>
             <div class="title-publisher">{{selectedGame.Metadata.game_publisher}}</div>
-            <div class="title-detail">{{smallDetailText}}</div>
+            <div class="title-detail"><span class="detail-text">{{smallDetailText}}</span></div>
           </div>
         </header>
         <section class="bottom">
@@ -40,7 +40,7 @@
                 </p>
               </div>
               <div style="padding-top: 10px;">
-                <paper-snowflake-dynamic-flags></paper-snowflake-dynamic-flags>
+                <paper-snowflake-dynamic-flags selectedGame="{{selectedGame}}"></paper-snowflake-dynamic-flags>
               </div>
             </core-pages>
           </div>
@@ -111,6 +111,10 @@
       ready: function() {
         this.selected = 0;
         this.opened = false;
+      },
+      gamePlay: function(e) {
+        this.fire('game-play', {game: this.game});
+        event.stopPropagation();
       }
     });
   </script>

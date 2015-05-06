@@ -1,13 +1,28 @@
 <link rel="import" href="paper-snowflake-dynamic-flag">
-<polymer-element name="paper-snowflake-dynamic-flags">
-
+<link rel="import" href="paper-snowflake-emulator-selector">
+<polymer-element name="paper-snowflake-dynamic-flags" attributes="selectedGame">
   <template>
+    <style>
+     .emulator-selector {
+        padding-left: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px #dedede solid;
+        width: 100%;
+      }
+    </style>
+    <div class="emulator-selector">
+      <span>Emulator &mdash;</span><paper-snowflake-emulator-selector selectedGame="{{selectedGame}}" selectedEmulator="{{selectedEmulator}}" availableEmulators="{{availableEmulators}}"></paper-snowflake-emulator-selector>
+    </div>
     <template repeat="{{flag in fkeys | getKeys}}">
     <paper-snowflake-dynamic-flag flag="{{fkeys[flag]}}" value="{{fvalues[flag]}}" on-flag-update="{{flagUpdate}}"></paper-snowflake-dynamic-flag>
     </template>
   </template>
   <script>
     Polymer('paper-snowflake-dynamic-flags', {
+      publish: {
+        fkeys : {},
+        fvalues: {}
+      },
       ready: function() {
         this.selected = 0;
         this.opened = false;
@@ -18,14 +33,25 @@
         return Object.keys(o);
       },
       flagUpdate: function(event){
-        console.log(event.detail.flag.Key + " (" + event.detail.flag.Description + ") changed value to " + event.detail.value);
+        snowflake.setFlagValue(this.selectedEmulator.name, this.selectedGame.UUID, event.detail.flag.Key, event.detail.value)
+        .then(function(){
+          console.log(event.detail.flag.Key + " (" + event.detail.flag.Description + ") changed value to " + event.detail.value);
+        });
       },
-      fkeys: {
-        "fullscreen_toggle":{"Key":"fullscreen_toggle","Type":"BOOLEAN_FLAG","DefaultValue":"false","Description":"Toggles Fullscreen","RangeMin":0,"RangeMax":0,"SelectValues":null},
-        "dummy_select":{"Key":"dummy_select","Type":"SELECT_FLAG","DefaultValue":"dummy1","Description":"Example Select Value","RangeMin":0,"RangeMax":0,"SelectValues":[{"Value":"dummy1","Description":"Dummy One"},{"Value":"dummy2","Description":"Dummy Two"}]},
-        "dummy_integer":{"Key":"dummy_integer","Type":"INTEGER_FLAG","DefaultValue":"1","Description":"Example Integer Value","RangeMin":1,"RangeMax":10,"SelectValues":null}
-      },
-      fvalues: {"fullscreen_toggle":true,"dummy_select": 0,"dummy_integer":1},
+      selectedEmulatorChanged: function(){
+        snowflake.getEmulatorFlags(this.selectedEmulator.name)
+        .then((function(_this) {
+          return function(data) {
+            return _this.fkeys = data;
+          };
+        })(this));
+        snowflake.getFlagValues(this.selectedEmulator.name, this.selectedGame.UUID)
+        .then((function(_this) {
+          return function(data) {
+            return _this.fvalues = data;
+          };
+        })(this));
+      }
 
     });
   </script>
