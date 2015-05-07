@@ -6,7 +6,7 @@
   <template>
     <paper-dropdown-menu label="Emulator">
           <paper-dropdown class="dropdown">
-              <core-menu class="menu" selected="0" on-core-select="{{emulatorSelect}}">
+              <core-menu class="menu" valueattr="emulator-name" selected="{{selectedEmulatorName}}" on-core-select="{{emulatorSelect}}">
                   <template repeat="{{emulator in availableEmulators | getKeys}}">
                     <paper-item emulator-name="{{emulator}}">{{availableEmulators[emulator].description}}</paper-item>
                   </template>
@@ -18,7 +18,6 @@
     Polymer('paper-snowflake-emulator-selector', {
       ready: function() {
 
-        this.selectedEmulator = 0;
       },
       getKeys: function(o){
         var _o = o || {};
@@ -27,7 +26,17 @@
       emulatorSelect: function(e){
         this.selectedEmulator = this.availableEmulators[e.detail.item.attributes['emulator-name'].value];
       },
+      selectedEmulatorChanged: function(){
+        snowflake.setPreference(this.selectedGame.PlatformID, "emulator", this.selectedEmulator.name);
+        console.log("new emulator selected");
+      },
       selectedGameChanged: function(){
+        snowflake.getPreferences(this.selectedGame.PlatformID)
+        .then((function(_this) {
+          return function(data) {
+            return _this.selectedEmulatorName = data.Emulator;
+          };
+        })(this));
         snowflake.getEmulatorBridgesByPlatform(this.selectedGame.PlatformID)
         .then((function(_this) {
           return function(data) {
