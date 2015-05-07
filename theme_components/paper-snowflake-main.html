@@ -104,8 +104,12 @@
     Polymer('paper-snowflake-main', {
       ready: function() {
         window.du = this;
-        this.addEventListener('game-play', function(e) {
-          snowflake.startGame()
+        this.addEventListener('game-play', function(event) {
+          console.log(event);
+          snowflake.getPreferences(event.detail.game.PlatformID)
+          .then(function(data){
+            snowflake.startGame(data.Emulator, event.detail.game.UUID);
+          });
         });
       },
       addGame: function(e) {

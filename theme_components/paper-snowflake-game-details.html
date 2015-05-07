@@ -113,7 +113,7 @@
         this.opened = false;
       },
       gamePlay: function(e) {
-        this.fire('game-play', {game: this.game});
+        this.fire('game-play', {game: this.selectedGame});
         event.stopPropagation();
       }
     });

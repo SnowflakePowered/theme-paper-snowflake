@@ -33,9 +33,10 @@
         return Object.keys(o);
       },
       flagUpdate: function(event){
+        var name = this.selectedEmulator.name;
         snowflake.setFlagValue(this.selectedEmulator.name, this.selectedGame.UUID, event.detail.flag.Key, event.detail.value)
         .then(function(){
-          console.log(event.detail.flag.Key + " (" + event.detail.flag.Description + ") changed value to " + event.detail.value);
+          console.log(event.detail.flag.Key + " (" + event.detail.flag.Description + ") changed value to " + event.detail.value + " for emulator " + name);
         });
       },
       selectedEmulatorChanged: function(){
