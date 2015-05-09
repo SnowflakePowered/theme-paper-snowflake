@@ -8,29 +8,58 @@
 
 <link rel="import" href="paper-fonts">
 
-<polymer-element name="paper-snowflake-dynamic-flag" attributes="flag value">
+<polymer-element name="paper-snowflake-dynamic-flag" attributes="flag value gameId emulatorName">
   <template>
     <style>
       .flag-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px;
+        padding-top: 20px;
+        padding-left: 10px;
         font-family: 'Roboto';
+      }
+      .flag-container-inner {
+        display: -webkit-box;
       }
       paper-slider, paper-dropdown-menu {
         width: 350px;
       }
-
+      #flagCustom {
+        font-size: 0.6em;
+        text-transform: uppercase;
+        color: #ffffff;
+        display: inline;
+        background-color: #aaaaaa;
+        border-radius: 3px;
+        padding: 3px;
+      }
+      #flagCustom:hover {
+        background-color: #999999;
+        cursor: pointer;
+      }
+      #flagDescription {
+        margin-right: 10px;
+      }
     </style>
     <div class="flag-container">
-      <div id="flagDescription">{{flag.Description}}</div>
+      <div class="flag-container-inner">
+        <div id="flagDescription">{{flag.Description}}</div>
+        <div hidden?="{{!isCustom}}" on-tap="{{customOff}}" id="flagCustom">custom</div>
+      </div>
       <div id="flagContent"></div>
     </div>
   </template>
   <script>
       Polymer('paper-snowflake-dynamic-flag', {
         ready: function(){
+        },
+        refreshFlag: function(){
+          this.isCustom = !(localStorage.getItem("custom_" + this.gameId + ";" + this.emulatorName + ";" + this.flag.Key) === null);
+        },
+        customOff: function(){
+          localStorage.removeItem("custom_" + this.gameId + ";" + this.emulatorName + ";" + this.flag.Key);
+          this.fire('flag-refresh', {'value': this.value, 'flag': this.flag });
         },
         flagChanged: function (){
           if(this.flag.Type === "BOOLEAN_FLAG") {
@@ -42,9 +71,15 @@
           if(this.flag.Type === "SELECT_FLAG") {
             this.setDropdown();
           }
+          this.async(function() {
+            this.refreshFlag();
+          }, null, 100);
         },
         valueChanged: function() {
           this.fire('flag-update', {'value': this.value, 'flag': this.flag });
+          this.async(function() {
+            this.refreshFlag();
+          }, null, 100);
         },
         setToggle: function() {
           this.$.flagContent.innerHTML = ""; //clear existing HTML

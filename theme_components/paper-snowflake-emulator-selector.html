@@ -28,7 +28,7 @@
       },
       selectedEmulatorChanged: function(){
         snowflake.setPreference(this.selectedGame.PlatformID, "emulator", this.selectedEmulator.name);
-        console.log("new emulator selected");
+        console.log("emulator switched to " + this.selectedEmulator.name);
       },
       selectedGameChanged: function(){
         snowflake.getPreferences(this.selectedGame.PlatformID)

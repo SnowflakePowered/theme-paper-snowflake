@@ -14,7 +14,7 @@
       <span>Emulator &mdash;</span><paper-snowflake-emulator-selector selectedGame="{{selectedGame}}" selectedEmulator="{{selectedEmulator}}" availableEmulators="{{availableEmulators}}"></paper-snowflake-emulator-selector>
     </div>
     <template repeat="{{flag in fkeys | getKeys}}">
-    <paper-snowflake-dynamic-flag flag="{{fkeys[flag]}}" value="{{fvalues[flag]}}"></paper-snowflake-dynamic-flag>
+    <paper-snowflake-dynamic-flag on-flag-refresh="{{flagRefresh}}" flag="{{fkeys[flag]}}" value="{{fvalues[flag]}}" gameId="{{selectedGame.UUID}}" emulatorName="{{selectedEmulator.name}}"></paper-snowflake-dynamic-flag>
     </template>
   </template>
   <script>
@@ -50,7 +50,7 @@
           };
         })(this));
       },
-      selectedEmulatorChanged: function(){
+      flagRefresh: function(){
         var hasProp = {}.hasOwnProperty;
         snowflake.getEmulatorFlags(this.selectedEmulator.name).then((function(_this) {
           return function(data) {
@@ -96,6 +96,9 @@
             _this.addEventListener('flag-update', _this.flagUpdate);
           };
         })(this));
+      },
+      selectedEmulatorChanged: function(){
+        this.flagRefresh();
       }
     });
   </script>
