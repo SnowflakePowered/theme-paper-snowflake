@@ -14,7 +14,7 @@
       <span>Emulator &mdash;</span><paper-snowflake-emulator-selector selectedGame="{{selectedGame}}" selectedEmulator="{{selectedEmulator}}" availableEmulators="{{availableEmulators}}"></paper-snowflake-emulator-selector>
     </div>
     <template repeat="{{flag in fkeys | getKeys}}">
-    <paper-snowflake-dynamic-flag flag="{{fkeys[flag]}}" value="{{fvalues[flag]}}" on-flag-update="{{flagUpdate}}"></paper-snowflake-dynamic-flag>
+    <paper-snowflake-dynamic-flag flag="{{fkeys[flag]}}" value="{{fvalues[flag]}}"></paper-snowflake-dynamic-flag>
     </template>
   </template>
   <script>
@@ -28,55 +28,75 @@
         this.opened = false;
         window.d = this;
         this.valueSelected;
+        this.defaultValues;
       },
       getKeys: function(o){
         return Object.keys(o);
       },
       flagUpdate: function(event){
-
         var name = this.selectedEmulator.name;
         snowflake.setFlagValue(this.selectedEmulator.name, this.selectedGame.UUID, event.detail.flag.Key, event.detail.value)
-        .then(function(){
-          console.log(event.detail.flag.Key + " (" + event.detail.flag.Description + ") changed value to " + event.detail.value + " for emulator " + name);
-          localStorage.setItem("custom_" + this.selectedGame.UUID + ";" + this.selectedEmulator.name + ";" + event.detail.flag.Key, true)
-        });
+        .then((function(_this) {
+          return function(data) {
+            if (localStorage.getItem("custom_" + _this.selectedGame.UUID + ";" + _this.selectedEmulator.name + ";" + event.detail.flag.Key) === null && _this.fvalues[event.detail.flag.Key] !== _this.defaultValues[event.detail.flag.Key]) {
+                localStorage.setItem("custom_" + _this.selectedGame.UUID + ";" + _this.selectedEmulator.name + ";" + event.detail.flag.Key, true);
+                console.log(event.detail.flag.Key + " (" + event.detail.flag.Description + ") marked as customized for emulator " + name);
+            }
+            if (localStorage.getItem("custom_" + _this.selectedGame.UUID + ";" + _this.selectedEmulator.name + ";" + event.detail.flag.Key) ==! null) {
+                console.log(event.detail.flag.Key + " (" + event.detail.flag.Description + ") already marked as customized for emulator " + name);
+            }
+            console.log(event.detail.flag.Key + " (" + event.detail.flag.Description + ") changed value to " + event.detail.value + " for emulator " + name);
 
+          };
+        })(this));
       },
       selectedEmulatorChanged: function(){
-        /*snowflake.getEmulatorFlags this.selectedEmulator.name
-.then (data) =>
-  this.fkeys = data
-  snowflake.getFlagDefaultValues this.selectedEmulator.name
-.then (data) =>
-  snowflake.setFlagValue this.selectedEmulator.name, this.selectedGame.UUID, flag.Key, data[flag.Key] for flag in fkeys when localStorage.getItem("custom_" + this.selectedGame.UUID + ";" + this.selectedEmulator.name + ";" + event.detail.flag.Key) is null
-  return snowflake.getFlagValues this.selectedEmulator.name, this.selectedGame.UUID
-.then (data) =>
-    this.fvalues = data
-    */
-    snowflake.getEmulatorFlags(this.selectedEmulator.name).then((function(_this) {
-      return function(data) {
-        _this.fkeys = data;
-        return snowflake.getFlagDefaultValues(_this.selectedEmulator.name);
-      };
-    })(this)).then((function(_this) {
-      return function(data) {
-        var flag, i, len;
-        for (i = 0, len = fkeys.length; i < len; i++) {
-          flag = fkeys[i];
-          if (localStorage.getItem("custom_" + _this.selectedGame.UUID + ";" + _this.selectedEmulator.name + ";" + event.detail.flag.Key) === null) {
-            snowflake.setFlagValue(_this.selectedEmulator.name, _this.selectedGame.UUID, flag.Key, data[flag.Key]);
-          }
-        }
-        return snowflake.getFlagValues(_this.selectedEmulator.name, _this.selectedGame.UUID);
-      };
-    })(this)).then((function(_this) {
-      return function(data) {
-        return _this.fvalues = data;
-      };
-    })(this));
-
+        var hasProp = {}.hasOwnProperty;
+        snowflake.getEmulatorFlags(this.selectedEmulator.name).then((function(_this) {
+          return function(data) {
+            _this.fkeys = data;
+            return snowflake.getFlagDefaultValues(_this.selectedEmulator.name);
+          };
+        })(this))
+        .then((function(_this) {
+          return function(data) {
+            _this.defaultValues = data;
+            var flag, flags, i, key, len, values;
+            values = {};
+            flags = (function() {
+              var ref, results;
+              ref = this.fkeys;
+              results = [];
+              for (key in ref) {
+                if (!hasProp.call(ref, key)) continue;
+                flag = ref[key];
+                if (localStorage.getItem("custom_" + this.selectedGame.UUID + ";" + this.selectedEmulator.name + ";" + flag.Key) === null) {
+                  console.log(flag.Key + " is not customized, resyncing");
+                  results.push(flag);
+                }
+              }
+              return results;
+            }).call(_this);
+            for (i = 0, len = flags.length; i < len; i++) {
+              flag = flags[i];
+              values[flag.Key] = data[flag.Key];
+            }
+            return snowflake.setFlagValues(_this.selectedEmulator.name, _this.selectedGame.UUID, values);
+          };
+        })(this))
+        .then((function(_this) {
+          return function() {
+            return snowflake.getFlagValues(_this.selectedEmulator.name, _this.selectedGame.UUID);
+          };
+        })(this))
+        .then((function(_this) {
+          return function(data) {
+            console.log(data);
+            _this.fvalues = data;
+            _this.addEventListener('flag-update', _this.flagUpdate);
+          };
+        })(this));
       }
-
     });
   </script>
 </polymer-element>
