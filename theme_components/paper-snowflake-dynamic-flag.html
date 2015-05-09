@@ -20,32 +20,41 @@
         font-family: 'Roboto';
       }
       .flag-container-inner {
-        display: -webkit-box;
+      }
+      #flagDescription {
+        margin-bottom: 5px;
       }
       paper-slider, paper-dropdown-menu {
         width: 350px;
       }
       #flagCustom {
-        font-size: 0.6em;
+        font-size: 0.8em;
         text-transform: uppercase;
         color: #ffffff;
         display: inline;
-        background-color: #aaaaaa;
+        background-color: #2196F3;
         border-radius: 3px;
         padding: 3px;
       }
+      #flagCustom:after {
+        content: 'customized';
+      }
+      #flagCustom:hover:after {
+        content: 'reset to default';
+      }
       #flagCustom:hover {
-        background-color: #999999;
+        background-color: #F44336;
         cursor: pointer;
       }
+
       #flagDescription {
-        margin-right: 10px;
+        margin-right: 5px;
       }
     </style>
     <div class="flag-container">
       <div class="flag-container-inner">
         <div id="flagDescription">{{flag.Description}}</div>
-        <div hidden?="{{!isCustom}}" on-tap="{{customOff}}" id="flagCustom">custom</div>
+        <div hidden?="{{!isCustom}}" on-tap="{{customOff}}" id="flagCustom"></div>
       </div>
       <div id="flagContent"></div>
     </div>
