@@ -68,32 +68,50 @@
         return ((255 - bgDelta) < nThreshold) ? "#000000" : "#ffffff";
       },
       getColors: function(coverUrl) {
-        var img = new Image();
-        img.crossOrigin = 'Anonymous';
-        img.src = coverUrl;
-        console.log(img.src);
-        img.onload = (function(_this) {
-          return function() {
-            var thief = new ColorThief();
-            var color = thief.getColor(img);
-            _this.dominantColor = "rgb(" + color + ")";
-            _this.contrastColor = _this.idealGrey(color[0], color[1], color[2]);
-            _this.blackWhiteColor = _this.idealBW(color[0], color[1], color[2]);
-            _this.palette = (function() {
-              var i, len, ref, results;
-              ref = thief.getPalette(img);
-              results = [];
-              for (i = 0, len = ref.length; i < len; i++) {
-                p = ref[i];
-                results.push("rgb(" + p[0] + ',' + p[1] + ',' + p[2] + ")");
-              }
-              delete img;
-              delete thief;
-              delete color;
-              return results;
-            })();
-          };
-        })(this);
+        if (localStorage.getItem("cover_" + coverUrl) === null) {
+          var img = new Image();
+          img.crossOrigin = 'Anonymous';
+          img.src = coverUrl;
+          console.log(img.src);
+          img.onload = (function(_this) {
+            return function() {
+              var thief = new ColorThief();
+              var color = thief.getColor(img);
+              var dominantColor = "rgb(" + color + ")";
+              var contrastColor = _this.idealGrey(color[0], color[1], color[2]);
+              var blackWhiteColor = _this.idealBW(color[0], color[1], color[2]);
+              _this.dominantColor = dominantColor;
+              _this.contrastColor = contrastColor;
+              _this.blackWhiteColor = blackWhiteColor;
+              console.log("caching colors for " + coverUrl);
+              localStorage.setItem("dominant_" + coverUrl, dominantColor);
+              localStorage.setItem("contrast_" + coverUrl, contrastColor);
+              localStorage.setItem("bw_" + coverUrl, blackWhiteColor);
+
+              _this.palette = (function() {
+                var i, len, ref, results;
+                ref = thief.getPalette(img);
+                results = [];
+                for (i = 0, len = ref.length; i < len; i++) {
+                  p = ref[i];
+                  results.push("rgb(" + p[0] + ',' + p[1] + ',' + p[2] + ")");
+                }
+                delete img;
+                delete thief;
+                delete color;
+                console.log("caching palette for " + coverUrl);
+                localStorage.setItem("palette_" + coverUrl, JSON.stringify(results));
+                return results;
+              })();
+            };
+          })(this);
+        } else {
+          console.log("retrieving cached colors for " + coverUrl);
+          this.palette = JSON.parse(localStorage.getItem("palette_" + coverUrl));
+          this.dominantColor = localStorage.getItem("dominant_" + coverUrl);
+          this.contrastColor = localStorage.getItem("contrast_" + coverUrl);
+          this.blackWhiteColor = localStorage.getItem("bw_" + coverUrl);
+        }
       },
       open: function() {
         this.opened = true;
