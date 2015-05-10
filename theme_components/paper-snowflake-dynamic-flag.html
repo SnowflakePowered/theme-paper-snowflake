@@ -17,6 +17,7 @@
         align-items: center;
         padding-top: 20px;
         padding-left: 10px;
+        padding-right: 10px;
         font-family: 'Roboto';
       }
       .flag-container-inner {
@@ -80,12 +81,19 @@
           if(this.flag.Type === "SELECT_FLAG") {
             this.setDropdown();
           }
-          this.async(function() {
-            this.refreshFlag();
-          }, null, 100);
+          this.forceRefresh();
         },
         valueChanged: function() {
           this.fire('flag-update', {'value': this.value, 'flag': this.flag });
+          this.forceRefresh();
+        },
+        gameIdChanged: function(){
+          this.forceRefresh();
+        },
+        emulatorNameChanged: function(){
+          this.forceRefresh();
+        },
+        forceRefresh: function() {
           this.async(function() {
             this.refreshFlag();
           }, null, 100);
