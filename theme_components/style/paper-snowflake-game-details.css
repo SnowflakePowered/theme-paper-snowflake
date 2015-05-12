@@ -23,6 +23,13 @@
   object-position: 50% -20vh;
   background-color: #dedede;
 }
+.game-cover[horizontal=true] {
+  position: fixed;
+  width: 600px;
+  object-fit: cover;
+  object-position: 50% 50%;
+  background-color: #dedede;
+}
 .cover {
   overflow: hidden;
   height: 100vh;

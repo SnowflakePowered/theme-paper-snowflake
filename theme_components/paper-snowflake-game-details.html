@@ -16,7 +16,7 @@
 
     <div id="container" class="container">
       <section class="cover">
-        <img draggable="false" id="gameCover" class="game-cover" src="{{coverUrl | halfSize}}">
+        <img draggable="false" id="gameCover" class="game-cover" horizontal="{{horizontal}}" src="{{coverUrl | halfSize}}">
       </section>
       <section class="main">
         <header class="title-info">
@@ -120,6 +120,11 @@
         this.async(function() {
           this.getColors(this.coverUrl+"@25");
         }, null, 200);
+        if (this.selectedGame.PlatformID === "NINTENDO_SNES") {
+          this.horizontal = true;
+        } else {
+          this.horizontal = false;
+        }
       },
       close: function() {
         this.opened = false;
