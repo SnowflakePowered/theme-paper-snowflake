@@ -16,7 +16,7 @@
 
     <div id="container" class="container">
       <section class="cover">
-        <img draggable="false" id="gameCover" class="game-cover" src="{{coverUrl}}">
+        <img draggable="false" id="gameCover" class="game-cover" src="{{coverUrl | halfSize}}">
       </section>
       <section class="main">
         <header class="title-info">
@@ -133,6 +133,9 @@
       gamePlay: function(e) {
         this.fire('game-play', {game: this.selectedGame});
         event.stopPropagation();
+      },
+      halfSize: function(coverUrl){
+        return coverUrl + "@50";
       }
     });
   </script>
