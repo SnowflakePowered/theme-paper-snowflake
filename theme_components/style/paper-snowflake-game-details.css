@@ -23,7 +23,7 @@
   object-position: 50% -20vh;
   background-color: #dedede;
 }
-.game-cover[horizontal=true] {
+.game-cover[platform=NINTENDO_SNES] {
   position: fixed;
   width: 600px;
   object-fit: cover;
