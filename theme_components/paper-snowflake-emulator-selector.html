@@ -25,6 +25,7 @@
       },
       emulatorSelect: function(e){
         this.selectedEmulator = this.availableEmulators[e.detail.item.attributes['emulator-name'].value];
+        this.selectedGame = snowflake.availableGames[0];
       },
       selectedEmulatorChanged: function(){
         snowflake.setPreference(this.selectedGame.PlatformID, "emulator", this.selectedEmulator.name);
