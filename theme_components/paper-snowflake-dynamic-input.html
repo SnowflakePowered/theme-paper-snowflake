@@ -1,0 +1,151 @@
+<link rel="import" href="../bower_components/paper-dropdown/paper-dropdown">
+<link rel="import" href="../bower_components/paper-item/paper-item">
+<link rel="import" href="../bower_components/core-menu/core-menu">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu">
+<link rel="import" href="../bower_components/paper-button/paper-button">
+
+
+<link rel="import" href="paper-snowflake-dynamic-input-dialog">
+<polymer-element name="paper-snowflake-dynamic-input" attributes="inputName controllerName commitValue deviceName deviceType">
+
+  <template>
+  <style>
+  .set-button {
+    background: green;
+    color: yellow;
+  }
+  </style>
+      {{inputName | getBtnName}}
+      <paper-button raised class="set-button" on-tap="{{openDialog}}">{{commitValue | getInputName}}</paper-button>
+      <paper-snowflake-dynamic-input-dialog inputName="{{inputName}}" opened="{{dialogOpened}}" commitValue="{{commitValue}}"></paper-snowflake-dynamic-input-dialog>
+  </template>
+  <script>
+    Polymer('paper-snowflake-dynamic-input', {
+      publish: {
+
+      },
+      openDialog: function() {
+        this.dialogOpened = true;
+      },
+      ready: function() {
+
+      },
+      getKeys: function(o){
+        return Object.keys(o);
+      },
+      getBtnName: function(o){
+        return this.readableBtn[o] || o;
+      },
+      getBtnName: function(o){
+        return this.readableBtn[o] || o;
+      },
+      getInputName: function(o){
+        return this.readableInput[o] || o;
+      },
+      readableBtn: {
+        "BTN_A": "A Button",
+        "BTN_B": "B Button",
+        "BTN_X": "X Button",
+        "BTN_Y": "Y Button",
+        "BTN_SELECT": "Select Button",
+        "BTN_START": "Start Button"
+      },
+      readableInput: {
+        "KEY_A": "A",
+        "KEY_B": "B",
+        "KEY_C": "C",
+        "KEY_D": "D",
+        "KEY_E": "E",
+        "KEY_F": "F",
+        "KEY_G": "G",
+        "KEY_H": "H",
+        "KEY_I": "I",
+        "KEY_J": "J",
+        "KEY_K": "K",
+        "KEY_L": "L",
+        "KEY_M": "M",
+        "KEY_N": "N",
+        "KEY_O": "O",
+        "KEY_P": "P",
+        "KEY_Q": "Q",
+        "KEY_R": "R",
+        "KEY_S": "S",
+        "KEY_T": "T",
+        "KEY_U": "U",
+        "KEY_V": "V",
+        "KEY_W": "W",
+        "KEY_X": "X",
+        "KEY_Y": "Y",
+        "KEY_Z": "Z",
+        "KEY_0": "0",
+        "KEY_1": "1",
+        "KEY_2": "2",
+        "KEY_3": "3",
+        "KEY_4": "4",
+        "KEY_5": "5",
+        "KEY_6": "6",
+        "KEY_7": "7",
+        "KEY_8": "8",
+        "KEY_9": "9",
+        "KEY_EQUALS": "=",
+        "KEY_MINUS": "-",
+        "KEY_BACKSPACE": "Backspace",
+        "KEY_SPACEBAR": "Space",
+        "KEY_ENTER": "Enter",
+        "KEY_UP": "Up",
+        "KEY_DOWN": "Down",
+        "KEY_LEFT": "Left",
+        "KEY_RIGHT": "Right",
+        "KEY_TAB": "Tab",
+        "KEY_INSERT": "Insert",
+        "KEY_DELETE": "Delete",
+        "KEY_HOME": "Home",
+        "KEY_END": "End",
+        "KEY_PAGE_UP": "Page Up",
+        "KEY_PAGE_DOWN": "Page Down",
+        "KEY_SHIFT": "Left Shift",
+        "KEY_CTRL": "Left Control",
+        "KEY_ALT": "Left Alt",
+        "KEY_ESCAPE": "Escape",
+        "KEY_TILDE": "~",
+        "KEY_QUOTE": "\"",
+        "KEY_SEMICOLON": ";",
+        "KEY_COMMA": ",",
+        "KEY_PERIOD": ".",
+        "KEY_SLASH": "/",
+        "KEY_BRACKET_LEFT": "[",
+        "KEY_BRACKET_RIGHT": "]",
+        "KEY_BACKSLASH": "/",
+        "KEY_RIGHT_ALT": "Right Alt",
+        "KEY_RIGHT_CTRL": "Right Control",
+        "KEY_RIGHT_SHIFT": "Right Shift",
+        "KEY_NUMPAD_0": "0 (Numpad)",
+        "KEY_NUMPAD_1": "1 (Numpad)",
+        "KEY_NUMPAD_2": "2 (Numpad)",
+        "KEY_NUMPAD_3": "3 (Numpad)",
+        "KEY_NUMPAD_4": "4 (Numpad)",
+        "KEY_NUMPAD_5": "5 (Numpad)",
+        "KEY_NUMPAD_6": "6 (Numpad)",
+        "KEY_NUMPAD_7": "7 (Numpad)",
+        "KEY_NUMPAD_8": "8 (Numpad)",
+        "KEY_NUMPAD_9": "9 (Numpad)",
+        "KEY_NUMPAD_PERIOD": ". (Numpad)",
+        "KEY_NUMPAD_PLUS": "+ (Numpad)",
+        "KEY_NUMPAD_MINUS": "- (Numpad)",
+        "KEY_NUMPAD_ENTER": "Enter  (Numpad)",
+        "KEY_F_1": "F1",
+        "KEY_F_2": "F2",
+        "KEY_F_3": "F3",
+        "KEY_F_4": "F4",
+        "KEY_F_5": "F5",
+        "KEY_F_6": "F6",
+        "KEY_F_7": "F7",
+        "KEY_F_8": "F8",
+        "KEY_F_9": "F9",
+        "KEY_F_10": "F10",
+        "KEY_F_11": "F11",
+        "KEY_F_12": "F12",
+      }
+    });
+  </script>
+</polymer-element>
