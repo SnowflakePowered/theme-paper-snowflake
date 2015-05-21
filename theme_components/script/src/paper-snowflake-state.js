@@ -4,9 +4,11 @@ Polymer('paper-snowflake-state', {
     stateReady: false,
     gamesLoaded: false,
     platformsLoaded: false,
+    controllersLoaded: false,
     showingDetails: false,
     availableGames: {},
     availablePlatforms: {},
+    availableControllers: {},
     selectedGame: {},
     selectedPlatformGames: [],
     selectedPlatform: {}
@@ -37,22 +39,31 @@ Polymer('paper-snowflake-state', {
     return this._snowflakeAvailable().then((function(_this) {
       return function() {
         console.log("snowflake available");
-        return _this.snowflakeAvailable = true;
+        _this.snowflakeAvailable = true;
+        return snowflake.getGames();
       };
     })(this)).then((function(_this) {
-      return function() {
-        snowflake.getGames().then(function(data) {
-          console.log("games loaded");
-          console.log(data);
-          _this.availableGames = data;
-          return _this.gamesLoaded = true;
-        });
-        snowflake.getPlatforms().then(function(data) {
-          console.log("platforms loaded");
-          console.log(data);
-          _this.availablePlatforms = data;
-          return _this.platformsLoaded = true;
-        });
+      return function(data) {
+        console.log("games loaded");
+        console.log(data);
+        _this.availableGames = data;
+        _this.gamesLoaded = true;
+        return snowflake.getPlatforms();
+      };
+    })(this)).then((function(_this) {
+      return function(data) {
+        console.log("platforms loaded");
+        console.log(data);
+        _this.availablePlatforms = data;
+        _this.platformsLoaded = true;
+        return snowflake.getControllers();
+      };
+    })(this)).then((function(_this) {
+      return function(data) {
+        console.log("controllers loaded");
+        console.log(data);
+        _this.availableControllers = data;
+        _this.controllersLoaded = true;
         return 1;
       };
     })(this)).then((function(_this) {

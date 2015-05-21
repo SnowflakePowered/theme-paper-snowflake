@@ -55,7 +55,7 @@
         snowflake.getEmulatorFlags(this.selectedEmulator.name).then((function(_this) {
           return function(data) {
             _this.fkeys = data;
-            return snowflake.getFlagDefaultValues(_this.selectedEmulator.name);
+            return snowflake.getFlagDefaultValues(_this.selectedEmulator.name); //Get flag default values
           };
         })(this))
         .then((function(_this) {
@@ -63,7 +63,7 @@
             _this.defaultValues = data;
             var flag, flags, i, key, len, values;
             values = {};
-            flags = (function() {
+            flags = (function() { //Get the flag values that are not marked as custom
               var ref, results;
               ref = this.fkeys;
               results = [];
@@ -77,7 +77,7 @@
               }
               return results;
             }).call(_this);
-            for (i = 0, len = flags.length; i < len; i++) {
+            for (i = 0, len = flags.length; i < len; i++) { //for each flag that is not marked as custom, reset them to default
               flag = flags[i];
               values[flag.Key] = data[flag.Key];
             }
@@ -86,23 +86,27 @@
         })(this))
         .then((function(_this) {
           return function() {
-            return snowflake.getFlagValues(_this.selectedEmulator.name, _this.selectedGame.UUID);
+            return snowflake.getFlagValues(_this.selectedEmulator.name, _this.selectedGame.UUID); //Get the newly synced flags from core
           };
         })(this))
         .then((function(_this) {
           return function(data) {
             console.log(data);
-            _this.fvalues = data;
+            _this.fvalues = data; //set flags as data, and start listening for flag updates
             _this.addEventListener('flag-update', _this.flagUpdate);
           };
         })(this));
       },
       selectedEmulatorChanged: function(){
-        this.flagRefresh();
+        this.async(function() {
+          this.flagRefresh();
+        }, null, 100);
       },
       selectedGameChanged: function(){
         console.log("game chaged");
-        this.flagRefresh();
+        this.async(function() {
+          this.flagRefresh();
+        }, null, 100);
       }
     });
   </script>
