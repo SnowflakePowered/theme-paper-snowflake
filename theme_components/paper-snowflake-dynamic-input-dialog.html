@@ -1,29 +1,45 @@
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog">
-<polymer-element name="paper-snowflake-dynamic-input-dialog" attributes="inputName controllerName commitValue deviceName deviceType opened">
+<link rel="import" href="../bower_components/paper-button/paper-button">
+
+<polymer-element name="paper-snowflake-dynamic-input-dialog" attributes="inputName controllerName value commitValue deviceName deviceType opened">
 
   <template>
   <style>
   .set-button {
-    background: green;
-    color: yellow;
+    background: #777;
+    color: white;
+  }
+  .center {
+    display: flex;
+    justify-content: center;
   }
   </style>
-  <paper-dialog id="dialog" heading="Set Value" opened="{{opened}}" on-keydown="{{setKey}}">
+  <paper-dialog id="dialog" heading="Set Value" opened="{{opened}}" on-keydown="{{setKey}}" backdrop layered autoCloseDisabled closeAttribute="closeDialog">
     <p>Set your key for {{inputName | getBtnName}}</p>
-    <p>{{commitValue | getInputName}}</p>
+    <div style="justify-content: center; display: flex;">
+      <p>{{value | getInputName}}</p>
+    </div>
+    <paper-button closeDialog on-tap="{{saveChange}}">Save</paper-button> <paper-button closeDialog on-tap="{{resetChange}}">Cancel</paper-button>
   </paper-dialog>
   </template>
   <script>
     Polymer('paper-snowflake-dynamic-input-dialog', {
-      publish: {
 
-      },
       setKey: function(e){
-        this.commitValue = this.jsKeyboardMapping[e.keyCode];
+        this.value = this.jsKeyboardMapping[e.keyCode];
         e.preventDefault();
+      },
+      commitValueChanged: function(e){
+        this.value = this.commitValue;
       },
       ready: function() {
 
+      },
+      saveChange: function(){
+        this.commitValue = this.value;
+      },
+      resetChange: function(){
+        this.value = this.commitValue;
       },
       getKeys: function(o){
         return Object.keys(o);
@@ -40,7 +56,11 @@
         "BTN_X": "X Button",
         "BTN_Y": "Y Button",
         "BTN_SELECT": "Select Button",
-        "BTN_START": "Start Button"
+        "BTN_START": "Start Button",
+        "BTN_DPAD_UP": "D-pad Up",
+        "BTN_DPAD_DOWN": "D-pad Down",
+        "BTN_DPAD_LEFT": "D-pad Left",
+        "BTN_DPAD_RIGHT": "D-pad Right"
       },
       readableInput: {
         "KEY_A": "A",
@@ -107,7 +127,7 @@
         "KEY_SLASH": "/",
         "KEY_BRACKET_LEFT": "[",
         "KEY_BRACKET_RIGHT": "]",
-        "KEY_BACKSLASH": "/",
+        "KEY_BACKSLASH": "\\",
         "KEY_RIGHT_ALT": "Right Alt",
         "KEY_RIGHT_CTRL": "Right Control",
         "KEY_RIGHT_SHIFT": "Right Shift",
