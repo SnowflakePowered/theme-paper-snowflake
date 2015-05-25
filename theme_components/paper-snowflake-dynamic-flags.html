@@ -13,6 +13,7 @@
     <div class="emulator-selector">
       <span>Emulator &mdash;</span><paper-snowflake-emulator-selector selectedGame="{{selectedGame}}" selectedEmulator="{{selectedEmulator}}" availableEmulators="{{availableEmulators}}"></paper-snowflake-emulator-selector>
     </div>
+
     <template repeat="{{flag in fkeys | getKeys}}">
     <paper-snowflake-dynamic-flag on-flag-refresh="{{flagRefresh}}" flag="{{fkeys[flag]}}" value="{{fvalues[flag]}}" gameId="{{selectedGame.UUID}}" emulatorName="{{selectedEmulator.name}}"></paper-snowflake-dynamic-flag>
     </template>
@@ -29,6 +30,7 @@
         window.d = this;
         this.valueSelected;
         this.defaultValues;
+
       },
       getKeys: function(o){
         return Object.keys(o);
@@ -51,51 +53,54 @@
         })(this));
       },
       flagRefresh: function(){
-        var hasProp = {}.hasOwnProperty;
-        snowflake.getEmulatorFlags(this.selectedEmulator.name).then((function(_this) {
-          return function(data) {
-            _this.fkeys = data;
-            return snowflake.getFlagDefaultValues(_this.selectedEmulator.name); //Get flag default values
-          };
-        })(this))
-        .then((function(_this) {
-          return function(data) {
-            _this.defaultValues = data;
-            var flag, flags, i, key, len, values;
-            values = {};
-            flags = (function() { //Get the flag values that are not marked as custom
-              var ref, results;
-              ref = this.fkeys;
-              results = [];
-              for (key in ref) {
-                if (!hasProp.call(ref, key)) continue;
-                flag = ref[key];
-                if (localStorage.getItem("custom_" + this.selectedGame.UUID + ";" + this.selectedEmulator.name + ";" + flag.Key) === null) {
-                  console.log(flag.Key + " is not customized, resyncing");
-                  results.push(flag);
+        if(this.selectedGame !== undefined && this.selectedGame !== null){
+          var hasProp = {}.hasOwnProperty;
+          this.removeEventListener('flag-update', this.flagUpdate);
+          snowflake.getEmulatorFlags(this.selectedEmulator.name).then((function(_this) {
+            return function(data) {
+              _this.fkeys = data;
+              return snowflake.getFlagDefaultValues(_this.selectedEmulator.name); //Get flag default values
+            };
+          })(this))
+          .then((function(_this) {
+            return function(data) {
+              _this.defaultValues = data;
+              var flag, flags, i, key, len, values;
+              values = {};
+              flags = (function() { //Get the flag values that are not marked as custom
+                var ref, results;
+                ref = this.fkeys;
+                results = [];
+                for (key in ref) {
+                  if (!hasProp.call(ref, key)) continue;
+                  flag = ref[key];
+                  if (localStorage.getItem("custom_" + this.selectedGame.UUID + ";" + this.selectedEmulator.name + ";" + flag.Key) === null) {
+                    console.log(flag.Key + " is not customized, resyncing");
+                    results.push(flag);
+                  }
                 }
+                return results;
+              }).call(_this);
+              for (i = 0, len = flags.length; i < len; i++) { //for each flag that is not marked as custom, reset them to default
+                flag = flags[i];
+                values[flag.Key] = data[flag.Key];
               }
-              return results;
-            }).call(_this);
-            for (i = 0, len = flags.length; i < len; i++) { //for each flag that is not marked as custom, reset them to default
-              flag = flags[i];
-              values[flag.Key] = data[flag.Key];
-            }
-            return snowflake.setFlagValues(_this.selectedEmulator.name, _this.selectedGame.UUID, values);
-          };
-        })(this))
-        .then((function(_this) {
-          return function() {
-            return snowflake.getFlagValues(_this.selectedEmulator.name, _this.selectedGame.UUID); //Get the newly synced flags from core
-          };
-        })(this))
-        .then((function(_this) {
-          return function(data) {
-            console.log(data);
-            _this.fvalues = data; //set flags as data, and start listening for flag updates
-            _this.addEventListener('flag-update', _this.flagUpdate);
-          };
-        })(this));
+              return snowflake.setFlagValues(_this.selectedEmulator.name, _this.selectedGame.UUID, values);
+            };
+          })(this))
+          .then((function(_this) {
+            return function() {
+              return snowflake.getFlagValues(_this.selectedEmulator.name, _this.selectedGame.UUID); //Get the newly synced flags from core
+            };
+          })(this))
+          .then((function(_this) {
+            return function(data) {
+              console.log("Finished refreshing");
+              _this.fvalues = data; //set flags as data, and start listening for flag updates
+              _this.addEventListener('flag-update', _this.flagUpdate);
+            };
+          })(this));
+        }
       },
       selectedEmulatorChanged: function(){
         this.async(function() {
