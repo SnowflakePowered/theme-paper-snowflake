@@ -5,7 +5,7 @@
 <link rel="import" href="paper-fonts">
 <link rel="import" href="paper-snowflake-games-container">
 <link rel="import" href="paper-snowflake-game-details">
-<link rel="import" href="paper-snowflake-dynamic-input-set">
+<link rel="import" href="paper-snowflake-input-controller">
 
 <link rel="import" href="../bower_components/core-animation/core-animation">
 <link rel="import" href="../bower_components/core-animated-pages/core-animated-pages">
@@ -101,6 +101,7 @@
       selectedPlatformGames="{{selectedPlatformGames}}"
       showingDetails="{{showingDetails}}"
       selectedGame="{{selectedGame}}"
+      availableControllers="{{availableControllers}}"
     ></paper-snowflake-state>
     <paper-snowflake-game-details unresolved id="detailsView" coverUrl="{{coverFrontUrl}}" selectedGame="{{selectedGame}}"></paper-snowflake-game-details>
     <paper-snowflake-top unresolved selectedPlatform="{{selectedPlatform}}"></paper-snowflake-top>
@@ -112,7 +113,7 @@
       </section>
 
       <section unresolved class="settingsMain">
-        <paper-snowflake-dynamic-input-set></paper-snowflake-dynamic-input-set>
+        <paper-snowflake-input-controller availableControllers="{{availableControllers}}"></paper-snowflake-input-controller>
       </section>
 
 

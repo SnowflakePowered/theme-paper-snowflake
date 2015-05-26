@@ -1,0 +1,21 @@
+<link rel="import" href="paper-snowflake-dynamic-input-set">
+<link rel="import" href="paper-snowflake-controller-selector">
+
+<polymer-element name="paper-snowflake-input-controller" attributes="selectedController availableControllers">
+<template>
+  <div class="controller-selector">
+    <paper-snowflake-controller-selector availableControllers="{{availableControllers}}" selectedController="{{selectedController}}"></paper-snowflake-controller-selector>
+  </div>
+  <paper-snowflake-dynamic-input-set controller="{{selectedController}}"></paper-snowflake-dynamic-input-set>
+
+</template>
+<script>
+  Polymer('paper-snowflake-input-controller', {
+
+    ready: function () {
+
+    }
+
+  });
+</script>
+</polymer-element>
