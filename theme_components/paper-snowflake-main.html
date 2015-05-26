@@ -5,7 +5,7 @@
 <link rel="import" href="paper-fonts">
 <link rel="import" href="paper-snowflake-games-container">
 <link rel="import" href="paper-snowflake-game-details">
-<link rel="import" href="paper-snowflake-dynamic-input">
+<link rel="import" href="paper-snowflake-dynamic-input-set">
 
 <link rel="import" href="../bower_components/core-animation/core-animation">
 <link rel="import" href="../bower_components/core-animated-pages/core-animated-pages">
@@ -29,6 +29,9 @@
       .selectMain {
         height: 100%;
         display: table;
+      }
+      .settingsMain {
+        height: 100%;
       }
       paper-snowflake-platform-selector {
         position: relative;
@@ -108,8 +111,8 @@
         <paper-snowflake-games-container on-game-show="{{gameShow}}" selectedGame="{{selectedGame}}" selectedPlatform="{{selectedPlatform}}" selectedPlatformGames="{{selectedPlatformGames}}"></paper-snowflake-games-container>
       </section>
 
-      <section>
-        Hello WOrld
+      <section unresolved class="settingsMain">
+        <paper-snowflake-dynamic-input-set></paper-snowflake-dynamic-input-set>
       </section>
 
 
