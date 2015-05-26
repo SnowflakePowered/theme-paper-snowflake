@@ -5,8 +5,12 @@
 <link rel="import" href="paper-fonts">
 <link rel="import" href="paper-snowflake-games-container">
 <link rel="import" href="paper-snowflake-game-details">
+<link rel="import" href="paper-snowflake-dynamic-input">
 
 <link rel="import" href="../bower_components/core-animation/core-animation">
+<link rel="import" href="../bower_components/core-animated-pages/core-animated-pages">
+<link rel="import" href="../bower_components/core-animated-pages/transitions/slide-from-right">
+
 <link rel="import" href="../bower_components/paper-fab/paper-fab">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog">
 
@@ -50,7 +54,10 @@
         box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
 
       }
-
+      .main-container {
+        height: 100%;
+        width: 100%;
+      }
       paper-snowflake-game-details {
         z-index: 1000000;
       }
@@ -94,11 +101,21 @@
     ></paper-snowflake-state>
     <paper-snowflake-game-details unresolved id="detailsView" coverUrl="{{coverFrontUrl}}" selectedGame="{{selectedGame}}"></paper-snowflake-game-details>
     <paper-snowflake-top unresolved selectedPlatform="{{selectedPlatform}}"></paper-snowflake-top>
-    <section unresolved class="selectMain">
-      <paper-snowflake-platform-selector selectedPlatform="{{selectedPlatform}}" availablePlatforms="{{availablePlatforms}}"></paper-snowflake-platform-selector>
-      <paper-snowflake-games-container on-game-show="{{gameShow}}" selectedGame="{{selectedGame}}" selectedPlatform="{{selectedPlatform}}" selectedPlatformGames="{{selectedPlatformGames}}"></paper-snowflake-games-container>
-      <paper-fab class="add-button" on-tap="{{addGame}}"></paper-fab>
-    </section>
+    <core-animated-pages id="pageContainer" class="main-container" transitions="slide-from-right">
+
+      <section unresolved class="selectMain">
+        <paper-snowflake-platform-selector selectedPlatform="{{selectedPlatform}}" availablePlatforms="{{availablePlatforms}}"></paper-snowflake-platform-selector>
+        <paper-snowflake-games-container on-game-show="{{gameShow}}" selectedGame="{{selectedGame}}" selectedPlatform="{{selectedPlatform}}" selectedPlatformGames="{{selectedPlatformGames}}"></paper-snowflake-games-container>
+      </section>
+
+      <section>
+        Hello WOrld
+      </section>
+
+
+  </core-animated-pages>
+  <paper-fab class="add-button" on-tap="{{addGame}}"></paper-fab>
+
   </template>
   <script>
     Polymer('paper-snowflake-main', {
