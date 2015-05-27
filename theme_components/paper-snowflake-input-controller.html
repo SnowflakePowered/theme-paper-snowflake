@@ -1,10 +1,13 @@
 <link rel="import" href="paper-snowflake-dynamic-input-set">
 <link rel="import" href="paper-snowflake-controller-selector">
+<link rel="import" href="paper-snowflake-profile-selector">
 
-<polymer-element name="paper-snowflake-input-controller" attributes="selectedController availableControllers">
+<polymer-element name="paper-snowflake-input-controller" attributes="selectedController availableControllers availableProfiles">
 <template>
   <div class="controller-selector">
     <paper-snowflake-controller-selector availableControllers="{{availableControllers}}" selectedController="{{selectedController}}"></paper-snowflake-controller-selector>
+    <paper-snowflake-profile-selector availableProfiles="{{availableProfiles}}" selectedProfile="{{selectedProfile}}"></paper-snowflake-controller-selector>
+
   </div>
   <paper-snowflake-dynamic-input-set controller="{{selectedController}}"></paper-snowflake-dynamic-input-set>
 
@@ -13,6 +16,9 @@
   Polymer('paper-snowflake-input-controller', {
 
     ready: function () {
+      window.p = this;
+    },
+    selectedControllerChanged: function(){
 
     }
 

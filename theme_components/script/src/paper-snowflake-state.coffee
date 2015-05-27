@@ -9,9 +9,11 @@ Polymer 'paper-snowflake-state' ,
     availableGames: {}
     availablePlatforms: {}
     availableControllers: {}
+    availableProfiles: {}
     selectedGame: {}
     selectedPlatformGames: []
     selectedPlatform: {}
+    selectedController: {}
 
   _snowflakeAvailable: (callback) ->
     promise = Promise.defer()
@@ -27,6 +29,11 @@ Polymer 'paper-snowflake-state' ,
     console.log "selected platform has changed"
     console.log @selectedPlatform
     @selectedPlatformGames = @availableGames[@selectedPlatform.PlatformID]
+  selectedControllerChanged: ->
+    console.log "selected controller has changed"
+    snowflake.getControllerProfiles @selectedController.ControllerID
+    .then (data) =>
+      @availableProfiles = data;
   availableGamesChanged: ->
     console.log "list of available games have changed; refreshing"
     @selectedPlatformGames = @availableGames[@selectedPlatform.PlatformID]

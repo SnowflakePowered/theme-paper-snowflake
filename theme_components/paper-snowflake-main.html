@@ -102,6 +102,8 @@
       showingDetails="{{showingDetails}}"
       selectedGame="{{selectedGame}}"
       availableControllers="{{availableControllers}}"
+      selectedController="{{selectedController}}"
+      availableProfiles="{{availableProfiles}}"
     ></paper-snowflake-state>
     <paper-snowflake-game-details unresolved id="detailsView" coverUrl="{{coverFrontUrl}}" selectedGame="{{selectedGame}}"></paper-snowflake-game-details>
     <paper-snowflake-top unresolved selectedPlatform="{{selectedPlatform}}"></paper-snowflake-top>
@@ -113,7 +115,7 @@
       </section>
 
       <section unresolved class="settingsMain">
-        <paper-snowflake-input-controller availableControllers="{{availableControllers}}"></paper-snowflake-input-controller>
+        <paper-snowflake-input-controller selectedController="{{selectedController}}" availableControllers="{{availableControllers}}" availableProfiles="{{availableProfiles}}"></paper-snowflake-input-controller>
       </section>
 
 

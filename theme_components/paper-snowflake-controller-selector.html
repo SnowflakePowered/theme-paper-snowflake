@@ -6,7 +6,7 @@
   <template>
     <paper-dropdown-menu label="Controllers">
           <paper-dropdown class="dropdown">
-              <core-menu class="menu" valueattr="controller-name" selected="0" on-core-select="{{controllerSelect}}">
+              <core-menu class="menu" valueattr="controller-name" on-core-select="{{controllerSelect}}">
                   <template repeat="{{controller in availableControllers | getKeys}}">
                     <paper-item controller-name="{{controller}}">{{availableControllers[controller].ControllerID}}</paper-item>
                   </template>

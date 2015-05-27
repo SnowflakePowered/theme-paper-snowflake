@@ -1,0 +1,44 @@
+<link rel="import" href="../bower_components/paper-dropdown/paper-dropdown">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu">
+<link rel="import" href="../bower_components/paper-item/paper-item">
+<link rel="import" href="../bower_components/core-menu/core-menu">
+<polymer-element name="paper-snowflake-profile-selector" attributes="selectedProfile availableProfiles">
+  <template>
+    <paper-dropdown-menu label="Profiles">
+          <paper-dropdown class="dropdown">
+              <core-menu class="menu" valueattr="profile-name" on-core-select="{{profileSelect}}">
+                  <template repeat="{{profile in availableProfiles | getFilteredKeys}}">
+                    <paper-item profile-name="{{profile}}">{{profile}}</paper-item>
+                  </template>
+              </core-menu>
+          </paper-dropdown>
+      </paper-dropdown-menu>
+  </template>
+  <script>
+    Polymer('paper-snowflake-profile-selector', {
+      ready: function() {
+        window.pp = this;
+      },
+      getFilteredKeys: function(o){
+        var _o = o || {}; //filter out any null profiles 
+        profileNames = Object.keys(_o);
+        return (function() {
+          var i, len, results;
+          results = [];
+          for (i = 0, len = profileNames.length; i < len; i++) {
+            profile = profileNames[i];
+            if (profile !== "") {
+              results.push(profile);
+            }
+          }
+          return results;
+        })();
+      },
+      profileSelect: function(e){
+        this.selectedProfile = this.availableProfiles[e.detail.item.attributes['profile-name'].value];
+        console.log("currently active profile " + e.detail.item.attributes['profile-name'].value)
+      }
+    });
+  </script>
+</polymer-element>
+<paper-snowflake-profile-selector></paper-snowflake-profile-selector>
