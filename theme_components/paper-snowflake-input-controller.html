@@ -6,21 +6,38 @@
 <template>
   <div class="controller-selector">
     <paper-snowflake-controller-selector availableControllers="{{availableControllers}}" selectedController="{{selectedController}}"></paper-snowflake-controller-selector>
-    <paper-snowflake-profile-selector availableProfiles="{{availableProfiles}}" selectedProfile="{{selectedProfile}}"></paper-snowflake-controller-selector>
-
+    <paper-snowflake-profile-selector availableProfiles="{{availableProfiles}}" selectedProfile="{{selectedProfile}}" seletcedProfileName="{{selectedProfileName}}"></paper-snowflake-controller-selector>
   </div>
-  <paper-snowflake-dynamic-input-set controller="{{selectedController}}" profile="{{selectedProfile}}"></paper-snowflake-dynamic-input-set>
-
+  <div class="inputs" hidden?="{{!profileSelected}}">
+    <paper-snowflake-dynamic-input-set on-input-changed="{{inputChanged}}" controller="{{selectedController}}" profile="{{selectedProfile}}" profileName="{{selectedProfileName}}"></paper-snowflake-dynamic-input-set>
+  </div>
+  <div class="placeholder" hidden?="{{profileSelected}}">
+    Select a profile
+  </div>
 </template>
 <script>
   Polymer('paper-snowflake-input-controller', {
 
     ready: function () {
       window.p = this;
+      this.profileSelected = false;
     },
     selectedControllerChanged: function(){
 
-    }
+    },
+    selectedProfileChanged: function(){
+      if (this.selectedProfile === undefined){
+        this.profileSelected = false;
+      }else{
+        this.profileSelected = true;
+      }
+    },
+    inputChanged: function(e){
+      if(this.profileSelected) {
+        console.log("input changed"); //todo do somethign ehre
+      }
+    },
+
 
   });
 </script>

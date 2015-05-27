@@ -2,7 +2,7 @@
 <link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu">
 <link rel="import" href="../bower_components/paper-item/paper-item">
 <link rel="import" href="../bower_components/core-menu/core-menu">
-<polymer-element name="paper-snowflake-profile-selector" attributes="selectedProfile availableProfiles">
+<polymer-element name="paper-snowflake-profile-selector" attributes="selectedProfile availableProfiles selectedProfileName">
   <template>
     <paper-dropdown-menu label="Profiles">
           <paper-dropdown class="dropdown">
@@ -36,7 +36,8 @@
       },
       profileSelect: function(e){
         this.selectedProfile = this.availableProfiles[e.detail.item.attributes['profile-name'].value];
-        console.log("currently active profile " + e.detail.item.attributes['profile-name'].value)
+        this.selectedProfileName = e.detail.item.attributes['profile-name'].value;
+        console.log("currently active profile " + e.detail.item.attributes['profile-name'].value);
       }
     });
   </script>

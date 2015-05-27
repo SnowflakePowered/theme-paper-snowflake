@@ -6,7 +6,7 @@
 
 
 <link rel="import" href="paper-snowflake-dynamic-input-dialog">
-<polymer-element name="paper-snowflake-dynamic-input" attributes="inputName controllerName commitValue deviceName deviceType">
+<polymer-element name="paper-snowflake-dynamic-input" attributes="inputName controllerName commitValue profileName profileType">
 
   <template>
   <style>
@@ -29,6 +29,9 @@
       },
       ready: function() {
 
+      },
+      commitValueChanged: function(){
+        this.fire('input-changed', {'inputName': this.inputName, 'commitValue': this.commitValue});
       },
       getKeys: function(o){
         return Object.keys(o);
