@@ -6,7 +6,7 @@
 <template>
   <div class="controller-selector">
     <paper-snowflake-controller-selector availableControllers="{{availableControllers}}" selectedController="{{selectedController}}"></paper-snowflake-controller-selector>
-    <paper-snowflake-profile-selector availableProfiles="{{availableProfiles}}" selectedProfile="{{selectedProfile}}" seletcedProfileName="{{selectedProfileName}}"></paper-snowflake-controller-selector>
+    <paper-snowflake-profile-selector availableProfiles="{{availableProfiles}}" selectedProfile="{{selectedProfile}}" seletcedProfileName="{{selectedProfileName}}"></paper-snowflake-profile-selector>
   </div>
   <div class="inputs" hidden?="{{!profileSelected}}">
     <paper-snowflake-dynamic-input-set on-input-changed="{{inputChanged}}" controller="{{selectedController}}" profile="{{selectedProfile}}" profileName="{{selectedProfileName}}"></paper-snowflake-dynamic-input-set>
