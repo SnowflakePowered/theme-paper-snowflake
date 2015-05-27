@@ -1,6 +1,6 @@
 <link rel="import" href="paper-snowflake-dynamic-input">
 
-<polymer-element name="paper-snowflake-dynamic-input-set" attributes="controller">
+<polymer-element name="paper-snowflake-dynamic-input-set" attributes="controller profile">
 
   <template>
   <style>
@@ -9,7 +9,7 @@
   }
   </style>
       <template repeat="{{input in controller.ControllerInputs | getKeys}}">
-        <paper-snowflake-dynamic-input class="input" inputName="{{controller.ControllerInputs[input].InputName}}" commitValue="{{controller.ControllerInputs[input].KeyboardDefault}}"></paper-snowflake-dynamic-input>
+        <paper-snowflake-dynamic-input class="input" inputName="{{controller.ControllerInputs[input].InputName}}" commitValue="{{profile.InputConfiguration[input]}}"></paper-snowflake-dynamic-input>
       </template>
   </template>
   <script>
