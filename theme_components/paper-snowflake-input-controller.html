@@ -2,10 +2,15 @@
 <link rel="import" href="paper-snowflake-controller-selector">
 <link rel="import" href="paper-snowflake-profile-selector">
 <link rel="import" href="../bower_components/paper-button/paper-button">
+<link rel="import" href="paper-fonts">
 
 <polymer-element name="paper-snowflake-input-controller" attributes="selectedController availableControllers availableProfiles">
 <template>
   <style>
+    :host {
+      font-family: 'Roboto';
+
+    }
     .controller-menu {
       display: table;
       position: relative;
@@ -73,7 +78,7 @@
       .then(function(){
         console.log("Saved input configuration");
       });
-      
+
     }
 
 
