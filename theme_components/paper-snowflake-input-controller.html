@@ -23,10 +23,10 @@
   <div class="controller-menu">
     <div class="controller-selector">
       <paper-snowflake-controller-selector availableControllers="{{availableControllers}}" selectedController="{{selectedController}}"></paper-snowflake-controller-selector>
-      <paper-snowflake-profile-selector hidden?="{{!controllerSelected}}" availableProfiles="{{availableProfiles}}" selectedProfile="{{selectedProfile}}" seletcedProfileName="{{selectedProfileName}}"></paper-snowflake-profile-selector>
+      <paper-snowflake-profile-selector hidden?="{{!controllerSelected}}" availableProfiles="{{availableProfiles}}" selectedProfile="{{selectedProfile}}" selectedProfileName="{{selectedProfileName}}"></paper-snowflake-profile-selector>
     </div>
     <div class="controller-buttons">
-      <paper-button>Save</paper-button>
+      <paper-button on-tap="{{commitInputChanges}}">Save</paper-button>
     </div>
   </div>
   <div class="inputs" hidden?="{{!profileSelected}}">
@@ -43,6 +43,7 @@
       window.p = this;
       this.profileSelected = false;
       this.controllerSelected = false;
+      this.inputConfigurationValues = {};
     },
     availableProfilesChanged: function(){
       if (Object.getOwnPropertyNames(this.selectedController).length === 0 || Object.getOwnPropertyNames(this.availableProfiles).length === 0){
@@ -50,6 +51,7 @@
       }else{
         this.controllerSelected = true;
       }
+      this.inputConfigurationValues = {};
     },
     selectedProfileChanged: function(){
       if (this.selectedProfile === undefined){
@@ -57,12 +59,22 @@
       }else{
         this.profileSelected = true;
       }
+      this.inputConfigurationValues = {};
     },
     inputChanged: function(e){
       if(this.profileSelected) {
-        console.log("input changed"); //todo do somethign ehre
+        this.inputConfigurationValues[e.detail.inputName] = e.detail.commitValue;
+        console.log("Updated uncommitted input changes " + e.detail.inputName + " = " + e.detail.commitValue);
       }
     },
+    commitInputChanges: function(e){
+      console.log("Saving input changes");
+      snowflake.setInputConfiguration(this.selectedController.ControllerID, this.selectedProfileName, this.inputConfigurationValues)
+      .then(function(){
+        console.log("Saved input configuration");
+      });
+      
+    }
 
 
   });
