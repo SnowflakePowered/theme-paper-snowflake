@@ -8,10 +8,17 @@
     <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
     <link rel="import" href="bower_components/polymer/polymer.html">
     <link rel="import" href="theme_components/paper-snowflake-main.html">
+    <link rel="import" href="theme_components/paper-fonts.html">
 
+    <style>
+      html /deep/ paper-dialog {
+       font-family: 'Roboto';
+      }
+    </style>
   </head>
 
   <body unresolved>
+
   <div id="menucontainer" style="position: absolute; top: 0; bottom: 0; right: 0; left: 0; height: 100vh; width: 100%; ">
     <paper-snowflake-main style="position: absolute; top: 0; bottom: 0; right: 0; left: 0; height: 100%; width: 100%; "></paper-snowflake-main>
   </div>
