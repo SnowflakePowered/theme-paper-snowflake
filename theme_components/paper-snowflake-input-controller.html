@@ -5,9 +5,14 @@
 
 <polymer-element name="paper-snowflake-input-controller" attributes="selectedController availableControllers availableProfiles">
 <template>
-  <div class="controller-selector">
-    <paper-snowflake-controller-selector availableControllers="{{availableControllers}}" selectedController="{{selectedController}}"></paper-snowflake-controller-selector>
-    <paper-snowflake-profile-selector hidden?="{{!controllerSelected}}" availableProfiles="{{availableProfiles}}" selectedProfile="{{selectedProfile}}" seletcedProfileName="{{selectedProfileName}}"></paper-snowflake-profile-selector>
+  <div class="controller-menu">
+    <div class="controller-selector">
+      <paper-snowflake-controller-selector availableControllers="{{availableControllers}}" selectedController="{{selectedController}}"></paper-snowflake-controller-selector>
+      <paper-snowflake-profile-selector hidden?="{{!controllerSelected}}" availableProfiles="{{availableProfiles}}" selectedProfile="{{selectedProfile}}" seletcedProfileName="{{selectedProfileName}}"></paper-snowflake-profile-selector>
+    </div>
+    <div class="controller-buttons">
+      <paper-button>Save</paper-button>
+    </div>
   </div>
   <div class="inputs" hidden?="{{!profileSelected}}">
     <paper-snowflake-dynamic-input-set on-input-changed="{{inputChanged}}" controller="{{selectedController}}" profile="{{selectedProfile}}" profileName="{{selectedProfileName}}"></paper-snowflake-dynamic-input-set>
@@ -24,8 +29,8 @@
       this.profileSelected = false;
       this.controllerSelected = false;
     },
-    selectedControllerChanged: function(){
-      if (Object.getOwnPropertyNames(this.selectedController).length === 0){
+    availableProfilesChanged: function(){
+      if (Object.getOwnPropertyNames(this.selectedController).length === 0 || Object.getOwnPropertyNames(this.availableProfiles).length === 0){
         this.controllerSelected = false;
       }else{
         this.controllerSelected = true;
