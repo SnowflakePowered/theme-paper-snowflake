@@ -6,7 +6,7 @@
   <template>
     <paper-dropdown-menu label="Profiles">
           <paper-dropdown class="dropdown">
-              <core-menu class="menu" valueattr="profile-name" on-core-select="{{profileSelect}}">
+              <core-menu class="menu" id="menu" valueattr="profile-name" selected="{{selected}}" on-core-select="{{profileSelect}}">
                   <template repeat="{{profile in availableProfiles | getFilteredKeys}}">
                     <paper-item profile-name="{{profile}}">{{profile}}</paper-item>
                   </template>
@@ -24,20 +24,24 @@
         profileNames = Object.keys(_o);
         return (function() {
           var i, len, results;
-          results = [];
+        results = [];
           for (i = 0, len = profileNames.length; i < len; i++) {
             profile = profileNames[i];
-            if (profile !== "") {
+            if (profile !== "" && profile !=="null") {
               results.push(profile);
             }
           }
           return results;
         })();
       },
-      profileSelect: function(e){
-        this.selectedProfile = this.availableProfiles[e.detail.item.attributes['profile-name'].value];
-        this.selectedProfileName = e.detail.item.attributes['profile-name'].value;
-        console.log("currently active profile " + e.detail.item.attributes['profile-name'].value);
+      profileSelect: function(){
+        this.selectedProfile = this.availableProfiles[this.$.menu.selected];
+        this.selectedProfileName = this.$.menu.selected;
+        console.log("currently active profile " + this.$.menu.selected);
+
+      },
+      availableProfilesChanged: function(e){
+        this.$.menu.selected = undefined; /*Reset active profile when the controller changed (and thus, available profile objects have changed)*/
       }
     });
   </script>
