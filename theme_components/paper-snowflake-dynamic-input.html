@@ -17,7 +17,7 @@
   </style>
       {{inputName | getBtnName}}
       <paper-button raised class="set-button" on-tap="{{openDialog}}">{{commitValue | getInputName}}</paper-button>
-      <paper-snowflake-dynamic-input-dialog inputName="{{inputName}}" opened="{{dialogOpened}}" commitValue="{{commitValue}}"></paper-snowflake-dynamic-input-dialog>
+      <paper-snowflake-dynamic-input-dialog inputName="{{inputName}}" opened="{{dialogOpened}}" commitValue="{{commitValue}}" profileType="{{profileType}}"></paper-snowflake-dynamic-input-dialog>
   </template>
   <script>
     Polymer('paper-snowflake-dynamic-input', {
