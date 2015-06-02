@@ -1,0 +1,51 @@
+<link rel="import" href="../bower_components/paper-dropdown/paper-dropdown">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu">
+<link rel="import" href="../bower_components/paper-item/paper-item">
+<link rel="import" href="../bower_components/core-menu/core-menu">
+<link rel="import" href="paper-fonts">
+
+<polymer-element name="paper-snowflake-input-gamepad-selector" attributes="selectedButton">
+  <template>
+  <paper-dropdown-menu>
+      <paper-dropdown class="dropdown">
+        	<core-menu id="buttonSelector" selected="{{selectedButton}}" valueattr="button">
+            <paper-item button="GAMEPAD_A">A</paper-item>
+            <paper-item button="GAMEPAD_B">B</paper-item>
+            <paper-item button="GAMEPAD_X">X</paper-item>
+            <paper-item button="GAMEPAD_Y">Y</paper-item>
+            <paper-item button="GAMEPAD_START">START</paper-item>
+            <paper-item button="GAMEPAD_SELECT">SELECT</paper-item>
+            <paper-item button="GAMEPAD_DPAD_UP">D-pad Up</paper-item>
+            <paper-item button="GAMEPAD_DPAD_DOWN">D-pad Down</paper-item>
+            <paper-item button="GAMEPAD_DPAD_LEFT">D-pad Left</paper-item>
+            <paper-item button="GAMEPAD_DPAD_RIGHT">D-pad Right</paper-item>
+            <paper-item button="GAMEPAD_L1">L1</paper-item>
+            <paper-item button="GAMEPAD_L2">L2</paper-item>
+            <paper-item button="GAMEPAD_L3">L3</paper-item>
+            <paper-item button="GAMEPAD_R1">R1</paper-item>
+            <paper-item button="GAMEPAD_R2">R2</paper-item>
+            <paper-item button="GAMEPAD_R3">R3</paper-item>
+            <paper-item button="GAMEPAD_L_X_RIGHT">Left Analog Right</paper-item>
+            <paper-item button="GAMEPAD_L_X_LEFT">Left Analog Left</paper-item>
+            <paper-item button="GAMEPAD_L_Y_UP">Left Analog Up</paper-item>
+            <paper-item button="GAMEPAD_L_Y_DOWN">Left Analog Down</paper-item>
+            <paper-item button="GAMEPAD_R_X_RIGHT">Right Analog Right</paper-item>
+            <paper-item button="GAMEPAD_R_X_LEFT">Right Analog Left</paper-item>
+            <paper-item button="GAMEPAD_R_Y_RIGHT">Right Analog Right</paper-item>
+            <paper-item button="GAMEPAD_R_Y_LEFT">Right Analog Left</paper-item>
+      		</core-menu>
+      </paper-dropdown>
+    </paper-dropdown-menu>
+  </template>
+  <script>
+       Polymer('paper-snowflake-input-gamepad-selector', {
+        getKeys : function(o){
+          return Object.keys(o);
+        },
+
+        ready: function() {
+        }
+      });
+  </script>
+</polymer-element>
+<paper-snowflake-input-gamepad-selector></paper-snowflake-input-gamepad-selector>
