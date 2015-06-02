@@ -9,6 +9,8 @@
 
 <link rel="import" href="../bower_components/core-animation/core-animation">
 <link rel="import" href="../bower_components/core-animated-pages/core-animated-pages">
+<link rel="import" href="../bower_components/core-pages/core-pages">
+
 <link rel="import" href="../bower_components/core-animated-pages/transitions/slide-from-right">
 
 <link rel="import" href="../bower_components/paper-fab/paper-fab">
@@ -115,8 +117,13 @@
       </section>
 
       <section unresolved class="settingsMain">
-        <paper-snowflake-input-controller selectedController="{{selectedController}}" availableControllers="{{availableControllers}}" availableProfiles="{{availableProfiles}}"></paper-snowflake-input-controller>
-      </section>
+        <core-pages id="settingsPages" selected="0">
+          <paper-snowflake-input-controller label="Input Controller" selectedController="{{selectedController}}" availableControllers="{{availableControllers}}" availableProfiles="{{availableProfiles}}"></paper-snowflake-input-controller>
+          <div label="Hello World">
+            Hello World
+          </div>
+        <core-pages>
+    </section>
 
 
   </core-animated-pages>
