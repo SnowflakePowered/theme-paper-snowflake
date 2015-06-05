@@ -4,22 +4,13 @@
 <polymer-element name="paper-snowflake-dynamic-input-dialog" attributes="inputName controllerName value commitValue deviceName profileType opened">
 
   <template>
-  <style>
-  .set-button {
-    background: #777;
-    color: white;
-  }
-  .center {
-    display: flex;
-    justify-content: center;
-  }
-  </style>
+  <link rel="stylesheet" type="text/css" href="style/paper-snowflake-dynamic-input-dialog.css"/>
   <paper-dialog id="dialog" heading="Set Value" opened="{{opened}}" on-keydown="{{setKey}}" backdrop layered autoCloseDisabled closeAttribute="closeDialog">
     <p>Set your key for {{inputName | getBtnName}}</p>
     <div style="justify-content: center; display: flex;">
       <p>{{value | getInputName}}</p>
     </div>
-    
+
     <paper-button closeDialog on-tap="{{saveChange}}">Save</paper-button> <paper-button closeDialog on-tap="{{resetChange}}">Cancel</paper-button>
   </paper-dialog>
   </template>

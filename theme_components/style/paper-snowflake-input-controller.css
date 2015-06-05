@@ -1,0 +1,17 @@
+:host {
+  font-family: 'Roboto';
+
+}
+.controller-menu {
+  display: table;
+  position: relative;
+  width: 100%;
+}
+.controller-selector {
+  display: table-cell;
+  width: calc(100% - 30px);
+}
+.controller-buttons {
+  display: table-cell;
+  width: 30px;
+}

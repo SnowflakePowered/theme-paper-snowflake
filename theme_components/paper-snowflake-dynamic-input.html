@@ -9,12 +9,8 @@
 <polymer-element name="paper-snowflake-dynamic-input" attributes="inputName controllerName commitValue profileName profileType">
 
   <template>
-  <style>
-  .set-button {
-    background: #777;
-    color: white;
-  }
-  </style>
+    <link rel="stylesheet" type="text/css" href="style/paper-snowflake-dynamic-input.css"/>
+
       {{inputName | getBtnName}}
       <paper-button raised class="set-button" on-tap="{{openDialog}}">{{commitValue | getInputName}}</paper-button>
       <paper-snowflake-dynamic-input-dialog inputName="{{inputName}}" opened="{{dialogOpened}}" commitValue="{{commitValue}}" profileType="{{profileType}}"></paper-snowflake-dynamic-input-dialog>

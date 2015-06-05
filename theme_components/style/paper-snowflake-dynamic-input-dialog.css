@@ -1,0 +1,8 @@
+.set-button {
+  background: #777;
+  color: white;
+}
+.center {
+  display: flex;
+  justify-content: center;
+}

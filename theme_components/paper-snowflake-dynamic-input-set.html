@@ -3,11 +3,11 @@
 <polymer-element name="paper-snowflake-dynamic-input-set" attributes="controller profile profileName">
 
   <template>
-  <style>
-  .input {
-    display: block;
-  }
-  </style>
+      <style>
+      .input {
+        display: block;
+      }
+      </style>
       <template repeat="{{input in controller.ControllerInputs | getKeys}}">
         <paper-snowflake-dynamic-input class="input" inputName="{{controller.ControllerInputs[input].InputName}}" commitValue="{{profile.InputConfiguration[input]}}" profileName="{{profileName}}" profileType="{{profile.ProfileType}}"></paper-snowflake-dynamic-input>
       </template>

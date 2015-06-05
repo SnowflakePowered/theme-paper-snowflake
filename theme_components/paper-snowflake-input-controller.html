@@ -6,25 +6,8 @@
 
 <polymer-element name="paper-snowflake-input-controller" attributes="selectedController availableControllers availableProfiles">
 <template>
-  <style>
-    :host {
-      font-family: 'Roboto';
+  <link rel="stylesheet" type="text/css" href="style/paper-snowflake-input-controller.css"/>
 
-    }
-    .controller-menu {
-      display: table;
-      position: relative;
-      width: 100%;
-    }
-    .controller-selector {
-      display: table-cell;
-      width: calc(100% - 30px);
-    }
-    .controller-buttons {
-      display: table-cell;
-      width: 30px;
-    }
-  </style>
   <div class="controller-menu">
     <div class="controller-selector">
       <paper-snowflake-controller-selector availableControllers="{{availableControllers}}" selectedController="{{selectedController}}"></paper-snowflake-controller-selector>

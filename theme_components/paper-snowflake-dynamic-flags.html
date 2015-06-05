@@ -2,14 +2,7 @@
 <link rel="import" href="paper-snowflake-emulator-selector">
 <polymer-element name="paper-snowflake-dynamic-flags" attributes="selectedGame">
   <template>
-    <style>
-     .emulator-selector {
-        padding-left: 10px;
-        padding-bottom: 10px;
-        border-bottom: 1px #dedede solid;
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style/paper-snowflake-dynamic-flags.css"/>
     <div class="emulator-selector">
       <span>Emulator &mdash;</span><paper-snowflake-emulator-selector selectedGame="{{selectedGame}}" selectedEmulator="{{selectedEmulator}}" availableEmulators="{{availableEmulators}}"></paper-snowflake-emulator-selector>
     </div>
