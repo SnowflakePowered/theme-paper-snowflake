@@ -1,0 +1,49 @@
+<link rel="import" href="paper-fonts">
+<!--<link rel="import" href="../bower_components/core-selector/core-selector">
+<link rel="import" href="../bower_components/core-pages/core-pages">
+<link rel="import" href="../bower_components/paper-item/paper-item">-->
+
+<polymer-element name="pages-selector">
+  <template>
+    <link rel="stylesheet" type="text/css" href="style/pages-selector.css"/>
+
+    <div id="container">
+      <section class="sidebar">
+        <core-selector id="selector" selected="{{selectedMenu}}">
+            <template repeat="{{item in items | filter}}">
+             <paper-item class="item">{{item}}</paper-item>
+            </template>
+        </core-selector>
+      </section>
+      <section class="content">
+        <core-pages id="pages" selected="{{selectedMenu}}">
+          <content id="content"></content>
+        </core-pages>
+      </section>
+    </div>
+  </template>
+  <script>
+       Polymer('pages-selector', {
+        ready: function() {
+          this.items = this.$.content.getDistributedNodes();
+          this.selectedMenu = 0;
+        },
+        filter: function(o){
+          var element, filteredElems, i, len;
+            filteredElems = [];
+            if(o !== undefined){
+            for (i = 0, len = o.length; i < len; i++) {
+              element = o[i];
+              console.log(element);
+             if (element.attributes !== undefined) {
+               if(element.attributes["label"] !== undefined){
+                 filteredElems.push(element.attributes["label"].value);
+                }
+              }
+            }
+          }
+          return filteredElems;
+        }
+      });
+  </script>
+</polymer-element>

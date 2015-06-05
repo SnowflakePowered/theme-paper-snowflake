@@ -6,6 +6,7 @@
 <link rel="import" href="paper-snowflake-games-container">
 <link rel="import" href="paper-snowflake-game-details">
 <link rel="import" href="paper-snowflake-input-controller">
+<link rel="import" href="pages-selector">
 
 <link rel="import" href="../bower_components/core-animation/core-animation">
 <link rel="import" href="../bower_components/core-animated-pages/core-animated-pages">
@@ -28,12 +29,19 @@
       paper-snowflake-top {
         height: 100px;
       }
-      .selectMain {
+      .select-main {
         height: 100%;
         display: table;
       }
-      .settingsMain {
+      .settings-main {
         height: 100%;
+      }
+      .settings-selector, .main-container {
+        height: 100%;
+        width: 100%;
+      }
+      paper-snowflake-input-controller {
+        margin: 0 10px;
       }
       paper-snowflake-platform-selector {
         position: relative;
@@ -58,10 +66,6 @@
         margin-left: 307px;
         box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
 
-      }
-      .main-container {
-        height: 100%;
-        width: 100%;
       }
       paper-snowflake-game-details {
         z-index: 1000000;
@@ -111,18 +115,16 @@
     <paper-snowflake-top unresolved selectedPlatform="{{selectedPlatform}}"></paper-snowflake-top>
     <core-animated-pages id="pageContainer" class="main-container" transitions="slide-from-right">
 
-      <section unresolved class="selectMain">
+      <section unresolved class="select-main">
         <paper-snowflake-platform-selector selectedPlatform="{{selectedPlatform}}" availablePlatforms="{{availablePlatforms}}"></paper-snowflake-platform-selector>
         <paper-snowflake-games-container on-game-show="{{gameShow}}" selectedGame="{{selectedGame}}" selectedPlatform="{{selectedPlatform}}" selectedPlatformGames="{{selectedPlatformGames}}"></paper-snowflake-games-container>
       </section>
 
-      <section unresolved class="settingsMain">
-        <core-pages id="settingsPages" selected="0">
-          <paper-snowflake-input-controller label="Input Controller" selectedController="{{selectedController}}" availableControllers="{{availableControllers}}" availableProfiles="{{availableProfiles}}"></paper-snowflake-input-controller>
-          <div label="Hello World">
-            Hello World
-          </div>
-        <core-pages>
+      <section unresolved class="settings-main">
+          <pages-selector class="settings-selector">
+          <paper-snowflake-input-controller label="Controller Settings" selectedController="{{selectedController}}" availableControllers="{{availableControllers}}" availableProfiles="{{availableProfiles}}"></paper-snowflake-input-controller>
+          <div label="Port Settings">Hello World</div>
+        </pages-selector>
     </section>
 
 
@@ -134,6 +136,8 @@
     Polymer('paper-snowflake-main', {
       ready: function() {
         window.du = this;
+        this.selectedMenu = 0;
+        this.settingsPages = ["jello", "world"];
         this.addEventListener('game-play', function(event) {
           console.log(event);
           snowflake.getPreferences(event.detail.game.PlatformID)
