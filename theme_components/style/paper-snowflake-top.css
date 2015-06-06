@@ -13,6 +13,20 @@
   display: table-cell;
   position: relative;
 }
+.indicator {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  width: 90%;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  outline: none;
+  font-size: 0.6em;
+  padding: 0 20px;
+  height: 60%;
+  position: absolute;
+  display: none;
+}
 #container {
   width: 101%;
   height: inherit;

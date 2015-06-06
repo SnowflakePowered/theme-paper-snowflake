@@ -7,6 +7,7 @@
 <link rel="import" href="paper-snowflake-game-details">
 <link rel="import" href="paper-snowflake-input-controller">
 <link rel="import" href="pages-selector">
+<link rel="import" href="fuse-provider">
 
 <link rel="import" href="../bower_components/core-animation/core-animation">
 <link rel="import" href="../bower_components/core-animated-pages/core-animated-pages">
@@ -111,13 +112,14 @@
       selectedController="{{selectedController}}"
       availableProfiles="{{availableProfiles}}"
     ></paper-snowflake-state>
+    <fuse-provider inputArray="{{selectedPlatformGames}}" searchQuery="{{searchQuery}}" searchKeys="{{searchKeys}}" outputArray="{{availableGames}}"></fuse-provider>
     <paper-snowflake-game-details unresolved id="detailsView" coverUrl="{{coverFrontUrl}}" selectedGame="{{selectedGame}}"></paper-snowflake-game-details>
-    <paper-snowflake-top unresolved selectedPlatform="{{selectedPlatform}}"></paper-snowflake-top>
+    <paper-snowflake-top unresolved selectedPlatform="{{selectedPlatform}}" searchQuery="{{searchQuery}}"></paper-snowflake-top>
     <core-animated-pages id="pageContainer" class="main-container" transitions="slide-from-right">
 
       <section unresolved class="select-main">
         <paper-snowflake-platform-selector selectedPlatform="{{selectedPlatform}}" availablePlatforms="{{availablePlatforms}}"></paper-snowflake-platform-selector>
-        <paper-snowflake-games-container on-game-show="{{gameShow}}" selectedGame="{{selectedGame}}" selectedPlatform="{{selectedPlatform}}" selectedPlatformGames="{{selectedPlatformGames}}"></paper-snowflake-games-container>
+        <paper-snowflake-games-container on-game-show="{{gameShow}}" selectedGame="{{selectedGame}}" selectedPlatform="{{selectedPlatform}}" selectedPlatformGames="{{availableGames}}"></paper-snowflake-games-container>
       </section>
 
       <section unresolved class="settings-main">
@@ -137,6 +139,7 @@
       ready: function() {
         window.du = this;
         this.selectedMenu = 0;
+        this.searchKeys = ["Name"];
         this.settingsPages = ["jello", "world"];
         this.addEventListener('game-play', function(event) {
           console.log(event);
