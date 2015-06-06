@@ -10,7 +10,48 @@
 
 <polymer-element name="paper-snowflake-dynamic-flag" attributes="flag value gameId emulatorName">
   <template>
-    <link rel="stylesheet" type="text/css" href="style/paper-snowflake-dynamic-flag.css"/>
+    <style>
+      .flag-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-family: 'Roboto';
+      }
+      .flag-container-inner {
+      }
+      #flagDescription {
+        margin-bottom: 5px;
+      }
+      paper-slider, paper-dropdown-menu {
+        width: 350px;
+      }
+      #flagCustom {
+        font-size: 0.8em;
+        text-transform: uppercase;
+        color: #ffffff;
+        display: inline;
+        background-color: #2196F3;
+        border-radius: 3px;
+        padding: 3px;
+      }
+      #flagCustom:after {
+        content: 'customized';
+      }
+      #flagCustom:hover:after {
+        content: 'reset to default';
+      }
+      #flagCustom:hover {
+        background-color: #F44336;
+        cursor: pointer;
+      }
+
+      #flagDescription {
+        margin-right: 5px;
+      }
+    </style>
     <div class="flag-container">
       <div class="flag-container-inner">
         <div id="flagDescription">{{flag.Description}}</div>
