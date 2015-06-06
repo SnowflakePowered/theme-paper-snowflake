@@ -1,0 +1,33 @@
+
+<polymer-element name="fuse-provider" attributes="inputArray searchQuery searchKeys outputArray">
+  <template>
+  </template>
+  <script src="../bower_components/fuse/src/fuse.min.js"></script>
+  <script>
+       Polymer('fuse-provider', {
+        ready: function() {
+          this.fuse = new Fuse();
+          this.searchQuery = "";
+          window.fusePro = this;
+        },
+        resetFuse: function() {
+          this.fuse = new Fuse(this.inputArray, { 'keys': this.searchKeys });
+          this.searchQuery = "";
+          this.searchQueryChanged();
+        },
+        searchQueryChanged: function(){
+          if(this.searchQuery === ""){
+            return this.outputArray = this.inputArray;
+          }else{
+            return this.outputArray = this.fuse.search(this.searchQuery);
+          }
+        },
+        inputArrayChanged: function(){
+          this.resetFuse();
+        },
+        searchKeysChanged: function(){
+          this.resetFuse();
+        }
+      });
+  </script>
+</polymer-element>
