@@ -8,7 +8,7 @@
 
 
 <link rel="import" href="paper-fonts">
-<link rel="import" href="paper-snowflake-dynamic-flags">
+<link rel="import" href="paper-snowflake-dynamic-flags-controller">
 
 <polymer-element name="paper-snowflake-game-details" attributes="coverUrl selectedGame opened smallDetailText">
   <template>
@@ -40,7 +40,7 @@
                 </p>
               </div>
               <div style="padding-top: 10px;">
-                <paper-snowflake-dynamic-flags selectedGame="{{selectedGame}}"></paper-snowflake-dynamic-flags>
+                <paper-snowflake-dynamic-flags-controller selectedGame="{{selectedGame}}"></paper-snowflake-dynamic-flags-controller>
               </div>
             </core-pages>
           </div>

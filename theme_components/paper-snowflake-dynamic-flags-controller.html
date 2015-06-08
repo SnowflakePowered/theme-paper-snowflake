@@ -1,0 +1,109 @@
+<link rel="import" href="paper-snowflake-dynamic-flag">
+<link rel="import" href="paper-snowflake-emulator-selector">
+<polymer-element name="paper-snowflake-dynamic-flags-controller" attributes="selectedGame">
+  <template>
+    <link rel="stylesheet" type="text/css" href="style/paper-snowflake-dynamic-flags-controller.css"/>
+    <div class="emulator-selector">
+      <span>Emulator &mdash;</span><paper-snowflake-emulator-selector selectedGame="{{selectedGame}}" selectedEmulator="{{selectedEmulator}}" availableEmulators="{{availableEmulators}}"></paper-snowflake-emulator-selector>
+    </div>
+
+    <template repeat="{{flag in fkeys | getKeys}}">
+      <paper-snowflake-dynamic-flag on-flag-update="{{flagUpdate}}" flag-locked="{{flagReset}}" flag="{{fkeys[flag]}}" value="{{fvalues[flag]}}" gameId="{{selectedGame.UUID}}" emulatorName="{{selectedEmulator.name}}"></paper-snowflake-dynamic-flag>
+    </template>
+  </template>
+  <script>
+    Polymer('paper-snowflake-dynamic-flags-controller', {
+      publish: {
+        fkeys : {},
+        fvalues: {}
+      },
+      ready: function() {
+        this.selected = 0;
+        this.opened = false;
+        window.d = this;
+        this.valueSelected;
+        this.defaultValues;
+        this.commitQueue = {};
+      },
+      getKeys: function(o){
+        return Object.keys(o);
+      },
+      flagUpdate: function(event){
+        var flag = event.detail.flag;
+        var value = event.detail.value;
+        var locked = event.detail.locked;
+        if(!locked){
+          this.commitQueue[this.selectedEmulator.name][this.selectedGame.UUID][flag.Key] =  value;
+          console.log("Committed value " + value + " to flag " + flag.Key);
+        }
+      },
+      saveFlags: function(){
+        if(this.selectedGame !== undefined && this.selectedGame !== null){
+          var values = this.commitQueue[this.selectedEmulator.name][this.selectedGame.UUID];
+          return snowflake.setFlagValues(this.selectedEmulator.name, this.selectedGame.UUID, values).then((function(_this) {
+            return function() {
+              _this.commitQueue[_this.selectedEmulator.name][_this.selectedGame.UUID] = {};
+              return snowflake.getFlagValues(_this.selectedEmulator.name, _this.selectedGame.UUID);
+            };
+          })(this)).then((function(_this) {
+            return function() {
+              return _this.fvalues = data;
+            };
+          })(this));
+        }
+      },
+      flagReset: function(){
+      /*  if(this.selectedGame !== undefined && this.selectedGame !== null){
+          this.commitQueue[this.selectedEmulator.name] = {};
+          this.commitQueue[this.selectedEmulator.name][this.selectedGame.UUID] = {};
+          var hasProp = {}.hasOwnProperty;
+          snowflake.getEmulatorFlags(this.selectedEmulator.name).then((function(_this) {
+            return function(data) {
+              _this.fkeys = data;
+              return snowflake.getFlagDefaultValues(_this.selectedEmulator.name); //Get flag default values
+            };
+          })(this))
+              this.defaultValues = data;
+              var flag, flags, i, key, len, values;
+              values = {};
+              flags = (function() { //Get the flag values that are not marked as custom
+                var ref, results;
+                ref = this.fkeys;
+                results = [];
+                for (key in ref) {
+                  if (!hasProp.call(ref, key)) continue;
+                  flag = ref[key];
+                  if (localStorage.getItem("unlocked_" + this.selectedGame.UUID + ";" + this.selectedEmulator.name + ";" + flag.Key) === null) {
+                    console.log(flag.Key + " is locked to defaults. Resyncing.");
+                    results.push(flag);
+                  }else{
+                    console.log(flag.Key + " is unlocked. Forgoing resync.");
+                  }
+                }
+                return results;
+              }
+              for (i = 0, len = flags.length; i < len; i++) { //for each flag that is not marked as custom, reset them to default
+                flag = flags[i];
+                values[flag.Key] = data[flag.Key];
+                _this.commitQueue[_this.selectedEmulator.name][_this.selectedGame.UUID] = values;
+              }
+              return _this.saveFlags();*/
+
+              //todo rewrite this to only make changes to commitQuueu
+
+      },
+      selectedEmulatorChanged: function(){
+        this.async(function() {
+          this.flagReset();
+        }, null, 100);
+      },
+      selectedGameChanged: function(){
+        console.log("game chaged");
+        this.async(function() {
+          this.flagReset();
+        }, null, 100);
+      }
+    });
+  </script>
+</polymer-element>
+<paper-snowflake-dynamic-flags-controller></paper-snowflake-dynamic-flags-controller>
