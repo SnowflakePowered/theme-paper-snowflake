@@ -66,6 +66,7 @@
         },
         updateLock: function(){
           this.locked = (localStorage.getItem("unlocked_" + this.gameId + ";" + this.emulatorName + ";" + this.flag.Key) === null);
+          this.fire('flag-update', {'value': this.value, 'flag': this.flag, 'locked': this.locked });
         },
         toggleLock: function(){
           if(this.locked) {
@@ -90,7 +91,6 @@
           }
         },
         valueChanged: function() {
-          this.fire('flag-update', {'value': this.value, 'flag': this.flag, 'locked': this.locked });
           this.forceRefresh();
         },
         gameIdChanged: function(){
