@@ -1,0 +1,24 @@
+.emulator-selector {
+   padding-left: 10px;
+   padding-bottom: 10px;
+   border-bottom: 1px #dedede solid;
+   width: 100%;
+ }
+
+.buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 5px 0;
+}
+
+.save {
+  background: #03A9F4;
+}
+
+.reset {
+  background: #F44336;
+}
+
+.button {
+  color: white;
+}

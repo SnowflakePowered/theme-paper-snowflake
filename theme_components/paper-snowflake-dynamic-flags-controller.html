@@ -1,21 +1,26 @@
 <link rel="import" href="paper-snowflake-dynamic-flag">
 <link rel="import" href="paper-snowflake-emulator-selector">
+<link rel="import" href="../bower_components/paper-button/paper-button">
+
 <polymer-element name="paper-snowflake-dynamic-flags-controller" attributes="selectedGame">
   <template>
     <link rel="stylesheet" type="text/css" href="style/paper-snowflake-dynamic-flags-controller.css"/>
     <div class="emulator-selector">
       <span>Emulator &mdash;</span><paper-snowflake-emulator-selector selectedGame="{{selectedGame}}" selectedEmulator="{{selectedEmulator}}" availableEmulators="{{availableEmulators}}"></paper-snowflake-emulator-selector>
     </div>
-
-    <template repeat="{{flag in fkeys | getKeys}}">
-      <paper-snowflake-dynamic-flag on-flag-update="{{flagUpdate}}" flag="{{fkeys[flag]}}" value="{{fvalues[flag]}}" gameId="{{selectedGame.UUID}}" emulatorName="{{selectedEmulator.name}}"></paper-snowflake-dynamic-flag>
+    <div class="buttons">
+      <paper-button raised class="save button" on-tap="{{saveFlags}}">Save</paper-button>
+      <paper-button raised class="reset button">reset changes</paper-button>
+    </div>
+    <template repeat="{{flag in flagKeys | getKeys}}">
+      <paper-snowflake-dynamic-flag on-flag-update="{{flagUpdate}}" flag="{{flagKeys[flag]}}" value="{{flagValues[flag]}}" gameId="{{selectedGame.UUID}}" emulatorName="{{selectedEmulator.name}}"></paper-snowflake-dynamic-flag>
     </template>
   </template>
   <script>
     Polymer('paper-snowflake-dynamic-flags-controller', {
       publish: {
-        fkeys : {},
-        fvalues: {}
+        flagKeys : {},
+        flagValues: {}
       },
       ready: function() {
         this.selected = 0;
@@ -47,52 +52,50 @@
               return snowflake.getFlagValues(_this.selectedEmulator.name, _this.selectedGame.UUID);
             };
           })(this)).then((function(_this) {
-            return function() {
-              return _this.fvalues = data;
+            return function(data) {
+              return _this.flagValues = data;
             };
           })(this));
         }
       },
       flagReset: function(){
-        this.commitQueue[this.selectedEmulator.name] = {};
         this.commitQueue[this.selectedEmulator.name][this.selectedGame.UUID] = {};
 
         if(this.selectedGame !== undefined && this.selectedGame !== null){
-          snowflake.getEmulatorFlags(this.selectedEmulator.name).then((function(_this) {
-            return function(data) {
-              _this.fkeys = data;
-              return snowflake.getFlagDefaultValues(_this.selectedEmulator.name);
-            };
-          })(this)).then((function(_this) {
-            return function(data) {
-              _this.defaultValues = data;
-              return snowflake.getFlagValues(_this.selectedEmulator.name, _this.selectedGame.UUID);
-            };
-          })(this)).then((function(_this) {
-            return function(data) {
-              var _defaultValues, _flagValues, flag, i, len, locked, ref, results;
-              _flagValues = data;
-              _defaultValues = _this.defaultValues;
-              ref = Object.keys(_this.fkeys);
-              results = [];
-              for (i = 0, len = ref.length; i < len; i++) {
-                flag = ref[i];
-                locked = (localStorage.getItem("unlocked_" + _this.selectedGame.UUID + ";" + _this.selectedEmulator.name + ";" + _this.fkeys[flag].Key) === null);
-                if (locked) {
-                  results.push(_this.commitQueue[_this.selectedEmulator.name][_this.selectedGame.UUID][key] = _defaultValues[key]);
-                } else {
-                  results.push(_this.commitQueue[_this.selectedEmulator.name][_this.selectedGame.UUID][key] = _flagValues[key]);
+            snowflake.getEmulatorFlags(this.selectedEmulator.name).then((function(_this) {
+              return function(data) {
+                _this.flagKeys = data;
+                return snowflake.getFlagDefaultValues(_this.selectedEmulator.name);
+              };
+            })(this)).then((function(_this) {
+              return function(data) {
+                _this.defaultValues = data;
+                return snowflake.getFlagValues(_this.selectedEmulator.name, _this.selectedGame.UUID);
+              };
+            })(this)).then((function(_this) {
+              return function(data) {
+                var _defaultValues, _flagValues, flag, i, len, locked, ref, results;
+                _flagValues = data;
+                _defaultValues = _this.defaultValues;
+                ref = Object.keys(_this.flagKeys);
+                results = [];
+                for (i = 0, len = ref.length; i < len; i++) {
+                  flag = ref[i];
+                  locked = (localStorage.getItem("unlocked_" + _this.selectedGame.UUID + ";" + _this.selectedEmulator.name + ";" + _this.flagKeys[flag].Key) === null);
+                  if (locked) {
+                    results.push(_this.commitQueue[_this.selectedEmulator.name][_this.selectedGame.UUID][flag] = _defaultValues[flag]);
+                  } else {
+                    results.push(_this.commitQueue[_this.selectedEmulator.name][_this.selectedGame.UUID][flag ] = _flagValues[flag]);
+                  }
                 }
-              }
-              return results;
-            };
-          })(this));
+                console.log(_this.commitQueue);
+                return _this.saveFlags(results);
+              };
+            })(this));
           }
-
-              //todo rewrite this to only make changes to commitQuueu
-
       },
       selectedEmulatorChanged: function(){
+        this.commitQueue[this.selectedEmulator.name] = {};
         this.async(function() {
           this.flagReset();
         }, null, 100);
