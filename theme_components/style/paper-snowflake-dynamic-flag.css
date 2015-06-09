@@ -38,3 +38,7 @@ paper-slider, paper-dropdown-menu {
 #flagDescription {
   margin-right: 5px;
 }
+
+.flagContent {
+  color: grey;
+}
