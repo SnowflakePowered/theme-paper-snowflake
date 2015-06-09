@@ -75,7 +75,6 @@
           }else{
             console.log("Locking");
             localStorage.removeItem("unlocked_" + this.gameId + ";" + this.emulatorName + ";" + this.flag.Key);
-            this.fire('flag-locked', {'value': this.value, 'flag': this.flag, 'locked': this.locked });
           }
           this.updateLock();
         },
