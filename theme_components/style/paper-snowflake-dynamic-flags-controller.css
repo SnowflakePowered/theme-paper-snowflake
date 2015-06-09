@@ -7,8 +7,10 @@
 
 .buttons {
   display: flex;
-  flex-direction: row-reverse;
-  padding: 5px 0;
+  transform: translateY(-35px);
+  position: absolute;
+  font-size: 10px;
+  right: 0;
 }
 
 .save {
@@ -26,5 +28,29 @@
 .flags {
   overflow-x: hidden;
   overflow-y: auto;
-  height: calc(100% - 227px);
+  height: 70%;
+}
+.flags::-webkit-scrollbar-track
+{
+  background-color: #F5F5F5;
+}
+
+.flags::-webkit-scrollbar
+{
+  transition: background-color 0.5s ease-in;
+  width: 10px;
+  background-color: #dedede;
+  background-color: rgb(204,204,204);
+}
+.flags::-webkit-scrollbar-thumb
+{
+  transition: background-color 0.5s ease-in;
+  background-color: rgb(204,204,204);
+}
+.container {
+  height: 100%;
+}
+
+.header {
+  position: relative;
 }
