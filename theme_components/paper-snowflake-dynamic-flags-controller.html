@@ -39,6 +39,11 @@
       getKeys: function(o){
         return Object.keys(o);
       },
+      resetCommitQueue: function(){
+        this.commitQueue[this.selectedEmulator.name][this.selectedGame.UUID] = {};
+        this.flagReset();
+        this.fire('notify-message', {'message' : "Settings changes reset for " + this.selectedGame.Name});
+      },
       flagUpdate: function(event){
         var flag = event.detail.flag;
         var value = event.detail.value;
