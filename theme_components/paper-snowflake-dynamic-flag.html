@@ -4,6 +4,7 @@
 <link rel="import" href="../bower_components/paper-dropdown/paper-dropdown">
 <link rel="import" href="../bower_components/paper-item/paper-item">
 <link rel="import" href="../bower_components/core-menu/core-menu">
+
 <link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu">
 
 <link rel="import" href="paper-fonts">
@@ -21,6 +22,8 @@
         font-family: 'Roboto';
       }
       .flag-container-inner {
+        display: flex;
+        align-items: center;
       }
       #flagDescription {
         margin-bottom: 5px;
@@ -28,26 +31,6 @@
       paper-slider, paper-dropdown-menu {
         width: 350px;
       }
-    /*  #flaglocked {
-        font-size: 0.8em;
-        text-transform: uppercase;
-        color: #ffffff;
-        display: inline;
-        background-color: #2196F3;
-        border-radius: 3px;
-        padding: 3px;
-      }
-      #flaglocked:after {
-        content: 'lockedized';
-      }
-      #flaglocked:hover:after {
-        content: 'reset to default';
-      }
-      #flaglocked:hover {
-        background-color: #F44336;
-        cursor: pointer;
-      }*/
-
       #flagDescription {
         margin-right: 5px;
 
@@ -64,11 +47,25 @@
         color: grey;
       }
 
+      .lock-icon {
+        color: grey;
+      }
+      .lock-icon[locked="false"]:hover {
+        color: #43A047;
+      }
+      .lock-icon[locked="true"]:hover {
+        color: #E53935;
+      }
+      #flaglocked {
+        background: none;
+        border: none;
+        outline: none;
+      }
     </style>
     <div class="flag-container">
       <div class="flag-container-inner">
         <div id="flagDescription">{{flag.Description}}</div>
-        <button on-tap="{{toggleLock}}" id="flaglocked">{{locked}}</button>
+        <paper-icon-button class="lock-icon" icon="{{lockIcon}}" locked="{{locked}}" on-tap="{{toggleLock}}"></paper-icon-button>
       </div>
       <div id="flagContent"></div>
     </div>
@@ -77,8 +74,15 @@
       Polymer('paper-snowflake-dynamic-flag', {
         ready: function(){
         },
+        publish: {
+          locked: {
+            value: false,
+            reflect: true
+          }
+        },
         updateLock: function(){
           this.locked = (localStorage.getItem("unlocked_" + this.gameId + ";" + this.emulatorName + ";" + this.flag.Key) === null);
+          this.lockIcon = this.locked ? "lock" : "lock-open";
           this.fire('flag-update', {'value': this.value, 'flag': this.flag, 'locked': this.locked });
         },
         toggleLock: function(){

@@ -7,9 +7,9 @@
 
 .buttons {
   display: flex;
-  transform: translateY(-35px);
+  transform: translateY(-45px);
   position: absolute;
-  font-size: 10px;
+  font-size: 12px;
   right: 0;
 }
 
