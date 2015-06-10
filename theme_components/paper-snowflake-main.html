@@ -16,6 +16,7 @@
 <link rel="import" href="../bower_components/core-animated-pages/transitions/slide-from-right">
 
 <link rel="import" href="../bower_components/paper-fab/paper-fab">
+<link rel="import" href="../bower_components/paper-toast/paper-toast">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog">
 
 <polymer-element name="paper-snowflake-main">
@@ -26,6 +27,10 @@
         overflow: hidden;
         -webkit-user-select: none;
         user-select: none;
+      }
+      #statusToast {
+        font-family: 'Roboto';
+        z-index: 1000000000000000;
       }
       paper-snowflake-top {
         height: 100px;
@@ -113,7 +118,7 @@
       availableProfiles="{{availableProfiles}}"
     ></paper-snowflake-state>
     <fuse-provider inputArray="{{selectedPlatformGames}}" searchQuery="{{searchQuery}}" searchKeys="{{searchKeys}}" outputArray="{{availableGames}}"></fuse-provider>
-    <paper-snowflake-game-details unresolved id="detailsView" coverUrl="{{coverFrontUrl}}" selectedGame="{{selectedGame}}"></paper-snowflake-game-details>
+    <paper-snowflake-game-details on-notify-message="{{messagePopup}}" unresolved id="detailsView" coverUrl="{{coverFrontUrl}}" selectedGame="{{selectedGame}}"></paper-snowflake-game-details>
     <paper-snowflake-top unresolved selectedPlatform="{{selectedPlatform}}" searchQuery="{{searchQuery}}"></paper-snowflake-top>
     <core-animated-pages id="pageContainer" class="main-container" transitions="slide-from-right">
 
@@ -132,7 +137,7 @@
 
   </core-animated-pages>
   <paper-fab class="add-button" on-tap="{{addGame}}"></paper-fab>
-
+  <paper-toast id="statusToast" text="{{messageText}}" role="status"></paper-toast>
   </template>
   <script>
     Polymer('paper-snowflake-main', {
@@ -148,6 +153,12 @@
             snowflake.startGame(data.Emulator, event.detail.game.UUID);
           });
         });
+      },
+      messagePopup: function(e){
+        var message = e.detail.message;
+        console.log(message);
+        this.messageText = message;
+        this.$.statusToast.show();
       },
       addGame: function(e) {
         this.$.addGameDialog.open();
