@@ -1,0 +1,56 @@
+.emulator-selector {
+   padding-left: 10px;
+   padding-bottom: 10px;
+   border-bottom: 1px #dedede solid;
+   width: 100%;
+ }
+
+.buttons {
+  display: flex;
+  transform: translateY(-45px);
+  position: absolute;
+  font-size: 12px;
+  right: 0;
+}
+
+.save {
+  background: #03A9F4;
+}
+
+.reset {
+  background: #F44336;
+}
+
+.button {
+  color: white;
+}
+
+.flags {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 70%;
+}
+.flags::-webkit-scrollbar-track
+{
+  background-color: #F5F5F5;
+}
+
+.flags::-webkit-scrollbar
+{
+  transition: background-color 0.5s ease-in;
+  width: 10px;
+  background-color: #dedede;
+  background-color: rgb(204,204,204);
+}
+.flags::-webkit-scrollbar-thumb
+{
+  transition: background-color 0.5s ease-in;
+  background-color: rgb(204,204,204);
+}
+.container {
+  height: 100%;
+}
+
+.header {
+  position: relative;
+}

@@ -4,6 +4,7 @@
 <link rel="import" href="../bower_components/paper-dropdown/paper-dropdown">
 <link rel="import" href="../bower_components/paper-item/paper-item">
 <link rel="import" href="../bower_components/core-menu/core-menu">
+
 <link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu">
 
 <link rel="import" href="paper-fonts">
@@ -21,6 +22,8 @@
         font-family: 'Roboto';
       }
       .flag-container-inner {
+        display: flex;
+        align-items: center;
       }
       #flagDescription {
         margin-bottom: 5px;
@@ -28,34 +31,41 @@
       paper-slider, paper-dropdown-menu {
         width: 350px;
       }
-      #flagCustom {
-        font-size: 0.8em;
-        text-transform: uppercase;
-        color: #ffffff;
-        display: inline;
-        background-color: #2196F3;
-        border-radius: 3px;
-        padding: 3px;
-      }
-      #flagCustom:after {
-        content: 'customized';
-      }
-      #flagCustom:hover:after {
-        content: 'reset to default';
-      }
-      #flagCustom:hover {
-        background-color: #F44336;
-        cursor: pointer;
-      }
-
       #flagDescription {
         margin-right: 5px;
+
+      }
+      #flagContent > paper-toggle-button[disabled]{
+        color: grey;
+      }
+
+      #flagContent > paper-dropdown-menu[disabled]{
+        color: grey;
+      }
+
+      #flagContent > paper-slider[disabled]{
+        color: grey;
+      }
+
+      .lock-icon {
+        color: grey;
+      }
+      .lock-icon[locked="false"]:hover {
+        color: #43A047;
+      }
+      .lock-icon[locked="true"]:hover {
+        color: #E53935;
+      }
+      #flaglocked {
+        background: none;
+        border: none;
+        outline: none;
       }
     </style>
     <div class="flag-container">
       <div class="flag-container-inner">
         <div id="flagDescription">{{flag.Description}}</div>
-        <div hidden?="{{!isCustom}}" on-tap="{{customOff}}" id="flagCustom"></div>
+        <paper-icon-button class="lock-icon" icon="{{lockIcon}}" locked="{{locked}}" on-tap="{{toggleLock}}"></paper-icon-button>
       </div>
       <div id="flagContent"></div>
     </div>
@@ -64,12 +74,26 @@
       Polymer('paper-snowflake-dynamic-flag', {
         ready: function(){
         },
-        refreshFlag: function(){
-          this.isCustom = !(localStorage.getItem("custom_" + this.gameId + ";" + this.emulatorName + ";" + this.flag.Key) === null);
+        publish: {
+          locked: {
+            value: false,
+            reflect: true
+          }
         },
-        customOff: function(){
-          localStorage.removeItem("custom_" + this.gameId + ";" + this.emulatorName + ";" + this.flag.Key);
-          this.fire('flag-refresh', {'value': this.value, 'flag': this.flag });
+        updateLock: function(){
+          this.locked = (localStorage.getItem("unlocked_" + this.gameId + ";" + this.emulatorName + ";" + this.flag.Key) === null);
+          this.lockIcon = this.locked ? "lock" : "lock-open";
+          this.fire('flag-update', {'value': this.value, 'flag': this.flag, 'locked': this.locked });
+        },
+        toggleLock: function(){
+          if(this.locked) {
+            console.log("Unlocking");
+            localStorage.setItem("unlocked_" + this.gameId + ";" + this.emulatorName + ";" + this.flag.Key, "true");
+          }else{
+            console.log("Locking");
+            localStorage.removeItem("unlocked_" + this.gameId + ";" + this.emulatorName + ";" + this.flag.Key);
+          }
+          this.updateLock();
         },
         flagChanged: function (){
           if(this.flag.Type === "BOOLEAN_FLAG") {
@@ -81,10 +105,8 @@
           if(this.flag.Type === "SELECT_FLAG") {
             this.setDropdown();
           }
-          this.forceRefresh();
         },
         valueChanged: function() {
-          this.fire('flag-update', {'value': this.value, 'flag': this.flag });
           this.forceRefresh();
         },
         gameIdChanged: function(){
@@ -95,20 +117,20 @@
         },
         forceRefresh: function() {
           this.async(function() {
-            this.refreshFlag();
+            this.updateLock();
           }, null, 100);
         },
         setToggle: function() {
           this.$.flagContent.innerHTML = ""; //clear existing HTML
-          this.injectBoundHTML('<paper-toggle-button checked="{{value}}"></paper-toggle-button>',this.$.flagContent);
+          this.injectBoundHTML('<paper-toggle-button disabled?="{{locked}}" checked="{{value}}"></paper-toggle-button>',this.$.flagContent);
         },
         setSlider: function() {
           this.$.flagContent.innerHTML = ""; //clear existing HTML
-          this.injectBoundHTML('<paper-slider value="{{value}}" min="{{flag.RangeMin}}" max="{{flag.RangeMax}}" editable snaps pin></paper-slider>',this.$.flagContent);
+          this.injectBoundHTML('<paper-slider disabled?="{{locked}}" value="{{value}}" min="{{flag.RangeMin}}" max="{{flag.RangeMax}}" editable snaps pin></paper-slider>',this.$.flagContent);
         },
         setDropdown: function() {
           this.injectBoundHTML('\
-          <paper-dropdown-menu label="{{flag.Description}}">\
+          <paper-dropdown-menu disabled?="{{locked}}" label="{{flag.Description}}">\
                 <paper-dropdown class="dropdown">\
                     <core-menu class="menu" selected="{{value}}">\
                         <template repeat="{{flag.SelectValues}}">\
