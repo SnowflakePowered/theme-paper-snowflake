@@ -60,7 +60,6 @@
   padding: 10px 0;
   height: 60%;
   width: 75%;
-  transform: translateY(-10px) translateX(20px);
   border: 1px solid transparent;
   }
 #search > input[type=text]:focus {
@@ -76,5 +75,8 @@
 /*  width: 1em;
   height: 1em;*/
   padding-right: 10px;
-  transform: translateY(-10px) translateX(20px);}
+}
+.center {
+  transform: translateY(-10px) translateX(20px);
+
 }

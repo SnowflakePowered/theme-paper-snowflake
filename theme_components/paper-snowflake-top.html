@@ -8,9 +8,11 @@
           SNOWFLAKE
         </span>
         <span id="search" class="header-cell">
-          <paper-ripple id="ripple" fit style="pointer-events: none;"></paper-ripple>
-          <core-icon id="icon" icon="search"></core-icon><input type="text" on-down="{{searchTapDown}}" on-up="{{searchTapUp}}" id="game-search" autocomplete="off" placeholder="{{selectedPlatform.Name}}" value="{{searchQuery}}">
+          <paper-ripple id="ripple" class="center" fit style="pointer-events: none;"></paper-ripple>
+          <paper-icon-button on-tap="{{focusInput}}" class="center" icon="search" id="icon"></paper-icon-button>
+          <input type="text" class="center" on-down="{{searchTapDown}}" on-up="{{searchTapUp}}" id="gameSearch" autocomplete="off" placeholder="{{selectedPlatform.Name}}" value="{{searchQuery}}">
           </input>
+          <paper-icon-button on-tap="{{switchPage}}" class="center" icon="settings"></paper-icon-button>
         </span>
       <div>
     </header>
@@ -25,6 +27,12 @@
         },
         searchTapUp: function(e) {
           this.$.ripple.upAction();
+        },
+        focusInput: function(){
+          this.$.gameSearch.focus();
+        },
+        switchPage: function(){
+          this.fire('switch-page-requested')
         }
       });
   </script>
