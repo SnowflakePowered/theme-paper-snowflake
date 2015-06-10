@@ -9,8 +9,7 @@
         </span>
         <span id="search" class="header-cell">
           <paper-ripple id="ripple" fit style="pointer-events: none;"></paper-ripple>
-          <div class="indicator">Click to search</div>
-          <input type="text" on-down="{{searchTapDown}}" on-up="{{searchTapUp}}" id="game-search" autocomplete="off" placeholder="{{selectedPlatform.Name}}" value="{{searchQuery}}">
+          <core-icon id="icon" icon="search"></core-icon><input type="text" on-down="{{searchTapDown}}" on-up="{{searchTapUp}}" id="game-search" autocomplete="off" placeholder="{{selectedPlatform.Name}}" value="{{searchQuery}}">
           </input>
         </span>
       <div>

@@ -52,16 +52,29 @@
 #search > input[type=text] {
   font-family: 'Roboto', sans-serif;
   font-weight: 100;
-  width: 90%;
   background-color: transparent;
   border: none;
   color: inherit;
   outline: none;
   font-size: 0.6em;
-  padding: 0 20px;
+  padding: 10px 0;
   height: 60%;
-  transform: translateY(-10px);
+  width: 75%;
+  transform: translateY(-10px) translateX(20px);
+  border: 1px solid transparent;
+  }
+#search > input[type=text]:focus {
+  background-color: rgba(255,255,255,0.3);
+
 }
 #search > input[type=text]::-webkit-input-placeholder {
   color: inherit;
+}
+
+#icon {
+  font-size: 0.6em;
+/*  width: 1em;
+  height: 1em;*/
+  padding-right: 10px;
+  transform: translateY(-10px) translateX(20px);}
 }
