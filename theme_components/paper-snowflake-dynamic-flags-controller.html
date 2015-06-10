@@ -12,7 +12,7 @@
         </div>
         <div class="buttons">
           <paper-button raised class="save button" on-tap="{{saveFlags}}">Save</paper-button>
-          <paper-button raised class="reset button">reset changes</paper-button>
+          <paper-button raised class="reset button" on-tap="{{resetCommitQueue}}">reset changes</paper-button>
         </div>
       </section>
     <section class="flags">
@@ -50,10 +50,10 @@
         if(locked){
           this.commitQueue[this.selectedEmulator.name][this.selectedGame.UUID][flag.Key] = this.defaultValues[flag.Key];
           console.log("Committed locked value " + value + " to flag " + flag.Key);
-          return this.saveFlags();
+          return this.saveFlags(true);
         }
       },
-      saveFlags: function(){
+      saveFlags: function(silent){
         if(this.selectedGame !== undefined && this.selectedGame !== null){
           console.log("Saving flags");
           var values = this.commitQueue[this.selectedEmulator.name][this.selectedGame.UUID];
@@ -64,6 +64,9 @@
             };
           })(this)).then((function(_this) {
             return function(data) {
+              if(silent !== true){
+                _this.fire('notify-message', {'message' : "Changes Saved for " + _this.selectedGame.Name});
+              }
               return _this.flagValues = data;
             };
           })(this));
@@ -99,8 +102,7 @@
                     results.push(_this.commitQueue[_this.selectedEmulator.name][_this.selectedGame.UUID][flag ] = _flagValues[flag]);
                   }
                 }
-                console.log(_this.commitQueue);
-                return _this.saveFlags(results);
+                return _this.saveFlags(true);
               };
             })(this));
           }
