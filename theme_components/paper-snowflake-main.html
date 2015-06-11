@@ -119,21 +119,20 @@
     ></paper-snowflake-state>
     <fuse-provider inputArray="{{selectedPlatformGames}}" searchQuery="{{searchQuery}}" searchKeys="{{searchKeys}}" outputArray="{{availableGames}}"></fuse-provider>
     <paper-snowflake-game-details on-notify-message="{{messagePopup}}" unresolved id="detailsView" coverUrl="{{coverFrontUrl}}" selectedGame="{{selectedGame}}"></paper-snowflake-game-details>
-    <paper-snowflake-top unresolved selectedPlatform="{{selectedPlatform}}" searchQuery="{{searchQuery}}"></paper-snowflake-top>
-    <core-animated-pages id="pageContainer" class="main-container" transitions="slide-from-right">
+    <paper-snowflake-top id="topbar" titleText="{{titleText}}" on-switch-page-requested="{{switchPage}}" unresolved selectedPlatform="{{selectedPlatform}}" searchQuery="{{searchQuery}}"></paper-snowflake-top>
+    <core-animated-pages on-core-select="{{pageChanged}}" id="pageContainer" class="main-container" transitions="slide-from-right">
 
       <section unresolved class="select-main">
         <paper-snowflake-platform-selector selectedPlatform="{{selectedPlatform}}" availablePlatforms="{{availablePlatforms}}"></paper-snowflake-platform-selector>
         <paper-snowflake-games-container on-game-show="{{gameShow}}" selectedGame="{{selectedGame}}" selectedPlatform="{{selectedPlatform}}" selectedPlatformGames="{{availableGames}}"></paper-snowflake-games-container>
       </section>
 
-      <section unresolved class="settings-main">
+      <section unresolved class="settings-main" title="Settings">
           <pages-selector class="settings-selector">
           <paper-snowflake-input-controller label="Controller Settings" selectedController="{{selectedController}}" availableControllers="{{availableControllers}}" availableProfiles="{{availableProfiles}}"></paper-snowflake-input-controller>
           <div label="Port Settings">Hello World</div>
         </pages-selector>
     </section>
-
 
   </core-animated-pages>
   <paper-fab class="add-button" on-tap="{{addGame}}"></paper-fab>
@@ -153,6 +152,21 @@
             snowflake.startGame(data.Emulator, event.detail.game.UUID);
           });
         });
+      },
+      switchPage: function(e){
+        var pages = this.$.pageContainer;
+        if(e.detail.selected === undefined){
+          pages.selected = (pages.selected + 1) % pages.children.length;
+        }else{
+          pages.selected = e.detail.selected;
+        }
+      },
+      pageChanged: function(e){
+        if(e.detail.item.attributes["title"] === undefined){
+          this.titleText = this.selectedPlatform.Name;
+        }else{
+          this.titleText = e.detail.item.attributes["title"].value;
+        }
       },
       messagePopup: function(e){
         var message = e.detail.message;
