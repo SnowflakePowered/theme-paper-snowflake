@@ -8,10 +8,10 @@
           SNOWFLAKE
         </span>
         <span id="search" class="header-cell">
-          <paper-ripple id="ripple" class="center" fit style="pointer-events: none;"></paper-ripple>
-          <paper-icon-button on-tap="{{focusInput}}" class="center" icon="search" id="icon"></paper-icon-button>
+          <paper-ripple id="ripple" fit style="pointer-events: none;"></paper-ripple>
           <input type="text" class="center" on-down="{{searchTapDown}}" on-up="{{searchTapUp}}" id="gameSearch" autocomplete="off" placeholder="{{selectedPlatform.Name}}" value="{{searchQuery}}">
           </input>
+          <paper-icon-button on-tap="{{focusInput}}" class="center" icon="search" id="icon"></paper-icon-button>
           <paper-icon-button on-tap="{{switchPage}}" class="center" icon="settings"></paper-icon-button>
         </span>
       <div>
