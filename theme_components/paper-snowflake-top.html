@@ -11,7 +11,7 @@
         </span>
         <span id="search" class="header-cell">
           <paper-ripple id="ripple" fit style="pointer-events: none;"></paper-ripple>
-          <input type="text" class="center" on-down="{{searchTapDown}}" on-up="{{searchTapUp}}" id="gameSearch" autocomplete="off" placeholder="{{titleText}}" value="{{searchQuery}}">
+          <input type="text" on-focus="{{inputFocused}}" on-blur="{{inputBlur}}" class="center" on-down="{{searchTapDown}}" on-up="{{searchTapUp}}" id="gameSearch" autocomplete="off" placeholder="{{titleText}}" value="{{searchQuery}}">
           </input>
           <paper-icon-button on-tap="{{focusInput}}" class="center" icon="search"></paper-icon-button>
           <paper-icon-button on-tap="{{switchPage}}" class="center" icon="{{pageicon}}"></paper-icon-button>
@@ -22,7 +22,7 @@
   <script>
        Polymer('paper-snowflake-top', {
         ready: function() {
-
+          this._titleText;
         },
         publish: {
           pageicon: {
@@ -36,9 +36,20 @@
         searchTapUp: function(e) {
           this.$.ripple.upAction();
         },
-        focusInput: function(){
-          this.$.gameSearch.focus();
+        inputFocused: function(){
+          this._titleText = this.titleText;
+          this.titleText = "Search...";
+
+        },
+        inputBlur: function(){
+          this.titleText = this._titleText;
+        },
+        focusInput: function(e){
           this.fire('switch-page-requested', {"selected": 0});
+          this.$.gameSearch.focus();
+          var rect = this.$.gameSearch.getBoundingClientRect()
+          this.$.ripple.downAction({x: rect.left, y: rect.bottom});
+          this.$.ripple.upAction();
         },
         switchPage: function(){
           this.fire('switch-page-requested');

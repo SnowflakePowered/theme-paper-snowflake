@@ -128,7 +128,7 @@
       </section>
 
       <section unresolved class="settings-main" title="Settings">
-          <pages-selector class="settings-selector">
+        <pages-selector class="settings-selector">
           <paper-snowflake-input-controller label="Controller Settings" selectedController="{{selectedController}}" availableControllers="{{availableControllers}}" availableProfiles="{{availableProfiles}}"></paper-snowflake-input-controller>
           <div label="Port Settings">Hello World</div>
         </pages-selector>
@@ -144,7 +144,6 @@
         window.du = this;
         this.selectedMenu = 0;
         this.searchKeys = ["Name"];
-        this.settingsPages = ["jello", "world"];
         this.addEventListener('game-play', function(event) {
           console.log(event);
           snowflake.getPreferences(event.detail.game.PlatformID)
