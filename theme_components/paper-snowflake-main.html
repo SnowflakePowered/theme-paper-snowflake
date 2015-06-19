@@ -128,7 +128,7 @@
       </section>
 
       <section unresolved class="settings-main" title="Settings">
-        <pages-selector class="settings-selector">
+        <pages-selector on-core-select="{{_pageChanged}}" class="settings-selector">
           <paper-snowflake-input-controller label="Controller Settings" selectedController="{{selectedController}}" availableControllers="{{availableControllers}}" availableProfiles="{{availableProfiles}}"></paper-snowflake-input-controller>
           <div label="Port Settings">Hello World</div>
         </pages-selector>
@@ -166,6 +166,10 @@
         }else{
           this.titleText = e.detail.item.attributes["title"].value;
         }
+      },
+      _pageChanged: function(e){
+        e.cancelBubble = true;
+        //cancel bubble to prevent triggering pageChanged
       },
       messagePopup: function(e){
         var message = e.detail.message;
