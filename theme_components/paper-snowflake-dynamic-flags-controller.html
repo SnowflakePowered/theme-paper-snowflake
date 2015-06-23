@@ -79,7 +79,8 @@
       },
       flagReset: function(){
         this.commitQueue[this.selectedEmulator.name][this.selectedGame.UUID] = {};
-
+        delete this.flagKeys;
+        delete this.defaultValues;
         if(this.selectedGame !== undefined && this.selectedGame !== null){
             snowflake.getEmulatorFlags(this.selectedEmulator.name).then((function(_this) {
               return function(data) {
