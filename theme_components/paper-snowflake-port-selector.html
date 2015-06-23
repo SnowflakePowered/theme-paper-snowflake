@@ -1,0 +1,91 @@
+<!--<link rel="import" href="../bower_components/core-selector/core-selector">-->
+<link rel="import" href="../bower_components/paper-item/paper-item">
+
+<link rel="import" href="paper-snowflake-dynamic-port">
+
+<polymer-element name="paper-snowflake-port-selector" attributes="availablePlatforms availableDevices">
+  <template>
+    <style>
+    :host {
+      height: 100%;
+    }
+    paper-snowflake-platform-selector {
+      position: absolute;
+      top: 0;
+      height: inherit;
+      display: table-cell;
+      min-width: 307px;
+      border-right: 1px solid #dedede;
+      height: 100%;
+    }
+    .container {
+      display: table;
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+    .column {
+      display: table-cell;
+    }
+    .wrapper {
+      position: relative;
+      width: 307px;
+      height: 100%;
+    }
+    .ports {
+      padding-left: 10px;
+    }
+    paper-snowflake-dynamic-port {
+      display: block;
+      font-family: 'Roboto';
+    }
+    </style>
+    <div class="container">
+      <div class="wrapper column">
+      <paper-snowflake-platform-selector availablePlatforms="{{availablePlatforms}}" selectedPlatform="{{selectedPlatform}}"></paper-snowflake-platform-selector>
+      </div>
+      <div class="ports column">
+        <paper-snowflake-dynamic-port on-port-update="{{savePort}}" portNumber="1" portCurrent="{{ports[1]}}" availableDevices="{{availableDevices}}" selectedPlatform="{{selectedPlatform}}"></paper-snowflake-dynamic-port>
+        <paper-snowflake-dynamic-port on-port-update="{{savePort}}" portNumber="2" portCurrent="{{ports[2]}}" availableDevices="{{availableDevices}}" selectedPlatform="{{selectedPlatform}}"></paper-snowflake-dynamic-port>
+        <paper-snowflake-dynamic-port on-port-update="{{savePort}}" portNumber="3" portCurrent="{{ports[3]}}" availableDevices="{{availableDevices}}" selectedPlatform="{{selectedPlatform}}"></paper-snowflake-dynamic-port>
+        <paper-snowflake-dynamic-port on-port-update="{{savePort}}" portNumber="4" portCurrent="{{ports[4]}}" availableDevices="{{availableDevices}}" selectedPlatform="{{selectedPlatform}}"></paper-snowflake-dynamic-port>
+        <paper-snowflake-dynamic-port on-port-update="{{savePort}}" portNumber="5" portCurrent="{{ports[5]}}" availableDevices="{{availableDevices}}" selectedPlatform="{{selectedPlatform}}"></paper-snowflake-dynamic-port>
+        <paper-snowflake-dynamic-port on-port-update="{{savePort}}" portNumber="6" portCurrent="{{ports[6]}}" availableDevices="{{availableDevices}}" selectedPlatform="{{selectedPlatform}}"></paper-snowflake-dynamic-port>
+        <paper-snowflake-dynamic-port on-port-update="{{savePort}}" portNumber="7" portCurrent="{{ports[7]}}" availableDevices="{{availableDevices}}" selectedPlatform="{{selectedPlatform}}"></paper-snowflake-dynamic-port>
+        <paper-snowflake-dynamic-port on-port-update="{{savePort}}" portNumber="8" portCurrent="{{ports[8]}}" availableDevices="{{availableDevices}}" selectedPlatform="{{selectedPlatform}}"></paper-snowflake-dynamic-port>
+      </div>
+
+    </div>
+    </div>
+  </template>
+  <script>
+       Polymer('paper-snowflake-port-selector', {
+        ready: function() {
+          this.ports = [];
+          window.pp = this;
+        },
+        refreshPorts: function(){
+          snowflake.getDeviceInPorts(this.selectedPlatform.PlatformID)
+          .then((function(_this) {
+            return function(data) {
+              return _this.ports = data;
+            };
+          })(this));
+        },
+        selectedPlatformChanged: function(){
+          this.refreshPorts();
+        },
+        savePort: function(e){
+          snowflake.setDeviceInPort(e.detail.selectedPlatform, e.detail.portNumber, e.detail.newPort)
+          .then(function(){
+            return snowflake.getDeviceInPorts(e.detail.selectedPlatform);
+          })
+          .then((function(_this) {
+            return function(data) {
+              return _this.ports = data;
+            };
+          })(this));
+        }
+      });
+  </script>
+</polymer-element>

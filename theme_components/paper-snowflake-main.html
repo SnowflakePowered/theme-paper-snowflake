@@ -2,10 +2,12 @@
 
 <link rel="import" href="paper-snowflake-top">
 <link rel="import" href="paper-snowflake-platform-selector">
+<link rel="import" href="paper-snowflake-port-selector">
 <link rel="import" href="paper-fonts">
 <link rel="import" href="paper-snowflake-games-container">
 <link rel="import" href="paper-snowflake-game-details">
 <link rel="import" href="paper-snowflake-input-controller">
+
 <link rel="import" href="pages-selector">
 <link rel="import" href="fuse-provider">
 
@@ -46,6 +48,9 @@
         height: 100%;
         width: 100%;
       }
+      .settings-selector > * {
+        height: calc(100vh - 100px);
+      }
       paper-snowflake-input-controller {
         margin: 0 10px;
       }
@@ -61,6 +66,9 @@
         width: 99%;
         display: table-cell;
         background-color: white;
+      }
+      paper-snowflake-port-selector {
+        height: 100%;
       }
       paper-snowflake-top:before {
         position: fixed;
@@ -116,6 +124,7 @@
       availableControllers="{{availableControllers}}"
       selectedController="{{selectedController}}"
       availableProfiles="{{availableProfiles}}"
+      availableDevices="{{availableDevices}}"
     ></paper-snowflake-state>
     <fuse-provider inputArray="{{selectedPlatformGames}}" searchQuery="{{searchQuery}}" searchKeys="{{searchKeys}}" outputArray="{{availableGames}}"></fuse-provider>
     <paper-snowflake-game-details on-notify-message="{{messagePopup}}" unresolved id="detailsView" coverUrl="{{coverFrontUrl}}" selectedGame="{{selectedGame}}"></paper-snowflake-game-details>
@@ -130,7 +139,7 @@
       <section unresolved class="settings-main" title="Settings">
         <pages-selector on-core-select="{{_pageChanged}}" class="settings-selector">
           <paper-snowflake-input-controller label="Controller Settings" selectedController="{{selectedController}}" availableControllers="{{availableControllers}}" availableProfiles="{{availableProfiles}}"></paper-snowflake-input-controller>
-          <div label="Port Settings">Hello World</div>
+          <paper-snowflake-port-selector availableDevices="{{availableDevices}}" availablePlatforms="{{availablePlatforms}}" label="Port Settings"></paper-snowflake-port-selector>
         </pages-selector>
     </section>
 
