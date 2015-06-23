@@ -1,0 +1,49 @@
+<link rel="import" href="../bower_components/paper-dropdown/paper-dropdown">
+<link rel="import" href="../bower_components/paper-item/paper-item">
+<link rel="import" href="../bower_components/core-menu/core-menu">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu">
+<link rel="import" href="../bower_components/paper-button/paper-button">
+
+
+<polymer-element name="paper-snowflake-dynamic-port" attributes="portNumber selectedPlatform availableDevices portAvailable portCurrent">
+
+  <template>
+    <style>
+    </style>
+    Port {{portNumber}}
+    <paper-dropdown-menu label="Device">
+          <paper-dropdown class="dropdown">
+              <core-menu class="menu" id="menu" valueattr="device-name" selected="{{portCurrent}}" on-core-select="{{updatePort}}">
+                  <template repeat="{{device in availableDevices}}">
+                    <paper-item device-name="{{device}}">{{device}}</paper-item>
+                  </template>
+              </core-menu>
+          </paper-dropdown>
+    </paper-dropdown-menu>
+  </template>
+  <script>
+    Polymer('paper-snowflake-dynamic-port', {
+      publish: {
+        portNumber: 0
+      },
+      ready: function() {
+        window["port" + this.portNumber] = this;
+      },
+      selectedPlatformChanged: function(){
+        this.refresh();
+      },
+      refresh: function(){
+        if(this.portNumber > this.selectedPlatform.MaximumInputs){
+          this.portAvailable = false;
+          this.hidden = true;
+        } else {
+          this.portAvailable = true;
+          this.hidden = false;
+        }
+      },
+      updatePort: function(e){
+        this.fire("port-update", {"portNumber" : this.portNumber, "newPort" : this.portCurrent, "selectedPlatform" : this.selectedPlatform.PlatformID});
+      }
+    });
+  </script>
+</polymer-element>
