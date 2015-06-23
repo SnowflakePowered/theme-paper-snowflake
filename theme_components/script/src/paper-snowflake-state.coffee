@@ -14,6 +14,7 @@ Polymer 'paper-snowflake-state' ,
     selectedPlatformGames: []
     selectedPlatform: {}
     selectedController: {}
+    availableDevices: []
 
   _snowflakeAvailable: (callback) ->
     promise = Promise.defer()
@@ -61,6 +62,12 @@ Polymer 'paper-snowflake-state' ,
       console.log data
       @availableControllers = data
       @controllersLoaded = true
+      snowflake.getInputDevices()
+    .then (data) =>
+      console.log "devices loaded"
+      filtered = (device.DI_ProductName for device in data when device.XI_IsXInput is false)
+      preset_windows = ["KeyboardDevice", "XInputDevice1", "XInputDevice2", "XInputDevice3", "XInputDevice4"]
+      @availableDevices = [preset_windows..., filtered...]
       return 1
     .then =>
       console.log "state ready"
