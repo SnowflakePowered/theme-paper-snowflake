@@ -6,7 +6,7 @@
   <template>
       <link rel="stylesheet" type="text/css" href="style/paper-snowflake-platform-selector.css"/>
       <div class="sidebar" id="platformSelectorContainer">
-        	<core-selector id="platformSelector" on-core-select="{{platformSelect}}" selected="0">
+        	<core-selector id="platformSelector" on-core-select="{{platformSelect}}" selected="{{_selected}}">
       			<template repeat="{{platform in availablePlatforms | getKeys}}">
       				<paper-item class="item"
                 platform-id="{{availablePlatforms[platform].PlatformID}}"
@@ -24,9 +24,18 @@
         },
         platformSelect: function(e) {
           this.selectedPlatform = this.availablePlatforms[e.detail.item.attributes['platform-id'].value];
+          localStorage.setItem('selectedplatform', this._selected);
         },
         ready: function() {
-        }
+          var x = localStorage.getItem('selectedplatform');
+          if(x){
+            this._selected = x;
+          }else{
+            this._selected = 0;
+          }
+        },
+        availablePlatformsChanged: function(){
+        },
       });
   </script>
 </polymer-element>
