@@ -19,7 +19,11 @@
         this.$.scroller.scrollTop = 0;
       },
       ready: function () {
-
+        window.addEventListener('resize', (function(_this) {
+            return function() {
+              return _this.$.scroller.scrollToItem(0);
+            };
+          })(this));
       },
       setSelectedGame: function(e) {
         this.selectedGame = e.detail.game;
