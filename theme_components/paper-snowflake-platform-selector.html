@@ -20,14 +20,36 @@
   <script>
        Polymer('paper-snowflake-platform-selector', {
         getKeys : function(o){
-          return Object.keys(o);
+          var removeItem = function(array, item){
+              var index = array.indexOf(item);
+              if(index > -1){
+                array.splice(index, 1)
+              }
+          }
+          var blacklist, filteredPlatforms, key, platforms;
+
+          platforms = Object.keys(o);
+
+          blacklist = localStorage.getItem('_paper_platformhide');
+
+          if (blacklist !== undefined && blacklist !== null) {
+            blacklist = JSON.parse(blacklist);
+            var i, key, len;
+            for (i = 0, len = blacklist.length; i < len; i++) {
+              key = blacklist[i];
+              //Removed blacklisted platform ids
+              removeItem(platforms, key);
+            }
+          }
+            return platforms;
+
         },
         platformSelect: function(e) {
           this.selectedPlatform = this.availablePlatforms[e.detail.item.attributes['platform-id'].value];
-          localStorage.setItem('selectedplatform', this._selected);
+          localStorage.setItem('_paper_selectedplatform', this._selected);
         },
         ready: function() {
-          var x = localStorage.getItem('selectedplatform');
+          var x = localStorage.getItem('_paper_selectedplatform');
           if(x){
             this._selected = x;
           }else{
