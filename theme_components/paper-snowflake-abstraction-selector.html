@@ -1,0 +1,32 @@
+<link rel="import" href="../bower_components/paper-dropdown/paper-dropdown">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu">
+<link rel="import" href="../bower_components/paper-item/paper-item">
+<link rel="import" href="../bower_components/core-menu/core-menu">
+<polymer-element name="paper-snowflake-abstraction-selector" attributes="selectedAbstraction availableAbstractions">
+  <template>
+    <paper-dropdown-menu label="Devices">
+          <paper-dropdown class="dropdown">
+              <core-menu class="menu" selected="{{selected}}">
+                  <template repeat="{{abstraction in availableAbstractions}}">
+                    <paper-item>{{abstraction.DeviceName}}</paper-item>
+                  </template>
+              </core-menu>
+          </paper-dropdown>
+      </paper-dropdown-menu>
+  </template>
+  <script>
+    Polymer('paper-snowflake-abstraction-selector', {
+      ready: function() {
+        window.abs = this;
+      },
+      getKeys: function(o){
+        var _o = o || {};
+        return Object.keys(_o);
+      },
+      selectedChanged: function(){
+        this.selectedAbstraction = this.availableAbstractions[this.selected];
+      }
+    });
+  </script>
+</polymer-element>
+<paper-snowflake-abstraction-selector></paper-snowflake-abstraction-selector>

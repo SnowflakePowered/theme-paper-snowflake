@@ -2,16 +2,30 @@
   font-family: 'Roboto';
 
 }
-.controller-menu {
+.abstraction-menu {
   display: table;
   position: relative;
   width: 100%;
 }
-.controller-selector {
+.abstraction-selector {
   display: table-cell;
   width: calc(100% - 30px);
 }
-.controller-buttons {
+.abstraction-buttons {
   display: table-cell;
   width: 30px;
+}
+paper-snowflake-abstraction-input {
+  display: block;
+  padding-top: 10px;
+}
+.inputs {
+  display: flex;
+  overflow-y: auto;
+  height: calc(100% - 100px)
+}
+.button-selection {
+  display: block;
+  font-size: 10pt;
+  padding: 10px;
 }

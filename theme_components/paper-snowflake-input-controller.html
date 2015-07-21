@@ -1,67 +1,67 @@
-<link rel="import" href="paper-snowflake-dynamic-input-set">
-<link rel="import" href="paper-snowflake-controller-selector">
+<link rel="import" href="paper-snowflake-abstraction-input">
+<link rel="import" href="paper-snowflake-abstraction-selector">
 <link rel="import" href="paper-snowflake-profile-selector">
 <link rel="import" href="../bower_components/paper-button/paper-button">
 <link rel="import" href="paper-fonts">
 
-<polymer-element name="paper-snowflake-input-controller" attributes="selectedController availableControllers availableProfiles">
+<polymer-element name="paper-snowflake-input-controller" attributes="selectedabstraction availableabstractions availableAbstractions">
 <template>
   <link rel="stylesheet" type="text/css" href="style/paper-snowflake-input-controller.css"/>
 
-  <div class="controller-menu">
-    <div class="controller-selector">
-      <paper-snowflake-controller-selector availableControllers="{{availableControllers}}" selectedController="{{selectedController}}"></paper-snowflake-controller-selector>
-      <paper-snowflake-profile-selector hidden?="{{!controllerSelected}}" availableProfiles="{{availableProfiles}}" selectedProfile="{{selectedProfile}}" selectedProfileName="{{selectedProfileName}}"></paper-snowflake-profile-selector>
+  <div class="abstraction-menu">
+    <div class="abstraction-selector">
+      <paper-snowflake-abstraction-selector availableAbstractions="{{availableAbstractions}}" selectedAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-selector>
     </div>
-    <div class="controller-buttons">
+    <div class="abstraction-buttons">
       <paper-button on-tap="{{commitInputChanges}}">Save</paper-button>
     </div>
   </div>
-  <div class="inputs" hidden?="{{!profileSelected}}">
-    <paper-snowflake-dynamic-input-set on-input-changed="{{inputChanged}}" controller="{{selectedController}}" profile="{{selectedProfile}}" profileName="{{selectedProfileName}}"></paper-snowflake-dynamic-input-set>
+  <div class="inputs">
+    <section class="button-selection face-buttons">
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="A" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="B" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="X" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="Y" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="Start" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="Select" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+    </section>
+    <section class="button-selection dpad-buttons">
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="DpadUp" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="DpadDown" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="DpadLeft" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="DpadRight" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+    </section>
+    <section class="button-selection left-buttons">
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="L1" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="L2" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="L3" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="LeftAnalogYUp" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="LeftAnalogYDown" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="LeftAnalogXLeft" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="LeftAnalogXRight" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+    </section>
+    <section class="button-selection right-buttons">
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="R1" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="R2" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="R3" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="RightAnalogYUp" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="RightAnalogYDown" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="RightAnalogXLeft" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+      <paper-snowflake-abstraction-input gamepadAbstractionKey="RightAnalogXRight" gamepadAbstraction="{{selectedAbstraction}}"></paper-snowflake-abstraction-input>
+  </section>
   </div>
-  <div class="placeholder" hidden?="{{profileSelected}}">
+<!--  <div class="placeholder" hidden?="{{abstractionselected}}">
     Select a profile
-  </div>
+  </div>-->
 </template>
 <script>
   Polymer('paper-snowflake-input-controller', {
 
     ready: function () {
       window.p = this;
-      this.profileSelected = false;
-      this.controllerSelected = false;
+    //  this.abstractionselected = false;
+    //  this.abstractionSelected = false;
       this.inputConfigurationValues = {};
-    },
-    availableProfilesChanged: function(){
-      if (Object.getOwnPropertyNames(this.selectedController).length === 0 || Object.getOwnPropertyNames(this.availableProfiles).length === 0){
-        this.controllerSelected = false;
-      }else{
-        this.controllerSelected = true;
-      }
-      this.inputConfigurationValues = {};
-    },
-    selectedProfileChanged: function(){
-      if (this.selectedProfile === undefined){
-        this.profileSelected = false;
-      }else{
-        this.profileSelected = true;
-      }
-      this.inputConfigurationValues = {};
-    },
-    inputChanged: function(e){
-      if(this.profileSelected) {
-        this.inputConfigurationValues[e.detail.inputName] = e.detail.commitValue;
-        console.log("Updated uncommitted input changes " + e.detail.inputName + " = " + e.detail.commitValue);
-      }
-    },
-    commitInputChanges: function(e){
-      console.log("Saving input changes");
-      snowflake.setInputConfiguration(this.selectedController.ControllerID, this.selectedProfileName, this.inputConfigurationValues)
-      .then(function(){
-        console.log("Saved input configuration");
-      });
-
     }
 
 

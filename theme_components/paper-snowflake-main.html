@@ -123,7 +123,7 @@
       selectedGame="{{selectedGame}}"
       availableControllers="{{availableControllers}}"
       selectedController="{{selectedController}}"
-      availableProfiles="{{availableProfiles}}"
+      availableAbstractions="{{availableAbstractions}}}}"
       availableDevices="{{availableDevices}}"
     ></paper-snowflake-state>
     <fuse-provider inputArray="{{selectedPlatformGames}}" searchQuery="{{searchQuery}}" searchKeys="{{searchKeys}}" outputArray="{{availableGames}}"></fuse-provider>
@@ -138,7 +138,7 @@
 
       <section unresolved class="settings-main" title="Settings">
         <pages-selector on-core-select="{{_pageChanged}}" class="settings-selector">
-          <paper-snowflake-input-controller label="Controller Settings" selectedController="{{selectedController}}" availableControllers="{{availableControllers}}" availableProfiles="{{availableProfiles}}"></paper-snowflake-input-controller>
+          <paper-snowflake-input-controller label="Controller Settings" selectedController="{{selectedController}}" availableControllers="{{availableControllers}}" availableAbstractions="{{availableAbstractions}}"></paper-snowflake-input-controller>
           <paper-snowflake-port-selector availableDevices="{{availableDevices}}" availablePlatforms="{{availablePlatforms}}" label="Port Settings"></paper-snowflake-port-selector>
         </pages-selector>
     </section>

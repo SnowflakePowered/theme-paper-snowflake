@@ -11,12 +11,12 @@ Polymer('paper-snowflake-state', {
     availableGames: {},
     availablePlatforms: {},
     availableControllers: {},
-    availableProfiles: {},
+    availableAbstractions: {},
+    availableDevices: [],
     selectedGame: {},
     selectedPlatformGames: [],
     selectedPlatform: {},
-    selectedController: {},
-    availableDevices: []
+    selectedController: {}
   },
   _snowflakeAvailable: function(callback) {
     var promise;
@@ -34,14 +34,6 @@ Polymer('paper-snowflake-state', {
     console.log("selected platform has changed");
     console.log(this.selectedPlatform);
     return this.selectedPlatformGames = this.availableGames[this.selectedPlatform.PlatformID];
-  },
-  selectedControllerChanged: function() {
-    console.log("selected controller has changed");
-    return snowflake.getControllerProfiles(this.selectedController.ControllerID).then((function(_this) {
-      return function(data) {
-        return _this.availableProfiles = data;
-      };
-    })(this));
   },
   availableGamesChanged: function() {
     console.log("list of available games have changed; refreshing");
@@ -96,6 +88,24 @@ Polymer('paper-snowflake-state', {
         })();
         preset_windows = ["KeyboardDevice", "XInputDevice1", "XInputDevice2", "XInputDevice3", "XInputDevice4"];
         _this.availableDevices = __slice.call(preset_windows).concat(__slice.call(filtered));
+        return snowflake.getGamepadAbstractions();
+      };
+    })(this)).then((function(_this) {
+      return function(data) {
+        var abstraction, filtered;
+        console.log("abstractions loaded");
+        filtered = (function() {
+          var _i, _len, _results;
+          _results = [];
+          for (_i = 0, _len = data.length; _i < _len; _i++) {
+            abstraction = data[_i];
+            if (abstraction.DeviceName.startsWith("~default") === false) {
+              _results.push(abstraction);
+            }
+          }
+          return _results;
+        })();
+        _this.availableAbstractions = filtered;
         return 1;
       };
     })(this)).then((function(_this) {

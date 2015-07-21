@@ -9,12 +9,12 @@ Polymer 'paper-snowflake-state' ,
     availableGames: {}
     availablePlatforms: {}
     availableControllers: {}
-    availableProfiles: {}
+    availableAbstractions: {}
+    availableDevices: []
     selectedGame: {}
     selectedPlatformGames: []
     selectedPlatform: {}
     selectedController: {}
-    availableDevices: []
 
   _snowflakeAvailable: (callback) ->
     promise = Promise.defer()
@@ -30,11 +30,6 @@ Polymer 'paper-snowflake-state' ,
     console.log "selected platform has changed"
     console.log @selectedPlatform
     @selectedPlatformGames = @availableGames[@selectedPlatform.PlatformID]
-  selectedControllerChanged: ->
-    console.log "selected controller has changed"
-    snowflake.getControllerProfiles @selectedController.ControllerID
-    .then (data) =>
-      @availableProfiles = data;
   availableGamesChanged: ->
     console.log "list of available games have changed; refreshing"
     @selectedPlatformGames = @availableGames[@selectedPlatform.PlatformID]
@@ -68,6 +63,11 @@ Polymer 'paper-snowflake-state' ,
       filtered = (device.DI_ProductName for device in data when device.XI_IsXInput is false)
       preset_windows = ["KeyboardDevice", "XInputDevice1", "XInputDevice2", "XInputDevice3", "XInputDevice4"]
       @availableDevices = [preset_windows..., filtered...]
+      snowflake.getGamepadAbstractions()
+    .then (data) =>
+      console.log "abstractions loaded"
+      filtered = (abstraction for abstraction in data when abstraction.DeviceName.startsWith("~default") is false)
+      @availableAbstractions = filtered
       return 1
     .then =>
       console.log "state ready"

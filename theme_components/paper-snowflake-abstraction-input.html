@@ -1,0 +1,177 @@
+<link rel="import" href="../bower_components/paper-dropdown/paper-dropdown">
+<link rel="import" href="../bower_components/paper-item/paper-item">
+<link rel="import" href="../bower_components/core-menu/core-menu">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu">
+<link rel="import" href="../bower_components/paper-button/paper-button">
+
+
+<link rel="import" href="paper-snowflake-abstraction-input">
+<polymer-element name="paper-snowflake-abstraction-input" attributes="gamepadAbstractionKey gamepadAbstraction">
+
+  <template>
+    <style>
+      .container {
+        display: table;
+        table-layout: fixed;
+      }
+      .content {
+        display: table-cell;
+        width: 100%;
+      }
+
+    </style>
+      <div class="container">
+        <span class="content key">
+          {{gamepadAbstractionKey | getBtnName}}
+        </span>
+          <paper-button raised class="content set-button" on-tap="{{openDialog}}">{{commitValue | getInputName}}</paper-button>
+      </div>
+  </template>
+  <script>
+    Polymer('paper-snowflake-abstraction-input', {
+      openDialog: function() {
+        this.dialogOpened = true;
+      },
+      ready: function() {
+
+      },
+      gamepadAbstractionChanged(){
+        this.commitValue = this.gamepadAbstraction[this.gamepadAbstractionKey];
+      },
+      commitValueChanged: function(){
+        this.fire('input-changed', {'inputName': this.inputName, 'commitValue': this.commitValue});
+      },
+      getKeys: function(o){
+        return Object.keys(o);
+      },
+      getInputName: function(o){
+        return this.readableInput[o] || o;
+      },
+      getBtnName: function(o){
+        return this.readableAbstractionKey[o] || o;
+      },
+      readableAbstractionKey: {
+         "L1":"L1",
+         "L2":"L2",
+         "L3":"L3",
+         "R1":"R1",
+         "R2":"R2",
+         "R3":"R3",
+         "DpadUp":"D-pad Up",
+         "DpadDown":"D-pad Down",
+         "DpadLeft":"D-pad Left",
+         "DpadRight":"D-pad Right",
+         "RightAnalogXLeft":"Right Analog Left",
+         "RightAnalogXRight":"Right Analog Right",
+         "RightAnalogYUp":"Right Analog Up",
+         "RightAnalogYDown":"Right Analog Down",
+         "LeftAnalogXLeft":"Left Analog Left",
+         "LeftAnalogXRight":"Left Analog Right",
+         "LeftAnalogYUp":"Left Analog Up",
+         "LeftAnalogYDown":"Left Analog Down",
+         "Select":"Select",
+         "Start":"Start",
+         "A":"A",
+         "B":"B",
+         "X":"X",
+         "Y":"Y"
+      },
+      readableInput: {
+        "KEY_A": "A",
+        "KEY_B": "B",
+        "KEY_C": "C",
+        "KEY_D": "D",
+        "KEY_E": "E",
+        "KEY_F": "F",
+        "KEY_G": "G",
+        "KEY_H": "H",
+        "KEY_I": "I",
+        "KEY_J": "J",
+        "KEY_K": "K",
+        "KEY_L": "L",
+        "KEY_M": "M",
+        "KEY_N": "N",
+        "KEY_O": "O",
+        "KEY_P": "P",
+        "KEY_Q": "Q",
+        "KEY_R": "R",
+        "KEY_S": "S",
+        "KEY_T": "T",
+        "KEY_U": "U",
+        "KEY_V": "V",
+        "KEY_W": "W",
+        "KEY_X": "X",
+        "KEY_Y": "Y",
+        "KEY_Z": "Z",
+        "KEY_0": "0",
+        "KEY_1": "1",
+        "KEY_2": "2",
+        "KEY_3": "3",
+        "KEY_4": "4",
+        "KEY_5": "5",
+        "KEY_6": "6",
+        "KEY_7": "7",
+        "KEY_8": "8",
+        "KEY_9": "9",
+        "KEY_EQUALS": "=",
+        "KEY_MINUS": "-",
+        "KEY_BACKSPACE": "Backspace",
+        "KEY_SPACEBAR": "Space",
+        "KEY_ENTER": "Enter",
+        "KEY_UP": "Up",
+        "KEY_DOWN": "Down",
+        "KEY_LEFT": "Left",
+        "KEY_RIGHT": "Right",
+        "KEY_TAB": "Tab",
+        "KEY_INSERT": "Insert",
+        "KEY_DELETE": "Delete",
+        "KEY_HOME": "Home",
+        "KEY_END": "End",
+        "KEY_PAGE_UP": "Page Up",
+        "KEY_PAGE_DOWN": "Page Down",
+        "KEY_SHIFT": "Left Shift",
+        "KEY_CTRL": "Left Ctrl",
+        "KEY_ALT": "Left Alt",
+        "KEY_ESCAPE": "Escape",
+        "KEY_TILDE": "~",
+        "KEY_QUOTE": "\"",
+        "KEY_SEMICOLON": ";",
+        "KEY_COMMA": ",",
+        "KEY_PERIOD": ".",
+        "KEY_SLASH": "/",
+        "KEY_BRACKET_LEFT": "[",
+        "KEY_BRACKET_RIGHT": "]",
+        "KEY_BACKSLASH": "\\",
+        "KEY_RIGHT_ALT": "Right Alt",
+        "KEY_RIGHT_CTRL": "Right Ctrl",
+        "KEY_RIGHT_SHIFT": "Right Shift",
+        "KEY_NUMPAD_0": "0 (Numpad)",
+        "KEY_NUMPAD_1": "1 (Numpad)",
+        "KEY_NUMPAD_2": "2 (Numpad)",
+        "KEY_NUMPAD_3": "3 (Numpad)",
+        "KEY_NUMPAD_4": "4 (Numpad)",
+        "KEY_NUMPAD_5": "5 (Numpad)",
+        "KEY_NUMPAD_6": "6 (Numpad)",
+        "KEY_NUMPAD_7": "7 (Numpad)",
+        "KEY_NUMPAD_8": "8 (Numpad)",
+        "KEY_NUMPAD_9": "9 (Numpad)",
+        "KEY_NUMPAD_PERIOD": ". (Numpad)",
+        "KEY_NUMPAD_PLUS": "+ (Numpad)",
+        "KEY_NUMPAD_MINUS": "- (Numpad)",
+        "KEY_NUMPAD_ENTER": "Enter  (Numpad)",
+        "KEY_F_1": "F1",
+        "KEY_F_2": "F2",
+        "KEY_F_3": "F3",
+        "KEY_F_4": "F4",
+        "KEY_F_5": "F5",
+        "KEY_F_6": "F6",
+        "KEY_F_7": "F7",
+        "KEY_F_8": "F8",
+        "KEY_F_9": "F9",
+        "KEY_F_10": "F10",
+        "KEY_F_11": "F11",
+        "KEY_F_12": "F12",
+      }
+    });
+  </script>
+</polymer-element>
