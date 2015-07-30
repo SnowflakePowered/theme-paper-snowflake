@@ -1,47 +1,38 @@
-<link rel="import" href="../bower_components/paper-dropdown/paper-dropdown">
-<link rel="import" href="../bower_components/paper-item/paper-item">
-<link rel="import" href="../bower_components/core-menu/core-menu">
-<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog">
 <link rel="import" href="../bower_components/paper-button/paper-button">
 
-<link rel="import" href="paper-snowflake-abstraction-dialog">
-
-<polymer-element name="paper-snowflake-abstraction-input" attributes="gamepadAbstractionKey gamepadAbstraction">
+<polymer-element name="paper-snowflake-abstraction-dialog" attributes="gamepadAbstraction gamepadAbstractionKey commitValue opened">
 
   <template>
-    <style>
-      .container {
-        display: table;
-        table-layout: fixed;
-      }
-      .content {
-        display: table-cell;
-        width: 100%;
-      }
+  <link rel="stylesheet" type="text/css" href="style/paper-snowflake-dynamic-input-dialog.css"/>
+  <paper-dialog id="dialog" heading="Set Value" opened="{{opened}}" on-keydown="{{setKey}}" backdrop layered autoCloseDisabled closeAttribute="closeDialog">
+    <p>Set your key for {{gamepadAbstractionKey | getBtnName}}</p>
+    <div style="justify-content: center; display: flex;">
+      <p>{{value | getInputName}}</p>
+    </div>
 
-    </style>
-      <div class="container">
-        <span class="content key">
-          {{gamepadAbstractionKey | getBtnName}}
-        </span>
-          <paper-button raised class="content set-button" on-tap="{{openDialog}}">{{commitValue | getInputName}}</paper-button>
-          <paper-snowflake-abstraction-dialog commitValue="{{commitValue}}" gamepadAbstraction="{{gamepadAbstraction}}" opened="{{dialogOpened}}" gamepadAbstractionKey="{{gamepadAbstractionKey}}"></paper-snowflake-abstraction-dialog>
-      </div>
+    <paper-button closeDialog on-tap="{{saveChange}}">Save</paper-button> <paper-button closeDialog on-tap="{{resetChange}}">Cancel</paper-button>
+  </paper-dialog>
   </template>
   <script>
-    Polymer('paper-snowflake-abstraction-input', {
-      openDialog: function() {
-        console.log("open sesame");
-        this.dialogOpened = true;
+    Polymer('paper-snowflake-abstraction-dialog', {
+      setKey: function(e){
+        if(this.gamepadAbstraction.ProfileType === 1){
+          this.value = this.jsKeyboardMapping[e.keyCode];
+        }
+        e.preventDefault();
+      },
+      commitValueChanged: function(e){
+        this.value = this.commitValue;
       },
       ready: function() {
 
       },
-      gamepadAbstractionChanged(){
-        this.commitValue = this.gamepadAbstraction[this.gamepadAbstractionKey];
+      saveChange: function(){
+        this.commitValue = this.value;
       },
-      commitValueChanged: function(){
-        this.gamepadAbstraction[this.gamepadAbstractionKey] = this.commitValue;
+      resetChange: function(){
+        this.value = this.commitValue;
       },
       getKeys: function(o){
         return Object.keys(o);
@@ -173,7 +164,100 @@
         "KEY_F_10": "F10",
         "KEY_F_11": "F11",
         "KEY_F_12": "F12",
-      }
+      },
+      jsKeyboardMapping: {
+       "8":"KEY_BACKSPACE",
+       "9":"KEY_TAB",
+       "13":"KEY_ENTER",
+       "16":"KEY_SHIFT",
+       "17":"KEY_CTRL",
+       "18":"KEY_ALT",
+       "27":"KEY_ESCAPE",
+       "32":"KEY_SPACEBAR",
+       "33":"KEY_PAGE_UP",
+       "34":"KEY_PAGE_DOWN",
+       "35":"KEY_END",
+       "36":"KEY_HOME",
+       "37":"KEY_LEFT",
+       "38":"KEY_UP",
+       "39":"KEY_RIGHT",
+       "40":"KEY_DOWN",
+       "45":"KEY_INSERT",
+       "46":"KEY_DELETE",
+       "48":"KEY_0",
+       "49":"KEY_1",
+       "50":"KEY_2",
+       "51":"KEY_3",
+       "52":"KEY_4",
+       "53":"KEY_5",
+       "54":"KEY_6",
+       "55":"KEY_7",
+       "56":"KEY_8",
+       "57":"KEY_9",
+       "65":"KEY_A",
+       "66":"KEY_B",
+       "67":"KEY_C",
+       "68":"KEY_D",
+       "69":"KEY_E",
+       "70":"KEY_F",
+       "71":"KEY_G",
+       "72":"KEY_H",
+       "73":"KEY_I",
+       "74":"KEY_J",
+       "75":"KEY_K",
+       "76":"KEY_L",
+       "77":"KEY_M",
+       "78":"KEY_N",
+       "79":"KEY_O",
+       "80":"KEY_P",
+       "81":"KEY_Q",
+       "82":"KEY_R",
+       "83":"KEY_S",
+       "84":"KEY_T",
+       "85":"KEY_U",
+       "86":"KEY_V",
+       "87":"KEY_W",
+       "88":"KEY_X",
+       "89":"KEY_Y",
+       "90":"KEY_Z",
+       "96":"KEY_NUMPAD_0",
+       "97":"KEY_NUMPAD_1",
+       "98":"KEY_NUMPAD_2",
+       "99":"KEY_NUMPAD_3",
+       "100":"KEY_NUMPAD_4",
+       "101":"KEY_NUMPAD_5",
+       "102":"KEY_NUMPAD_6",
+       "103":"KEY_NUMPAD_7",
+       "104":"KEY_NUMPAD_8",
+       "105":"KEY_NUMPAD_9",
+       "107":"KEY_NUMPAD_PLUS",
+       "109":"KEY_NUMPAD_MINUS",
+       "110":"KEY_NUMPAD_PERIOD",
+       "111":"KEY_NUMPAD_SLASH",
+       "112":"KEY_F_1",
+       "113":"KEY_F_2",
+       "114":"KEY_F_3",
+       "115":"KEY_F_4",
+       "116":"KEY_F_5",
+       "117":"KEY_F_6",
+       "118":"KEY_F_7",
+       "119":"KEY_F_8",
+       "120":"KEY_F_9",
+       "121":"KEY_F_10",
+       "122":"KEY_F_11",
+       "123":"KEY_F_12",
+       "186":"KEY_SEMICOLON",
+       "187":"KEY_EQUALS",
+       "188":"KEY_COMMA",
+       "189":"KEY_MINUS",
+       "190":"KEY_PERIOD",
+       "191":"KEY_SLASH",
+       "192":"KEY_TILDE",
+       "219":"KEY_BRACKET_LEFT",
+       "220":"KEY_BACKSLASH",
+       "221":"KEY_BRACKET_RIGHT",
+       "222":"KEY_QUOTE"
+    }
     });
   </script>
 </polymer-element>

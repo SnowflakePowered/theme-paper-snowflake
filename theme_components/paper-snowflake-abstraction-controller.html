@@ -4,9 +4,9 @@
 <link rel="import" href="../bower_components/paper-button/paper-button">
 <link rel="import" href="paper-fonts">
 
-<polymer-element name="paper-snowflake-input-controller" attributes="selectedabstraction availableabstractions availableAbstractions">
+<polymer-element name="paper-snowflake-abstraction-controller" attributes="selectedAbstraction availableAbstractions">
 <template>
-  <link rel="stylesheet" type="text/css" href="style/paper-snowflake-input-controller.css"/>
+  <link rel="stylesheet" type="text/css" href="style/paper-snowflake-abstraction-controller.css"/>
 
   <div class="abstraction-menu">
     <div class="abstraction-selector">
@@ -55,13 +55,16 @@
   </div>-->
 </template>
 <script>
-  Polymer('paper-snowflake-input-controller', {
+  Polymer('paper-snowflake-abstraction-controller', {
 
     ready: function () {
       window.p = this;
     //  this.abstractionselected = false;
     //  this.abstractionSelected = false;
       this.inputConfigurationValues = {};
+    },
+    commitInputChanges: function(){
+      snowflake.setGamepadAbstraction(this.selectedAbstraction.DeviceName, this.selectedAbstraction);
     }
 
 

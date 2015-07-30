@@ -6,7 +6,7 @@
 <link rel="import" href="paper-fonts">
 <link rel="import" href="paper-snowflake-games-container">
 <link rel="import" href="paper-snowflake-game-details">
-<link rel="import" href="paper-snowflake-input-controller">
+<link rel="import" href="paper-snowflake-abstraction-controller">
 
 <link rel="import" href="pages-selector">
 <link rel="import" href="fuse-provider">
@@ -51,7 +51,7 @@
       .settings-selector > * {
         height: calc(100vh - 100px);
       }
-      paper-snowflake-input-controller {
+      paper-snowflake-abstraction-controller {
         margin: 0 10px;
       }
       paper-snowflake-platform-selector {
@@ -138,7 +138,7 @@
 
       <section unresolved class="settings-main" title="Settings">
         <pages-selector on-core-select="{{_pageChanged}}" class="settings-selector">
-          <paper-snowflake-input-controller label="Controller Settings" selectedController="{{selectedController}}" availableControllers="{{availableControllers}}" availableAbstractions="{{availableAbstractions}}"></paper-snowflake-input-controller>
+          <paper-snowflake-abstraction-controller label="Controller Settings" selectedController="{{selectedController}}" availableControllers="{{availableControllers}}" availableAbstractions="{{availableAbstractions}}"></paper-snowflake-abstraction-controller>
           <paper-snowflake-port-selector availableDevices="{{availableDevices}}" availablePlatforms="{{availablePlatforms}}" label="Port Settings"></paper-snowflake-port-selector>
         </pages-selector>
     </section>
