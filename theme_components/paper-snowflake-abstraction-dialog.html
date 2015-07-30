@@ -7,11 +7,25 @@
   <link rel="stylesheet" type="text/css" href="style/paper-snowflake-dynamic-input-dialog.css"/>
   <paper-dialog id="dialog" heading="Set Value" opened="{{opened}}" on-keydown="{{setKey}}" backdrop layered autoCloseDisabled closeAttribute="closeDialog">
     <p>Set your key for {{gamepadAbstractionKey | getBtnName}}</p>
+    <p>Press the key on your keyboard or select from the dropdown</p>
     <div style="justify-content: center; display: flex;">
-      <p>{{value | getInputName}}</p>
+      <div class="container" style="text-align: center;display: flex;flex-direction: column;justify-content: center;">
+        <p>{{value | getInputName}}</p>
+        <div>&ndash;</div>
+        <paper-dropdown-menu label="Keys" >
+                <paper-dropdown class="dropdown" style="height:100px;">
+                    <core-menu class="menu" valueattr="key" on-core-select="{{keyChoose}}" selected="{{selected}}">
+                        <template repeat="{{key in keyboardExtra | filterAnalog}}">
+                          <paper-item key="{{key}}">{{key | getInputName}}</paper-item>
+                        </template>
+                    </core-menu>
+                </paper-dropdown>
+            </paper-dropdown-menu>
+        </div>
     </div>
-
-    <paper-button closeDialog on-tap="{{saveChange}}">Save</paper-button> <paper-button closeDialog on-tap="{{resetChange}}">Cancel</paper-button>
+    <div style="display:flex;">
+    <paper-button style="width:50%;" closeDialog on-tap="{{saveChange}}">Save</paper-button> <paper-button  style="width:50%;" closeDialog on-tap="{{resetChange}}">Cancel</paper-button>
+  </div>
   </paper-dialog>
   </template>
   <script>
@@ -22,12 +36,42 @@
         }
         e.preventDefault();
       },
+      keyChoose: function(e){
+        this.value = this.selected;
+      },
+      filterAnalog: function(o){
+        var n = o.slice();
+        var removeItem = function(array, item){
+            var index = array.indexOf(item);
+            if(index > -1){
+              array.splice(index, 1)
+            }
+        }
+        if(!this.gamepadAbstractionKey.includes("Analog")){
+          removeItem(n, "MOUSE_X_LEFT");
+          removeItem(n, "MOUSE_X_RIGHT");
+          removeItem(n, "MOUSE_Y_UP");
+          removeItem(n, "MOUSE_Y_DOWN");
+        }
+        return n;
+      },
       commitValueChanged: function(e){
         this.value = this.commitValue;
       },
       ready: function() {
 
       },
+      keyboardExtra: [
+        "MOUSE_X_LEFT",
+        "MOUSE_X_RIGHT",
+        "MOUSE_Y_UP",
+        "MOUSE_Y_DOWN",
+        "MOUSE_LCLICK",
+        "MOUSE_RCLICK",
+        "MOUSE_WHEEL_UP",
+        "MOUSE_WHEEL_DOWN",
+        "MOUSE_MCLICK"
+      ],
       saveChange: function(){
         this.commitValue = this.value;
       },
@@ -164,6 +208,15 @@
         "KEY_F_10": "F10",
         "KEY_F_11": "F11",
         "KEY_F_12": "F12",
+        "MOUSE_Y_UP": "Mouse Pointer Up",
+        "MOUSE_Y_DOWN": "Mouse Pointer Down",
+        "MOUSE_X_LEFT": "Mouse Pointer Left",
+        "MOUSE_X_RIGHT": "Mouse Pointer Right",
+        "MOUSE_LCLICK": "Mouse Left-click",
+        "MOUSE_RCLICK": "Mouse Right-click",
+        "MOUSE_WHEEL_UP": "Mouse Wheel Up",
+        "MOUSE_WHEEL_DOWN": "Mouse Wheel Down",
+        "MOUSE_MCLICK": "Mouse Middle-click"
       },
       jsKeyboardMapping: {
        "8":"KEY_BACKSPACE",
