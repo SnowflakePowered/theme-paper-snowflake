@@ -20,7 +20,7 @@
       </section>
     <section class="flags" hidden?="{{isUpdating}}">
         <template repeat="{{flag in flagKeys | getKeys}}">
-          <paper-snowflake-dynamic-flag on-flag-manual-lock="{{manualLock}}" on-flag-update="{{flagUpdate}}" flag="{{flagKeys[flag]}}" value="{{flagValues[flag]}}" gameId="{{selectedGame.UUID}}" emulatorName="{{selectedEmulator.name}}"></paper-snowflake-dynamic-flag>
+          <paper-snowflake-dynamic-flag on-flag-update="{{flagUpdate}}" flag="{{flagKeys[flag]}}" value="{{flagValues[flag]}}" gameId="{{selectedGame.UUID}}" emulatorName="{{selectedEmulator.name}}"></paper-snowflake-dynamic-flag>
         </template>
       </section>
     <section class="loading flags" hidden?="{{!isUpdating}}">
