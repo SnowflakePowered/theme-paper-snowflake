@@ -80,10 +80,10 @@
             reflect: true
           }
         },
-        updateLock: function(){
+        updateLock: function(wasManual){
           this.locked = (localStorage.getItem("unlocked_" + this.gameId + ";" + this.emulatorName + ";" + this.flag.Key) === null);
           this.lockIcon = this.locked ? "lock" : "lock-open";
-          this.fire('flag-update', {'value': this.value, 'flag': this.flag, 'locked': this.locked });
+          this.fire('flag-update', {'value': this.value, 'flag': this.flag, 'locked': this.locked, 'manual': wasManual});
         },
         toggleLock: function(){
           if(this.locked) {
@@ -93,7 +93,7 @@
             console.log("Locking");
             localStorage.removeItem("unlocked_" + this.gameId + ";" + this.emulatorName + ";" + this.flag.Key);
           }
-          this.updateLock();
+          this.updateLock(true);
         },
         flagChanged: function (){
           if(this.flag.Type === "BOOLEAN_FLAG") {

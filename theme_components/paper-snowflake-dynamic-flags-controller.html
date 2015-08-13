@@ -20,7 +20,7 @@
       </section>
     <section class="flags" hidden?="{{isUpdating}}">
         <template repeat="{{flag in flagKeys | getKeys}}">
-          <paper-snowflake-dynamic-flag on-flag-update="{{flagUpdate}}" flag="{{flagKeys[flag]}}" value="{{flagValues[flag]}}" gameId="{{selectedGame.UUID}}" emulatorName="{{selectedEmulator.name}}"></paper-snowflake-dynamic-flag>
+          <paper-snowflake-dynamic-flag on-flag-manual-lock="{{manualLock}}" on-flag-update="{{flagUpdate}}" flag="{{flagKeys[flag]}}" value="{{flagValues[flag]}}" gameId="{{selectedGame.UUID}}" emulatorName="{{selectedEmulator.name}}"></paper-snowflake-dynamic-flag>
         </template>
       </section>
     <section class="loading flags" hidden?="{{!isUpdating}}">
@@ -43,6 +43,7 @@
         this.defaultValues;
         this.commitQueue = {};
         this.isUpdating = false
+        this.flagSaveQueue = null;
       },
       getKeys: function(o) {
         return Object.keys(o);
@@ -55,10 +56,10 @@
         });
       },
       flagUpdate: function(event) {
-        this.async(function() {
           var flag = event.detail.flag;
           var value = event.detail.value;
           var locked = event.detail.locked;
+          var manual = event.detail.manual;
           if (!locked) {
             this.commitQueue[this.selectedEmulator.name][this.selectedGame.UUID][flag.Key] = value;
             console.log("Committed value " + value + " to flag " + flag.Key);
@@ -66,10 +67,12 @@
           if (locked) {
             this.commitQueue[this.selectedEmulator.name][this.selectedGame.UUID][flag.Key] = this.defaultValues[flag.Key];
             console.log("Committed locked value " + value + " to flag " + flag.Key);
-            return this.saveFlags(true);
           }
-        }, null, 100);
+          if (manual) {
+            this.saveFlags(true);
+          }
       },
+
       saveFlags: function(silent) {
         if (this.selectedGame !== undefined && this.selectedGame !== null) {
           console.log("Saving flags");
@@ -90,9 +93,7 @@
         }
       },
       flagReset: function() {
-        this.async(function() {
-        this.isUpdating = true;
-
+          this.isUpdating = true;
           this.commitQueue[this.selectedEmulator.name][this.selectedGame.UUID] = {};
           delete this.flagKeys;
           delete this.defaultValues;
@@ -109,12 +110,13 @@
               };
             })(this)).then((function(_this) {
               return function(data) {
-                return _this.flagValues = data;
-                _this.isUpdating = false;
+                _this.flagValues = data;
+                return window.setTimeout((function(_this) {
+                  this.saveFlags(true);
+                }).bind(_this), 1000);
               };
             })(this));
           }
-        }, null, 100);
       },
       selectedEmulatorChanged: function() {
         this.commitQueue[this.selectedEmulator.name] = {};
