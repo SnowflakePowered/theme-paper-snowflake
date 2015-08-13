@@ -47,6 +47,15 @@
   transition: background-color 0.5s ease-in;
   background-color: rgb(204,204,204);
 }
+
+.loading {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
 .container {
   height: 100%;
 }

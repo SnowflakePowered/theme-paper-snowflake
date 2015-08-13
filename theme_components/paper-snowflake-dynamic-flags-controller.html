@@ -2,6 +2,8 @@
 <link rel="import" href="paper-snowflake-emulator-selector">
 <link rel="import" href="../bower_components/paper-button/paper-button">
 
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner">
+
 <polymer-element name="paper-snowflake-dynamic-flags-controller" attributes="selectedGame">
   <template>
     <link rel="stylesheet" type="text/css" href="style/paper-snowflake-dynamic-flags-controller.css" />
@@ -16,11 +18,15 @@
           <paper-button class="reset button" on-tap="{{resetCommitQueue}}">reset changes</paper-button>
         </div>
       </section>
-      <section id="flags" class="flags">
+    <section class="flags" hidden?="{{isUpdating}}">
         <template repeat="{{flag in flagKeys | getKeys}}">
           <paper-snowflake-dynamic-flag on-flag-update="{{flagUpdate}}" flag="{{flagKeys[flag]}}" value="{{flagValues[flag]}}" gameId="{{selectedGame.UUID}}" emulatorName="{{selectedEmulator.name}}"></paper-snowflake-dynamic-flag>
         </template>
       </section>
+    <section class="loading flags" hidden?="{{!isUpdating}}">
+      <div>Loading Settings...</div>
+      <div><paper-spinner active></paper-spinner></div>
+    </section>
     </div>
   </template>
   <script>
@@ -36,7 +42,7 @@
         this.valueSelected;
         this.defaultValues;
         this.commitQueue = {};
-        //$.flags.getElementsByTagName('paper-snowflake-dynamic-flag')[1].locked
+        this.isUpdating = false
       },
       getKeys: function(o) {
         return Object.keys(o);
@@ -67,6 +73,7 @@
       saveFlags: function(silent) {
         if (this.selectedGame !== undefined && this.selectedGame !== null) {
           console.log("Saving flags");
+          this.isUpdating = true;
           var values = this.commitQueue[this.selectedEmulator.name][this.selectedGame.UUID];
           return snowflake.setFlagValues(this.selectedEmulator.name, this.selectedGame.UUID, values).then((function(_this) {
             return function(data) {
@@ -76,6 +83,7 @@
                   'message': "Changes Saved for " + _this.selectedGame.Name
                 });
               }
+              _this.isUpdating = false;
               return _this.flagValues = data;
             };
           })(this));
@@ -83,6 +91,7 @@
       },
       flagReset: function() {
         this.async(function() {
+        this.isUpdating = true;
 
           this.commitQueue[this.selectedEmulator.name][this.selectedGame.UUID] = {};
           delete this.flagKeys;
@@ -101,6 +110,7 @@
             })(this)).then((function(_this) {
               return function(data) {
                 return _this.flagValues = data;
+                _this.isUpdating = false;
               };
             })(this));
           }
