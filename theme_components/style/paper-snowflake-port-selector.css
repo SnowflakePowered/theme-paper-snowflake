@@ -1,0 +1,33 @@
+:host {
+  height: 100%;
+}
+paper-snowflake-platform-selector {
+  position: absolute;
+  top: 0;
+  height: inherit;
+  display: table-cell;
+  min-width: 307px;
+  border-right: 1px solid #dedede;
+  height: 100%;
+}
+.container {
+  display: table;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.column {
+  display: table-cell;
+}
+.wrapper {
+  position: relative;
+  width: 307px;
+  height: 100%;
+}
+.ports {
+  padding-left: 10px;
+}
+paper-snowflake-dynamic-port {
+  display: block;
+  font-family: 'Roboto';
+}
