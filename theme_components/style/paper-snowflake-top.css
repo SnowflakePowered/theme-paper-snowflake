@@ -5,7 +5,7 @@
 	bottom:0;
 	height: inherit;
   color: #fff;
-  font-size: 80px;
+  font-size: 40px;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -33,11 +33,12 @@
   display: table;
   bottom: 0;
   position: absolute;
-  line-height: 100px;
+  line-height: 60px;
   overflow: hidden;
   background-color: #03A9F4;
 }
 #tag {
+  display: table-cell;
   width: 308px;
   min-width: 308px;
   font-family: 'Bebas Neue', sans-serif;
@@ -45,11 +46,15 @@
   font-weight: 200;
   text-align: center;
   box-shadow: inset 0px 0px 0px 200px rgba(0,0,0,0.25);
+  vertical-align: middle;
+}
+#tag > div {
+  height: calc(60px - 7px); /*Somehow there is a discrepency of 7px even though the height provided is 60px. Subtracting 7 fixes this */
 }
 #search {
   cursor: text;
 }
-#search > input[type=text] {
+#inputcontainer > input[type=text] {
   font-family: 'Roboto', sans-serif;
   font-weight: 100;
   background-color: transparent;
@@ -57,17 +62,37 @@
   color: inherit;
   outline: none;
   font-size: 0.6em;
-  padding: 10px 0;
-  height: 60%;
-  width: 75%;
+  height: 60px;
+  line-height: 60px;
   border: 1px solid transparent;
+  width: 100%;
+  padding-left: 10px;
+}
+#inputcontainer {
+  width: 75%;
+  height: 100%;
+  display: inline-block;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  alignment-baseline: central;
 }
 
-#search > input[type=text]::-webkit-input-placeholder {
+#inputcontainer > input[type=text]::-webkit-input-placeholder {
   color: inherit;
 }
 
 .center {
   transform: translateY(-10px) translateX(20px);
 
+}
+
+.buttons {
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  alignment-baseline: central;
+  line-height: initial;
 }
