@@ -1,0 +1,43 @@
+<link rel="import" href="paper-fonts">
+<link rel="import" href="../bower_components/core-icons/av-icons">
+<link rel="stylesheet" href="../bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
+<!--
+  This provides a false windowchrome (title bar) for theme-paper-snowflake based on material design guidelines.
+  The false window chrome only works with the electron frameless window api.
+-->
+<polymer-element name="paper-snowflake-windowchrome" attributes="isMaximized">
+  <template>
+    <!--must import it twice due to import the font properly when including this htmlfile-->
+    <link rel="stylesheet" href="../bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="style/paper-snowflake-windowchrome.css">
+    <header class="colorheader">
+      <div class="buttons">
+      <i class="zmdi zmdi-window-minimize" on-tap="{{windowMinimize}}"></i>
+      <i class="zmdi zmdi-window-restore" on-tap="{{windowRestore}}" hidden?="{{!isMaximizeds}}"></i>
+      <i class="zmdi zmdi-window-maximize" on-tap="{{windowMaximize}}" hidden?="{{isMaximizeds}}"></i>
+      <i class="zmdi zmdi-close" on-tap="{{windowClose}}"></i>
+    </div>
+    </header>
+  </template>
+  <script>
+       Polymer('paper-snowflake-windowchrome', {
+        ready: function() {
+
+        },
+        windowClose: function(){
+          require('remote').getCurrentWindow().close(); //electron only method
+        },
+        windowRestore: function(){
+          require('remote').getCurrentWindow().unmaximize() //electron only
+          this.isMaximized = require('remote').getCurrentWindow().isMaximized()
+        },
+        windowMaximize: function(){
+          require('remote').getCurrentWindow().maximize() //electron only
+          this.isMaximized = require('remote').getCurrentWindow().isMaximized()
+        },
+        windowMinimize: function(){
+          require('remote').getCurrentWindow().minimize(); //electron only
+        }
+      });
+  </script>
+</polymer-element>

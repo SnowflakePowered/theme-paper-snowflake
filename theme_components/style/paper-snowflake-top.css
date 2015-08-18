@@ -13,6 +13,9 @@
   display: table-cell;
   position: relative;
 }
+#chrome {
+  height: 30px;
+}
 .indicator {
   font-family: 'Roboto', sans-serif;
   font-weight: 100;
@@ -69,7 +72,6 @@
   border: 1px solid transparent;
   width: 100%;
   padding-left: 10px;
-  border-radius: 7px;
 }
 
 #inputcontainer {

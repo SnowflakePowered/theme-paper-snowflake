@@ -1,6 +1,8 @@
 <link rel="import" href="paper-snowflake-state">
 
 <link rel="import" href="paper-snowflake-top">
+<link rel="import" href="paper-snowflake-windowchrome">
+
 <link rel="import" href="paper-snowflake-platform-selector">
 <link rel="import" href="paper-snowflake-port-selector">
 <link rel="import" href="paper-fonts">
@@ -37,6 +39,7 @@
       paper-snowflake-top {
         height: 60px;
       }
+
       .select-main {
         height: inherit;
         display: table;
@@ -128,6 +131,7 @@
     ></paper-snowflake-state>
     <fuse-provider inputArray="{{selectedPlatformGames}}" searchQuery="{{searchQuery}}" searchKeys="{{searchKeys}}" outputArray="{{availableGames}}"></fuse-provider>
     <paper-snowflake-game-details on-notify-message="{{messagePopup}}" unresolved id="detailsView" coverUrl="{{coverFrontUrl}}" selectedGame="{{selectedGame}}"></paper-snowflake-game-details>
+    <paper-snowflake-windowchrome></paper-snowflake-windowchrome>
     <paper-snowflake-top id="topbar" titleText="{{titleText}}" on-switch-page-requested="{{switchPage}}" unresolved selectedPlatform="{{selectedPlatform}}" searchQuery="{{searchQuery}}"></paper-snowflake-top>
     <core-animated-pages on-core-select="{{pageChanged}}" id="pageContainer" class="main-container" transitions="slide-from-right">
 

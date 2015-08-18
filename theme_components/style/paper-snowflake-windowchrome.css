@@ -1,0 +1,28 @@
+.buttons {
+  color: white;
+  height: inherit;
+  font-size: 20px;
+  text-align: right;
+  padding: 0 5px;
+}
+.zmdi {
+  -webkit-user-select: all;
+}
+.zmdi-window-minimize:hover {
+  color: rgb(252, 186, 76);
+}
+.zmdi-close:hover {
+  color: rgb(252, 97, 92);
+}
+.zmdi-window-maximize:hover, .zmdi-window-restore:hover {
+  color: rgb(52, 200, 73);
+}
+.colorheader{
+  box-shadow: inset 0px 0px 0px 200px rgba(0,0,0,0.5),
+              0px 1px 5px rgba(0,0,0,0.1);
+  z-index:100000000;
+  position: relative;
+  background-color: #03A9F4;
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
+}
