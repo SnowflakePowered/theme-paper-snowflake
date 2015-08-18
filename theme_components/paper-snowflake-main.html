@@ -135,7 +135,7 @@
     <paper-snowflake-top id="topbar" titleText="{{titleText}}" on-switch-page-requested="{{switchPage}}" unresolved selectedPlatform="{{selectedPlatform}}" searchQuery="{{searchQuery}}"></paper-snowflake-top>
     <core-animated-pages on-core-select="{{pageChanged}}" id="pageContainer" class="main-container" transitions="slide-from-right">
 
-      <section unresolved class="select-main">
+      <section unresolved on-keydown="{{focusSearch}}" class="select-main">
         <paper-snowflake-platform-selector selectedPlatform="{{selectedPlatform}}" availablePlatforms="{{availablePlatforms}}"></paper-snowflake-platform-selector>
         <paper-snowflake-games-container on-game-show="{{gameShow}}" selectedGame="{{selectedGame}}" selectedPlatform="{{selectedPlatform}}" selectedPlatformGames="{{availableGames}}"></paper-snowflake-games-container>
       </section>
@@ -192,6 +192,13 @@
       },
       addGame: function(e) {
         this.$.addGameDialog.open();
+      },
+      focusSearch: function(){
+        this.fire('switch-page-requested', {"selected": 0});
+        this.$.topbar.$.gameSearch.focus();
+        var rect = this.$.topbar.$.gameSearch.getBoundingClientRect()
+        this.$.topbar.$.ripple.downAction({x: rect.left, y: rect.bottom});
+        this.$.topbar.$.ripple.upAction();
       },
       selectedGameChanged: function() {
         this.coverFrontUrl = "http://localhost:30002/"+this.selectedGame.UUID+"/BoxartFront";
