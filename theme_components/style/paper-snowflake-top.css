@@ -48,13 +48,14 @@
   box-shadow: inset 0px 0px 0px 200px rgba(0,0,0,0.25);
   vertical-align: middle;
 }
-#tag > div {
-  height: calc(60px - 7px); /*Somehow there is a discrepency of 7px even though the height provided is 60px. Subtracting 7 fixes this */
+.fix-7px-height {
+  transform: translateY(3.5px);
+
 }
 #search {
   cursor: text;
 }
-#inputcontainer > input[type=text] {
+.input {
   font-family: 'Roboto', sans-serif;
   font-weight: 100;
   background-color: rgba(255,255,255,0.2);
@@ -68,9 +69,9 @@
   border: 1px solid transparent;
   width: 100%;
   padding-left: 10px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-radius: 5px;
 }
+
 #inputcontainer {
   width: 75%;
   height: 100%;
@@ -85,11 +86,6 @@
   color: inherit;
 }
 
-.center {
-  transform: translateY(-10px) translateX(20px);
-
-}
-
 .buttons {
   height: 100%;
   display: inline-flex;
@@ -99,4 +95,8 @@
   alignment-baseline: central;
   line-height: initial;
   margin-left: 20px;
+}
+
+.inputsearch {
+  margin-right: 10px;
 }
