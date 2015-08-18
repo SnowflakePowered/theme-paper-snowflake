@@ -6,17 +6,22 @@
     <link rel="stylesheet" type="text/css" href="style/paper-snowflake-top.css"/>
     <header class="colorheader">
       <div id="container">
-        <span id="tag" class="header-cell">
-          SNOWFLAKE
+        <span id="tag" class="header-cell fix-7px-height">
+          <div>SNOWFLAKE</div>
         </span>
-        <span id="search" class="header-cell">
+        <div id="search" class="header-cell">
+          <div class="buttons fix-7px-height inputsearch">
+            <paper-icon-button on-tap="{{focusInput}}" icon="search"></paper-icon-button>
+          </div>
           <paper-ripple id="ripple" fit style="pointer-events: none;"></paper-ripple>
-          <input type="text" on-focus="{{inputFocused}}" on-blur="{{inputBlur}}" class="center" on-down="{{searchTapDown}}" on-up="{{searchTapUp}}" id="gameSearch" autocomplete="off" placeholder="{{titleText}}" value="{{searchQuery}}">
-          </input>
-          <paper-icon-button on-tap="{{focusInput}}" class="center" icon="search"></paper-icon-button>
-          <paper-icon-button on-tap="{{switchPage}}" class="center" icon="{{pageicon}}"></paper-icon-button>
-        </span>
-      <div>
+          <div id="inputcontainer">
+            <input class="input" type="text" on-focus="{{inputFocused}}" on-blur="{{inputBlur}}" on-down="{{searchTapDown}}" on-up="{{searchTapUp}}" id="gameSearch" autocomplete="off" placeholder="{{titleText}}" value="{{searchQuery}}">
+            </input>
+          </div>
+          <div class="buttons fix-7px-height">
+            <paper-icon-button on-tap="{{switchPage}}" icon="{{pageicon}}"></paper-icon-button>
+          </div>
+        </div>
     </header>
   </template>
   <script>
@@ -39,7 +44,6 @@
         inputFocused: function(){
           this._titleText = this.titleText;
           this.titleText = "Search...";
-
         },
         inputBlur: function(){
           this.titleText = this._titleText;

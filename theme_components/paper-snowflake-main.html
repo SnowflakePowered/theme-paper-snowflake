@@ -1,6 +1,8 @@
 <link rel="import" href="paper-snowflake-state">
 
 <link rel="import" href="paper-snowflake-top">
+<link rel="import" href="paper-snowflake-windowchrome">
+
 <link rel="import" href="paper-snowflake-platform-selector">
 <link rel="import" href="paper-snowflake-port-selector">
 <link rel="import" href="paper-fonts">
@@ -35,8 +37,9 @@
         z-index: 1000000000000000;
       }
       paper-snowflake-top {
-        height: 100px;
+        height: 60px;
       }
+
       .select-main {
         height: inherit;
         display: table;
@@ -45,11 +48,11 @@
         height: 100%;
       }
       .settings-selector, .main-container {
-        height: calc(100vh - 100px);
+        height: calc(100vh - 60px);
         width: 100%;
       }
       .settings-selector > * {
-        height: calc(100vh - 100px);
+        height: calc(100vh - 60px);
       }
       paper-snowflake-abstraction-controller {
         margin: 0 10px;
@@ -75,7 +78,7 @@
         content: "";
         z-index: 1000;
         pointer-events: none;
-        height: 100px;
+        height:60px;
         width: 100vw;
         margin-left: 307px;
         box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
@@ -128,10 +131,11 @@
     ></paper-snowflake-state>
     <fuse-provider inputArray="{{selectedPlatformGames}}" searchQuery="{{searchQuery}}" searchKeys="{{searchKeys}}" outputArray="{{availableGames}}"></fuse-provider>
     <paper-snowflake-game-details on-notify-message="{{messagePopup}}" unresolved id="detailsView" coverUrl="{{coverFrontUrl}}" selectedGame="{{selectedGame}}"></paper-snowflake-game-details>
+    <paper-snowflake-windowchrome></paper-snowflake-windowchrome>
     <paper-snowflake-top id="topbar" titleText="{{titleText}}" on-switch-page-requested="{{switchPage}}" unresolved selectedPlatform="{{selectedPlatform}}" searchQuery="{{searchQuery}}"></paper-snowflake-top>
     <core-animated-pages on-core-select="{{pageChanged}}" id="pageContainer" class="main-container" transitions="slide-from-right">
 
-      <section unresolved class="select-main">
+      <section unresolved on-keydown="{{focusSearch}}" class="select-main">
         <paper-snowflake-platform-selector selectedPlatform="{{selectedPlatform}}" availablePlatforms="{{availablePlatforms}}"></paper-snowflake-platform-selector>
         <paper-snowflake-games-container on-game-show="{{gameShow}}" selectedGame="{{selectedGame}}" selectedPlatform="{{selectedPlatform}}" selectedPlatformGames="{{availableGames}}"></paper-snowflake-games-container>
       </section>
@@ -188,6 +192,13 @@
       },
       addGame: function(e) {
         this.$.addGameDialog.open();
+      },
+      focusSearch: function(){
+        this.fire('switch-page-requested', {"selected": 0});
+        this.$.topbar.$.gameSearch.focus();
+        var rect = this.$.topbar.$.gameSearch.getBoundingClientRect()
+        this.$.topbar.$.ripple.downAction({x: rect.left, y: rect.bottom});
+        this.$.topbar.$.ripple.upAction();
       },
       selectedGameChanged: function() {
         this.coverFrontUrl = "http://localhost:30002/"+this.selectedGame.UUID+"/BoxartFront";
