@@ -10,13 +10,15 @@
           <div>SNOWFLAKE</div>
         </span>
         <div id="search" class="header-cell">
+          <div class="buttons fix-7px-height inputsearch">
+            <paper-icon-button on-tap="{{focusInput}}" icon="search"></paper-icon-button>
+          </div>
           <paper-ripple id="ripple" fit style="pointer-events: none;"></paper-ripple>
           <div id="inputcontainer">
             <input class="input" type="text" on-focus="{{inputFocused}}" on-blur="{{inputBlur}}" on-down="{{searchTapDown}}" on-up="{{searchTapUp}}" id="gameSearch" autocomplete="off" placeholder="{{titleText}}" value="{{searchQuery}}">
             </input>
           </div>
           <div class="buttons fix-7px-height">
-            <paper-icon-button on-tap="{{focusInput}}" icon="search"></paper-icon-button>
             <paper-icon-button on-tap="{{switchPage}}" icon="{{pageicon}}"></paper-icon-button>
           </div>
         </div>
