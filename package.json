@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/SnowflakePowered/theme-paper-snowflake",
   "dependencies": {
-    "snowflake.js": "^0.2"
+    "snowflake-js-electron": "^0.2"
   }
 }
