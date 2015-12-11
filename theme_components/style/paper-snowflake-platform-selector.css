@@ -3,7 +3,7 @@
   right: 0;
   left: 0;
   bottom:0;
-  height: inherit;
+  height: calc(100% - 20px);
   width: 100%;
   color: #333333;
   letter-spacing: 0.1px;
